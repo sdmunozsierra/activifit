@@ -1,2 +1,3 @@
-# activifit
-Activity Tracker System based on Java
+# Activifit
+# Activity Tracker System
+Developed on Java.
