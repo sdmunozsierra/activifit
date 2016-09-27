@@ -1,9 +1,14 @@
 package activifit_gui;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.GroupLayout.SequentialGroup;
+import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class Screen {
 
@@ -14,11 +19,24 @@ public class Screen {
 	private JButton button_temp = new JButton("[TEMP]");
 	private JButton button_sleep = new JButton("[SLEEP]");
 	private JButton button_share = new JButton("[SHARE]");
+	
+	/* Text Fields */
+	//ERROR IN DESIGN - MUST NOT HAVE STATIC FIELDS (screen_sign_in bug)
+	private static JTextField e_login = new JTextField(30); //limited to 30 chars
 
+	/* Borders */
+	private static Border border_default = BorderFactory.createLineBorder(Color.BLACK);
+	private Border border_error = BorderFactory.createLineBorder(Color.RED);
+	
+	
 	/** Main Method */
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
-		new Screen(); // Main calls home_page screen
+		
+		screen_sign_in(); //should not be a method, because of static attribute [change]
+		//new Screen(); // Main calls home_page screen
+		
+		
 	}// end main
 
 	/** Methods */
@@ -43,20 +61,65 @@ public class Screen {
 
 		// ADD JPanels into JFrame
 		F.add(P, BorderLayout.CENTER); // First row
-		F.add(Pa, BorderLayout.SOUTH);
+		F.add(Pa, BorderLayout.SOUTH); // Bottom
 
 		// Size and Visibility
 		F.setSize(500, 200);
 		F.setVisible(true);
 	}// end Screen
 
-	public void screen_sign_in() {
+	public static void screen_sign_in() {
 		// Creates the frame for the screen
 		JFrame F = new JFrame("Sign-In");
 
 		// JPANEL and layout
-		JPanel P = new JPanel();
-		P.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-	}
+		JPanel content = new JPanel();
+		F.setContentPane(content);
+		F.getContentPane().setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		GroupLayout gLay = new GroupLayout(content);
+		content.setLayout(gLay);
+		ParallelGroup hGroup = gLay.createParallelGroup();
+		gLay.setHorizontalGroup(hGroup);
+		SequentialGroup vGroup = gLay.createSequentialGroup();
+		gLay.setVerticalGroup(vGroup);
+		
+		JPanel panel = new JPanel();
+
+		// Banner
+		JLabel banner = new JLabel("Activifit #putos#");
+		banner.setFont(new Font(null, 0, 25)); //latter on we could use fancier fonts ;)
+		panel.add(banner); 
+		hGroup.addComponent(panel);
+	    vGroup.addComponent(panel, GroupLayout.PREFERRED_SIZE,
+	            GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE);
+	    vGroup.addGap(10);
+		
+		//Sign-in 
+	    JPanel panel1 = new JPanel();
+		JLabel sign_in = new JLabel("Sign-in"); 
+		panel1.add(sign_in);//add to panel
+		hGroup.addComponent(panel);
+	    vGroup.addComponent(panel, GroupLayout.PREFERRED_SIZE,
+	            GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE);
+	    vGroup.addGap(10);
+	    
+		//login field
+		e_login.setBorder(border_default);
+		panel1.add(e_login);
+		//Accept
+		JButton button_accept = new JButton();
+		panel1.add(button_accept);
+
+		// ADD JPanels into JFrame
+		F.add(panel, BorderLayout.CENTER); // First row
+		F.add(panel1, BorderLayout.SOUTH); // Second row
+
+		// Size and Visibility
+		F.setSize(500, 200);
+		F.setVisible(true);
+		
+
+	}//End sign-in screen
+	
 
 }// end Screen Class
