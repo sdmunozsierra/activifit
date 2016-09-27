@@ -1,0 +1,62 @@
+package activifit_gui;
+
+import javax.swing.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+public class Screen {
+
+	/** Resources */
+	/* Buttons */
+	private JButton button_heart = new JButton("[HEART]");
+	private JButton button_steps = new JButton("[STEPS]");
+	private JButton button_temp = new JButton("[TEMP]");
+	private JButton button_sleep = new JButton("[SLEEP]");
+	private JButton button_share = new JButton("[SHARE]");
+
+	/** Main Method */
+	public static void main(String args[]) {
+		// For alpha stage, main will be developed here for simplicity
+		new Screen(); // Main calls home_page screen
+	}// end main
+
+	/** Methods */
+	/* --Screens-- */
+	/* HomePage screen */
+	public Screen() {
+		// Creates the frame for the screen
+		JFrame F = new JFrame("Homepage");
+
+		// JPANEL and layout
+		JPanel P = new JPanel();
+		P.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+		// Activity Bar
+		JPanel Pa = new JPanel();
+		Pa.setLayout(new FlowLayout());
+		Pa.add(button_heart); // add the heart rate button
+		Pa.add(button_steps);
+		Pa.add(button_temp);
+		Pa.add(button_sleep);
+		Pa.add(button_share);
+
+		// ADD JPanels into JFrame
+		F.add(P, BorderLayout.CENTER); // First row
+		F.add(Pa, BorderLayout.SOUTH);
+
+		// Size and Visibility
+		F.setSize(500, 200);
+		F.setVisible(true);
+	}// end Screen
+
+	public void screen_sign_in() {
+		// Creates the frame for the screen
+		JFrame F = new JFrame("Sign-In");
+
+		// JPANEL and layout
+		JPanel P = new JPanel();
+		P.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+	}
+
+}// end Screen Class
