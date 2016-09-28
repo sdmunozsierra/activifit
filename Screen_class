@@ -80,11 +80,13 @@ public class Screen {
 
 		// Labels
 		// Banner
-		JLabel banner = new JLabel("Activifit #putos#"); // Banner
+		JLabel banner = new JLabel("Activifit"); // Banner
 		banner.setFont(new Font(null, 0, 25)); // latter on we could use fancier
 												// fonts ;)
 		// Login
 		e_login.setBorder(border_default); // login text field
+		e_login.setMaximumSize(new Dimension(200,5));
+		
 		// Create more labels to test the layout
 		JLabel thing1 = new JLabel("SIGN IN"); // RENAME
 		JLabel thing2 = new JLabel("SECOND THING"); // RENAME
@@ -96,7 +98,7 @@ public class Screen {
 
 		// Add components to the Panel
 		listPane.add(banner);
-		listPane.add(Box.createRigidArea(new Dimension(0, 15))); // CREATES EMPTY SPACE BETWEEN STUFF
+		listPane.add(Box.createRigidArea(new Dimension(0, 30))); // CREATES EMPTY SPACE BETWEEN STUFF
 		listPane.add(thing1); // SING IN
 		listPane.add(Box.createRigidArea(new Dimension(10, 0))); 
 		listPane.add(e_login); // login box
@@ -112,15 +114,12 @@ public class Screen {
 		thing1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		thing2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		thing3.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		//LOGIN FIELD LOOKS HORRIBLE FIX!
+		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
 		e_login.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		//#FIX
-		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		F.add(listPane);
-		F.setSize(500, 200);
+		F.add(listPane); // First row
+		
+		F.setSize(500, 300);
 		F.setVisible(true);
 
 	}// End sign-in screen
