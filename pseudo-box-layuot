@@ -1,0 +1,31 @@
+//Reference:
+//https://docs.oracle.com/javase/tutorial/uiswing/layout/box.html
+
+//Create a pannel in a list order
+JPanel listPane = new JPanel();
+listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS)); //Will follow page axis
+
+//Create a "BANNER" Label //Can be edited to be a picture latter on
+JLabel banner = new JLabel("HUGE BANNER"); //Take this from git
+banner.setFont..().. //edit to be big
+
+//Create two more labels to test the layout
+JLabel thing1 = new JLabel("FIRST THING");
+JLabel thing2 = new JLabel("SECOND THING");
+JLabel thing3 = new JLabel("Third THING");
+JLabel thing4 = new JLabel("Forth THING");
+
+//Add labels to the 'list' pannel
+listPane.add(banner);
+listPane.add(Box.createRigidArea(new Dimension(5,0))); //Try this
+listPane.add(thing1);
+listPane.add(Box.createHorizontalGlue());
+listPane.add(thing2);
+listPane.add(thing3);
+listPane.add(thing4);
+
+// X alignment of 0.5 (Component.CENTER_ALIGNMENT). This means that the components' 
+//centers should be aligned, and that the components should be positioned in the horizontal center
+//of the container
+//createVerticalBox()
+//(in Box)
