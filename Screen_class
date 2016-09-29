@@ -41,10 +41,10 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		screen_heart();
-		screen_sign_in(); // should not be a method, because of static attribute 
-		new Screen(); // Main calls home_page screen
-
+		//screen_sign_in(); // should not be a method, because of static attribute 
+		screen_register();
+		//new Screen(); // Main calls home_page screen
+		//screen_heart();
 	}// end main
 
 	/** Methods */
@@ -87,8 +87,7 @@ public class Screen {
 		// Labels
 		// Banner
 		JLabel banner = new JLabel("Activifit"); // Banner
-		banner.setFont(new Font(null, 0, 25)); // latter on we could use fancier
-												// fonts ;)
+		banner.setFont(new Font(null, 0, 25)); // latter on we could use fancier fonts ;)
 		// Login
 		e_login.setBorder(border_default); // login text field
 		e_login.setMaximumSize(new Dimension(200,5)); //login dimension
@@ -130,10 +129,54 @@ public class Screen {
 
 	}// End sign-in screen
 	
+	public static void screen_register(){
+		JFrame F = new JFrame("Register");
+		
+		String[] labels = {"Name: ", "Age: ", "Weight: ", "Height: ","Active Index: ","Email: "};
+		int numPairs = labels.length;
+
+		//Create and populate the panel.
+		JPanel p = new JPanel(new SpringLayout());
+		for (int i = 0; i < numPairs; i++) {
+		    JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+		    p.add(l);
+		    JTextField textField = new JTextField(20);
+		    l.setLabelFor(textField);
+		    p.add(textField);
+		}
+		//Make grid layout
+		//makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
+		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20); //#Change init x to fit banner
+		
+		//Bottom panel use box layout bro.
+		JPanel ps = new JPanel(); 
+		ps.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		JButton Accept = new JButton("Accept");
+		JButton Back = new JButton("BACK");
+		JButton help= new JButton("HELP");
+		
+		JPanel p2  = new JPanel();
+		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); //Horizontal
+		
+		ps.add(Accept);
+		
+		p2.add(Back);
+		p2.add(Box.createHorizontalGlue());
+		p2.add(help);
+		
+		ps.add(p2); //layout-ception
+		
+		F.add(p, BorderLayout.EAST);
+		F.add(ps, BorderLayout.SOUTH);
+		
+		F.setSize(rx, ry);
+		F.setVisible(true);
+	}//end screen_register
+	
 	public static void screen_heart(){
 		JFrame F = new JFrame("Heartbeat");
 		JPanel p1  = new JPanel();
-		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
+		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS)); //vertical
 		JPanel p2  = new JPanel();
 		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
 		
