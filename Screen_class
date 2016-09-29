@@ -132,18 +132,18 @@ public class Screen {
 	public static void screen_register(){
 		JFrame F = new JFrame("Register");
 		
-		String[] labels = {"Name: ", "Age: ", "Weight: ", "Height: ","Active Index: ","Email: "};
+		String[] labels = {"Name: ", "Age: ", "Weight: ", "Height: ","Active Idx: ","Email: "};
 		int numPairs = labels.length;
 
 		//Create and populate the panel.
 		JPanel p = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
 		    JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-		    //l.setMaximumSize(new Dimension(6,100)); //not working
 		    p.add(l);
 		    JTextField textField = new JTextField(20);
 		    l.setLabelFor(textField);
 		    p.add(textField);
+		    textField.setMaximumSize(new Dimension(300,6)); //not working
 		}
 		//Make grid layout
 		//makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
