@@ -1,4 +1,4 @@
-package activifit_gui;
+package gui_prototype;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,6 +20,11 @@ public class Screen {
 	/* Variables */
 	final static int rx = 320; // horizontal resolution
 	final static int ry = 568; // vertical resolution
+	
+	/* Colors */
+	static Color green_emerald = new Color(46,204,113);
+	static Color blue_peterriver = new Color(52,152,219);
+	static Color black_midnight = new Color(44,62,80);
 
 	/* Buttons */
 	private JButton button_heart = new JButton("[HEART]");
@@ -42,9 +47,8 @@ public class Screen {
 		// For alpha stage, main will be developed here for simplicity
 
 		// screen_sign_in(); // should not be a method, because of static
-		// attribute
 		screen_register();
-		// new Screen(); // Main calls home_page screen
+		 //new Screen(); // Main calls home_page screen
 		// screen_heart();
 	}// end main
 
@@ -106,11 +110,7 @@ public class Screen {
 
 		// Add components to the Panel
 		listPane.add(banner);
-		listPane.add(Box.createRigidArea(new Dimension(0, 30))); // CREATES
-																	// EMPTY
-																	// SPACE
-																	// BETWEEN
-																	// STUFF
+		listPane.add(Box.createRigidArea(new Dimension(0, 30)));
 		listPane.add(thing1); // SING IN
 		listPane.add(Box.createRigidArea(new Dimension(10, 0)));
 		listPane.add(e_login); // login box
@@ -233,9 +233,14 @@ public class Screen {
 		F.setSize(rx, ry);
 		F.setVisible(true);
 	}
+	/* Share Screen */
+	public static void screen_share(){
+		
+		
+	}//end screen_share
+	
 
 	/* --Custom Panels-- */
-	
 	public static JPanel bannerPanel() {
 		/* Add to the as-> Frame.add(bannerPanel(), BorderLayout.NORTH) 
 		 * Panel containing banner. */
@@ -243,7 +248,10 @@ public class Screen {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 		JLabel banner = new JLabel("Activifit"); // Banner
 		banner.setFont(new Font(null, 0, 25)); 
+		banner.setForeground(black_midnight);
 		panel.add(banner);
+		panel.setBackground(blue_peterriver);
+		
 		return panel;
 	}//end bannerPanel
 
@@ -262,5 +270,6 @@ public class Screen {
 		// Return panel
 		return panel;
 	}// end navPanel
+	
 
 }// end Screen Class
