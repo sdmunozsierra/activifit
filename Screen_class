@@ -18,9 +18,9 @@ public class Screen {
 
 	/** Resources */
 	/* Variables */
-	final static int rx = 320; //horizontal resolution
-	final static int ry = 568; //vertical resolution
-	
+	final static int rx = 320; // horizontal resolution
+	final static int ry = 568; // vertical resolution
+
 	/* Buttons */
 	private JButton button_heart = new JButton("[HEART]");
 	private JButton button_steps = new JButton("[STEPS]");
@@ -41,14 +41,16 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		//screen_sign_in(); // should not be a method, because of static attribute 
+		// screen_sign_in(); // should not be a method, because of static
+		// attribute
 		screen_register();
-		//new Screen(); // Main calls home_page screen
-		//screen_heart();
+		// new Screen(); // Main calls home_page screen
+		// screen_heart();
 	}// end main
 
 	/** Methods */
 	/* --Screens-- */
+	
 	/* HomePage screen */
 	public Screen() {
 		// Creates the frame for the screen
@@ -77,7 +79,7 @@ public class Screen {
 	}// end Screen
 
 	public static void screen_sign_in() {
-		//Create a JFrame
+		// Create a JFrame
 		JFrame F = new JFrame("Log-In");
 
 		// Create a panel in a list order
@@ -87,11 +89,12 @@ public class Screen {
 		// Labels
 		// Banner
 		JLabel banner = new JLabel("Activifit"); // Banner
-		banner.setFont(new Font(null, 0, 25)); // latter on we could use fancier fonts ;)
+		banner.setFont(new Font(null, 0, 25)); // latter on we could use fancier
+												// fonts ;)
 		// Login
 		e_login.setBorder(border_default); // login text field
-		e_login.setMaximumSize(new Dimension(200,6)); //login dimension
-		
+		e_login.setMaximumSize(new Dimension(200, 6)); // login dimension
+
 		// Create more labels to test the layout
 		JLabel thing1 = new JLabel("SIGN IN"); // RENAME
 		JLabel thing2 = new JLabel("SECOND THING"); // RENAME
@@ -103,15 +106,19 @@ public class Screen {
 
 		// Add components to the Panel
 		listPane.add(banner);
-		listPane.add(Box.createRigidArea(new Dimension(0, 30))); // CREATES EMPTY SPACE BETWEEN STUFF
+		listPane.add(Box.createRigidArea(new Dimension(0, 30))); // CREATES
+																	// EMPTY
+																	// SPACE
+																	// BETWEEN
+																	// STUFF
 		listPane.add(thing1); // SING IN
-		listPane.add(Box.createRigidArea(new Dimension(10, 0))); 
+		listPane.add(Box.createRigidArea(new Dimension(10, 0)));
 		listPane.add(e_login); // login box
-		listPane.add(Box.createRigidArea(new Dimension(0, 10))); 
+		listPane.add(Box.createRigidArea(new Dimension(0, 10)));
 		listPane.add(button_accept); // accept
 		listPane.add(Box.createVerticalGlue()); // GLUE STETCHES!!
 		listPane.add(thing2);
-		listPane.add(Box.createRigidArea(new Dimension(10, 0))); 
+		listPane.add(Box.createRigidArea(new Dimension(10, 0)));
 		listPane.add(thing3);
 
 		// Align every component (-.-)
@@ -121,121 +128,139 @@ public class Screen {
 		thing3.setAlignmentX(Component.CENTER_ALIGNMENT);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
 		e_login.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+
 		F.add(listPane); // First row
-		
+
 		F.setSize(rx, ry);
 		F.setVisible(true);
 
 	}// End sign-in screen
-	
-	public static void screen_register(){
+
+	public static void screen_register() {
 		JFrame F = new JFrame("Register");
-		
-		String[] labels = {"Name: ", "Age: ", "Weight: ", "Height: ","Active Idx: ","Email: "};
+
+		String[] labels = { "Name: ", "Age: ", "Weight: ", "Height: ", "Active Idx: ", "Email: " };
 		int numPairs = labels.length;
 
-		//Create and populate the panel.
+		// Create and populate the form panel.
 		JPanel p = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
-		    JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-		    p.add(l);
-		    JTextField textField = new JTextField(20);
-		    l.setLabelFor(textField);
-		    p.add(textField);
-		    textField.setMaximumSize(new Dimension(300,6)); //not working
+			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+			p.add(l);
+			JTextField textField = new JTextField(20);
+			l.setLabelFor(textField);
+			p.add(textField);
+			textField.setMaximumSize(new Dimension(300, 6));// change text field
+															// size
 		}
-		//Make grid layout
-		//makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
-		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20); //#Change init x to fit banner
-		
-		//Bottom panels
-		JPanel boxPane = new JPanel(); //Will use 2 rows
-		boxPane.setLayout(new BoxLayout(boxPane, BoxLayout.Y_AXIS)); //Vertical
+		// Make grid layout
+		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
+		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20); // #Change init x
+																// to fit banner
+
+		// Bottom panels
+		JPanel boxPane = new JPanel(); // Will use 2 rows
+		boxPane.setLayout(new BoxLayout(boxPane, BoxLayout.Y_AXIS)); // Vertical
 		JButton button_accept = new JButton("Accept");
 		JButton button_back = new JButton("BACK");
-		JButton button_help= new JButton("HELP");
-		//Bottom panel (panel-ception) last row
-		JPanel p2  = new JPanel(); //Will have back and help buttons
-		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); //Horizontal last row
-		
-		//Add buttons, properties and spaces
+		JButton button_help = new JButton("HELP");
+		// Bottom panel (panel-ception) last row
+		JPanel p2 = new JPanel(); // Will have back and help buttons
+		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); // Horizontal last
+															// row
+
+		// Add buttons, properties and spaces
 		boxPane.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-		boxPane.add(Box.createRigidArea(new Dimension(0, 50)));	//rigid area to last row
+		boxPane.add(Box.createRigidArea(new Dimension(0, 50))); // rigid area to
+																// last row
 		p2.add(button_back);
 		p2.add(Box.createHorizontalGlue());
 		p2.add(button_help);
-		//add last row panel to bottom panel
+		// add last row panel to bottom panel
 		boxPane.add(p2);
-		//Set panels to the Frame
+		// Set panels to the Frame
+		F.add(bannerPanel(), BorderLayout.NORTH);
 		F.add(p, BorderLayout.EAST);
 		F.add(boxPane, BorderLayout.SOUTH);
-		//Global values
+		// Global values
 		F.setSize(rx, ry);
 		F.setVisible(true);
-	}//end screen_register
-	
-	public static void screen_heart(){
+	}// end screen_register
+	/* Heart Rate Screen */
+	public static void screen_heart() {
 		JFrame F = new JFrame("Heartbeat");
-		JPanel p1  = new JPanel();
-		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS)); //vertical
-		JPanel p2  = new JPanel();
+		JPanel p1 = new JPanel();
+		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS)); // vertical
+		JPanel p2 = new JPanel();
 		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
-		
-		//TEST LABELS
-		JLabel c1 = new JLabel("c1"); //Curr rate
-		JLabel c2 = new JLabel("c2"); //#variable for curr rate
-		JLabel c3 = new JLabel("c3"); //Weekly View
-		JLabel c4 = new JLabel("c4"); //Avg rate
-		JLabel c5 = new JLabel("c5"); //#variable for avg rate
-		JLabel c6 = new JLabel("c6"); //Monthly View 
+
+		// TEST LABELS
+		JLabel c1 = new JLabel("c1"); // Curr rate
+		JLabel c2 = new JLabel("c2"); // #variable for curr rate
+		JLabel c3 = new JLabel("c3"); // Weekly View
+		JLabel c4 = new JLabel("c4"); // Avg rate
+		JLabel c5 = new JLabel("c5"); // #variable for avg rate
+		JLabel c6 = new JLabel("c6"); // Monthly View
 		p1.add(c1);
 		p1.add(c2);
 		p1.add(c3);
 		p2.add(c4);
 		p2.add(c5);
 		p2.add(c6);
-		
-		//TEST BACKGROUND IMG
-//		BufferedImage bkg_img = null;
-//		try {
-//			bkg_img = ImageIO.read(new File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg"));
-//		} catch (IOException e) {
-//		    e.printStackTrace();
-//		}
-//		File f = new File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg");
-//		if(f.exists() && !f.isDirectory()) { 
-//		   c3.setText("THERE IT IS!!");
-//		  // System.out.println("HELLO WORTD");
-//		}
-//		JLabel background = new JLabel(new ImageIcon(bkg_img));
-//		
-//		//Frame configuration
-//		F.add(background);
+
+		// TEST BACKGROUND IMG
+		// BufferedImage bkg_img = null;
+		// try {
+		// bkg_img = ImageIO.read(new
+		// File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg"));
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		// File f = new
+		// File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg");
+		// if(f.exists() && !f.isDirectory()) {
+		// c3.setText("THERE IT IS!!");
+		// // System.out.println("HELLO WORTD");
+		// }
+		// JLabel background = new JLabel(new ImageIcon(bkg_img));
+		//
+		// //Frame configuration
+		// F.add(background);
 		F.add(p1, BorderLayout.WEST);
 		F.add(p2, BorderLayout.EAST);
 		F.add(navPanel(), BorderLayout.SOUTH);
 		F.setSize(rx, ry);
 		F.setVisible(true);
 	}
+
+	/* --Custom Panels-- */
 	
-	
-	public static  JPanel navPanel(){
-		//Add as Frame.add(navPanel, BorderLayout.SOUTH) ensuring it is always on the bottom
-		//Panel containing back and share. This is intended for multiple use at different screens.
-		//Create panel
+	public static JPanel bannerPanel() {
+		/* Add to the as-> Frame.add(bannerPanel(), BorderLayout.NORTH) 
+		 * Panel containing banner. */
 		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS)); 
-		//Create Buttons
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		JLabel banner = new JLabel("Activifit"); // Banner
+		banner.setFont(new Font(null, 0, 25)); 
+		panel.add(banner);
+		return panel;
+	}//end bannerPanel
+
+	public static JPanel navPanel() {
+		/* Add to the as-> Frame.add(navPanel(), BorderLayout.SOUTH) 
+		 * Panel containing back and share. */
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		// Create Buttons
 		JButton button_back = new JButton("[BACK]");
 		JButton button_share_this = new JButton("[SHARE_T]");
-		//Add to panel with glue between two buttons
+		// Add to panel with glue between two buttons
 		panel.add(button_back);
 		panel.add(Box.createHorizontalGlue());
 		panel.add(button_share_this);
-		//Return panel 
+		// Return panel
 		return panel;
-	}//end navPanel
+	}// end navPanel
 
 }// end Screen Class
