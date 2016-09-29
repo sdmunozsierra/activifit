@@ -47,9 +47,10 @@ public class Screen {
 		// For alpha stage, main will be developed here for simplicity
 
 		// screen_sign_in(); // should not be a method, because of static
-		screen_register();
-		 //new Screen(); // Main calls home_page screen
+		//screen_register();
+		//new Screen(); // Main calls home_page screen
 		// screen_heart();
+		screen_share();
 	}// end main
 
 	/** Methods */
@@ -235,7 +236,10 @@ public class Screen {
 	}
 	/* Share Screen */
 	public static void screen_share(){
+		JFrame F = new JFrame("Share");
 		
+		F.setSize(rx, ry);
+		F.setVisible(true);
 		
 	}//end screen_share
 	
