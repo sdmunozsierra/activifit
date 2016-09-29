@@ -1,5 +1,6 @@
 package activifit_gui;
-import javax.imageio.ImageIO;
+package activifit_gui;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -10,12 +11,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 public class Screen {
 
 	/** Resources */
@@ -48,11 +43,12 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		// screen_sign_in(); // should not be a method, because of static
+		//screen_sign_in(); // should not be a method, because of static
 		//screen_register();
 		//new Screen(); // Main calls home_page screen
-		// screen_heart();
-		screen_share();
+		//screen_heart();
+		//screen_share();
+		screen_logout();
 	}// end main
 
 	/** Methods */
@@ -138,7 +134,8 @@ public class Screen {
 		F.setVisible(true);
 
 	}// End sign-in screen
-
+	
+	/* Screen Register */
 	public static void screen_register() {
 		JFrame F = new JFrame("Register");
 
@@ -153,8 +150,7 @@ public class Screen {
 			JTextField textField = new JTextField(20);
 			l.setLabelFor(textField);
 			p.add(textField);
-			textField.setMaximumSize(new Dimension(300, 6));// change text field
-															// size
+			textField.setMaximumSize(new Dimension(300, 6));// change text field size
 		}
 		// Make grid layout
 		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
@@ -169,14 +165,12 @@ public class Screen {
 		JButton button_help = new JButton("HELP");
 		// Bottom panel (panel-ception) last row
 		JPanel p2 = new JPanel(); // Will have back and help buttons
-		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); // Horizontal last
-															// row
+		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); // Horizontal 
 
 		// Add buttons, properties and spaces
 		boxPane.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-		boxPane.add(Box.createRigidArea(new Dimension(0, 50))); // rigid area to
-																// last row
+		boxPane.add(Box.createRigidArea(new Dimension(0, 50))); // rigid area to last row
 		p2.add(button_back);
 		p2.add(Box.createHorizontalGlue());
 		p2.add(button_help);
@@ -190,6 +184,7 @@ public class Screen {
 		F.setSize(rx, ry);
 		F.setVisible(true);
 	}// end screen_register
+	
 	/* Heart Rate Screen */
 	public static void screen_heart() {
 		JFrame F = new JFrame("Heartbeat");
@@ -213,22 +208,6 @@ public class Screen {
 		p2.add(c6);
 
 		// TEST BACKGROUND IMG
-		// BufferedImage bkg_img = null;
-		// try {
-		// bkg_img = ImageIO.read(new
-		// File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg"));
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		// File f = new
-		// File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg");
-		// if(f.exists() && !f.isDirectory()) {
-		// c3.setText("THERE IT IS!!");
-		// // System.out.println("HELLO WORTD");
-		// }
-		// JLabel background = new JLabel(new ImageIcon(bkg_img));
-		//
-		// //Frame configuration
 		// F.add(background);
 		F.add(p1, BorderLayout.WEST);
 		F.add(p2, BorderLayout.EAST);
@@ -236,6 +215,7 @@ public class Screen {
 		F.setSize(rx, ry);
 		F.setVisible(true);
 	}
+	
 	/* Share Screen */
 	public static void screen_share(){
 		//Icons URLs
@@ -279,7 +259,7 @@ public class Screen {
 		//Add Panels to container
 		container.add(postP); //add post panel
 		container.add(iconsP);//add icons panel
-		container.add(Box.createVerticalGlue()); //add glue
+		iconsP.add(Box.createVerticalGlue()); //add glue
 		container.add(sharing_iconP);//add sharing icon
 		
 		F.add(container, BorderLayout.CENTER);
@@ -288,6 +268,26 @@ public class Screen {
 		F.setVisible(true);
 		
 	}//end screen_share
+	public static void screen_logout(){
+		JFrame F = new JFrame("Logout");
+	
+		JPanel thank_youP = new JPanel();
+		thank_youP.setLayout(new FlowLayout(FlowLayout.CENTER));
+		
+		JLabel dialog = new JLabel("THANK YOU FOR \nUSING");
+		thank_youP.add(dialog);
+		//thank_youP.add(Box.createRigidArea(new Dimension(0, 200))); // rigid area to last row
+		
+		JButton button_ok = new JButton("OK");
+		
+		F.add(thank_youP, BorderLayout.NORTH);
+		F.add(bannerPanel(), BorderLayout.CENTER);
+		F.add(button_ok, BorderLayout.SOUTH);
+		F.setSize(rx, ry);
+		F.setVisible(true);
+	}
+	
+	/* Logout Screen */
 
 	/* --Custom Panels-- */
 	/* Banner Panel */
