@@ -1,8 +1,7 @@
-package activifit_gui;
+package activifit;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
@@ -11,10 +10,17 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Screen {
 
 	/** Resources */
+	/* Variables */
+	final static int rx = 320; //horizontal resolution
+	final static int ry = 568; //vertical resolution
+	
 	/* Buttons */
 	private JButton button_heart = new JButton("[HEART]");
 	private JButton button_steps = new JButton("[STEPS]");
@@ -35,9 +41,9 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		screen_sign_in(); // should not be a method, because of static attribute
-							// [change]
-		// new Screen(); // Main calls home_page screen
+		screen_heart();
+		screen_sign_in(); // should not be a method, because of static attribute 
+		new Screen(); // Main calls home_page screen
 
 	}// end main
 
@@ -66,7 +72,7 @@ public class Screen {
 		F.add(Pa, BorderLayout.SOUTH); // Bottom
 
 		// Size and Visibility
-		F.setSize(500, 200);
+		F.setSize(rx, ry);
 		F.setVisible(true);
 	}// end Screen
 
@@ -85,7 +91,7 @@ public class Screen {
 												// fonts ;)
 		// Login
 		e_login.setBorder(border_default); // login text field
-		e_login.setMaximumSize(new Dimension(200,5));
+		e_login.setMaximumSize(new Dimension(200,5)); //login dimension
 		
 		// Create more labels to test the layout
 		JLabel thing1 = new JLabel("SIGN IN"); // RENAME
@@ -119,9 +125,71 @@ public class Screen {
 		
 		F.add(listPane); // First row
 		
-		F.setSize(500, 300);
+		F.setSize(rx, ry);
 		F.setVisible(true);
 
 	}// End sign-in screen
+	
+	public static void screen_heart(){
+		JFrame F = new JFrame("Heartbeat");
+		JPanel p1  = new JPanel();
+		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS));
+		JPanel p2  = new JPanel();
+		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+		
+		//TEST LABELS
+		JLabel c1 = new JLabel("c1"); //Curr rate
+		JLabel c2 = new JLabel("c2"); //#variable for curr rate
+		JLabel c3 = new JLabel("c3"); //Weekly View
+		JLabel c4 = new JLabel("c4"); //Avg rate
+		JLabel c5 = new JLabel("c5"); //#variable for avg rate
+		JLabel c6 = new JLabel("c6"); //Monthly View 
+		p1.add(c1);
+		p1.add(c2);
+		p1.add(c3);
+		p2.add(c4);
+		p2.add(c5);
+		p2.add(c6);
+		
+		//TEST BACKGROUND IMG
+//		BufferedImage bkg_img = null;
+//		try {
+//			bkg_img = ImageIO.read(new File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg"));
+//		} catch (IOException e) {
+//		    e.printStackTrace();
+//		}
+//		File f = new File("C:\\Users\\xerg\\workspace\\activifit\\src\\activifit\\jajaja.jpg");
+//		if(f.exists() && !f.isDirectory()) { 
+//		   c3.setText("THERE IT IS!!");
+//		  // System.out.println("HELLO WORTD");
+//		}
+//		JLabel background = new JLabel(new ImageIcon(bkg_img));
+//		
+//		//Frame configuration
+//		F.add(background);
+		F.add(p1, BorderLayout.WEST);
+		F.add(p2, BorderLayout.EAST);
+		F.add(navPanel(), BorderLayout.SOUTH);
+		F.setSize(rx, ry);
+		F.setVisible(true);
+	}
+	
+	
+	public static  JPanel navPanel(){
+		//Add as Frame.add(navPanel, BorderLayout.SOUTH) ensuring it is always on the bottom
+		//Panel containing back and share. This is intended for multiple use at different screens.
+		//Create panel
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS)); 
+		//Create Buttons
+		JButton button_back = new JButton("[BACK]");
+		JButton button_share_this = new JButton("[SHARE_T]");
+		//Add to panel with glue between two buttons
+		panel.add(button_back);
+		panel.add(Box.createHorizontalGlue());
+		panel.add(button_share_this);
+		//Return panel 
+		return panel;
+	}//end navPanel
 
 }// end Screen Class
