@@ -1,5 +1,4 @@
-package gui_prototype;
-
+package activifit_gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,9 +9,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Screen {
 
@@ -236,29 +238,73 @@ public class Screen {
 	}
 	/* Share Screen */
 	public static void screen_share(){
-		JFrame F = new JFrame("Share");
+		//Icons URLs
+		String url_f = ("http://icons.iconarchive.com/icons/mysitemyway/blue-jeans-social-media/128/facebook-icon.png"); //Facebook
+		String url_s = ("http://imavex.vo.llnwd.net/o18/clients/imavex/images/Services-ClubWorksite/service-icon-share.png"); //share
 		
+		JFrame F = new JFrame("Share");
+		//Panels (I'm getting good at this)
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS)); //Vertical Container
+		JPanel postP = new JPanel();
+		postP.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JPanel iconsP = new JPanel();
+		iconsP.setLayout(new BoxLayout(iconsP, BoxLayout.X_AXIS));
+		JPanel sharing_iconP = new JPanel();
+		sharing_iconP.setLayout(new FlowLayout(FlowLayout.CENTER));
+		JPanel backP = new JPanel();
+		backP.setLayout(new FlowLayout(FlowLayout.LEADING));
+		
+		//Labels and icons
+		JLabel label1 = new JLabel("POST TO...");
+		postP.add(label1);
+		
+		//Add icons to panel #FROM HERE
+		JLabel icon_f = getWebIcon(url_f, 50,50);
+		JLabel icon_t = getWebIcon(url_f, 50,45);
+		JLabel icon_m = getWebIcon(url_f, 50,50);
+		
+		iconsP.add(icon_f);
+		iconsP.add(icon_t);
+		iconsP.add(icon_m);
+		//#TO HERE. change to make a loop
+		JLabel icon_s = getWebIcon(url_s, 50,50);
+		JLabel sharing = new JLabel("Sharing...");
+		sharing_iconP.add(icon_s);
+		sharing_iconP.add(sharing);
+		
+		JButton button_back = new JButton("BACK");
+		backP.add(button_back);
+		
+		//Add Panels to container
+		container.add(postP); //add post panel
+		container.add(iconsP);//add icons panel
+		container.add(Box.createVerticalGlue()); //add glue
+		container.add(sharing_iconP);//add sharing icon
+		
+		F.add(container, BorderLayout.CENTER);
+		F.add(backP, BorderLayout.SOUTH);
 		F.setSize(rx, ry);
 		F.setVisible(true);
 		
 	}//end screen_share
-	
 
 	/* --Custom Panels-- */
+	/* Banner Panel */
 	public static JPanel bannerPanel() {
 		/* Add to the as-> Frame.add(bannerPanel(), BorderLayout.NORTH) 
 		 * Panel containing banner. */
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 		JLabel banner = new JLabel("Activifit"); // Banner
+		panel.add(banner);
 		banner.setFont(new Font(null, 0, 25)); 
 		banner.setForeground(black_midnight);
-		panel.add(banner);
 		panel.setBackground(blue_peterriver);
 		
 		return panel;
-	}//end bannerPanel
-
+	}
+	/* Banner navPanel */
 	public static JPanel navPanel() {
 		/* Add to the as-> Frame.add(navPanel(), BorderLayout.SOUTH) 
 		 * Panel containing back and share. */
@@ -274,6 +320,17 @@ public class Screen {
 		// Return panel
 		return panel;
 	}// end navPanel
-	
 
+	/* --Custom JLabels*/
+	/* Icon from web w/custom size */
+	public static JLabel getWebIcon(String web_address, int width, int height){
+		ImageUtilities buffer = new ImageUtilities(); //create instance
+		buffer.readImgFromWeb(web_address); //read from url
+		Image img = buffer.getImage(); //pull img
+		//Create a Label
+		img = buffer.getScaledImage(img, width, height);
+		JLabel label = new JLabel(new ImageIcon(img));
+
+		return label;
+	}
 }// end Screen Class
