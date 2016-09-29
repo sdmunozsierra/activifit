@@ -1,4 +1,4 @@
-package activifit;
+package activifit_gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -90,7 +90,7 @@ public class Screen {
 		banner.setFont(new Font(null, 0, 25)); // latter on we could use fancier fonts ;)
 		// Login
 		e_login.setBorder(border_default); // login text field
-		e_login.setMaximumSize(new Dimension(200,5)); //login dimension
+		e_login.setMaximumSize(new Dimension(200,6)); //login dimension
 		
 		// Create more labels to test the layout
 		JLabel thing1 = new JLabel("SIGN IN"); // RENAME
@@ -139,6 +139,7 @@ public class Screen {
 		JPanel p = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
 		    JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+		    //l.setMaximumSize(new Dimension(6,100)); //not working
 		    p.add(l);
 		    JTextField textField = new JTextField(20);
 		    l.setLabelFor(textField);
@@ -148,27 +149,29 @@ public class Screen {
 		//makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
 		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20); //#Change init x to fit banner
 		
-		//Bottom panel use box layout bro.
-		JPanel ps = new JPanel(); 
-		ps.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-		JButton Accept = new JButton("Accept");
-		JButton Back = new JButton("BACK");
-		JButton help= new JButton("HELP");
+		//Bottom panels
+		JPanel boxPane = new JPanel(); //Will use 2 rows
+		boxPane.setLayout(new BoxLayout(boxPane, BoxLayout.Y_AXIS)); //Vertical
+		JButton button_accept = new JButton("Accept");
+		JButton button_back = new JButton("BACK");
+		JButton button_help= new JButton("HELP");
+		//Bottom panel (panel-ception) last row
+		JPanel p2  = new JPanel(); //Will have back and help buttons
+		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); //Horizontal last row
 		
-		JPanel p2  = new JPanel();
-		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); //Horizontal
-		
-		ps.add(Accept);
-		
-		p2.add(Back);
+		//Add buttons, properties and spaces
+		boxPane.add(button_accept);
+		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
+		boxPane.add(Box.createRigidArea(new Dimension(0, 50)));	//rigid area to last row
+		p2.add(button_back);
 		p2.add(Box.createHorizontalGlue());
-		p2.add(help);
-		
-		ps.add(p2); //layout-ception
-		
+		p2.add(button_help);
+		//add last row panel to bottom panel
+		boxPane.add(p2);
+		//Set panels to the Frame
 		F.add(p, BorderLayout.EAST);
-		F.add(ps, BorderLayout.SOUTH);
-		
+		F.add(boxPane, BorderLayout.SOUTH);
+		//Global values
 		F.setSize(rx, ry);
 		F.setVisible(true);
 	}//end screen_register
