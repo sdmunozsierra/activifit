@@ -26,25 +26,10 @@ public class Screen {
 	static Color red_alizarin = new Color(231,76,60);
 	static Color green_emerald = new Color(46,204,113);
 	static Color blue_peterriver = new Color(52,152,219);
-	static Color purple_amethyst= new Color(155,89,182);
+	static Color purple_amethyst = new Color(155,89,182);
+	static Color gray_concrete = new Color (149,165,166);
 	static Color black_midnight = new Color(44,62,80);
 	static Color white_clouds = new Color(236,240,241);
-	
-
-	/* Images */
-	//static Image background_temp_green = new Image("/activifit/src/b_temp_g.png");
-	
-	/* Buttons */
-	private JButton button_heart = new JButton("[HEART]");
-	private JButton button_steps = new JButton("[STEPS]");
-	private JButton button_temp = new JButton("[TEMP]");
-	private JButton button_sleep = new JButton("[SLEEP]");
-	private JButton button_share = new JButton("[SHARE]");
-
-	/* Text Fields */
-	// ERROR IN DESIGN - MUST NOT HAVE STATIC FIELDS (screen_sign_in bug)
-	private static JTextField e_login = new JTextField(20); // limited to 30
-															// chars
 
 	/* Borders */
 	private static Border border_default = BorderFactory.createLineBorder(Color.BLACK);
@@ -54,13 +39,14 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		//screen_sign_in(); // should not be a method, because of static
+		screen_login(); 
 		//screen_register();
+		//screen_home();
 		//new Screen(); // Main calls home_page screen
 		//screen_heart();
 		//screen_temperature();
 		//screen_steps();
-		screen_sleep();
+		//screen_sleep();
 		//screen_share();
 		//screen_logout();
 	}// end main
@@ -68,85 +54,110 @@ public class Screen {
 	/** Methods */
 	/* --Screens-- */
 	
+	//constructor
+	public Screen(){
+	}
+	
 	/* HomePage screen */
-	public Screen() {
-		// Creates the frame for the screen
+	public static void screen_home() {
 		JFrame F = new JFrame("Homepage");
-
-		// JPANEL and layout
+		//Panel for information (BOX LAYOUT)
 		JPanel P = new JPanel();
-		P.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-
-		// Activity Bar
-		JPanel Pa = new JPanel();
-		Pa.setLayout(new FlowLayout());
-		Pa.add(button_heart); // add the heart rate button
-		Pa.add(button_steps);
-		Pa.add(button_temp);
-		Pa.add(button_sleep);
-		Pa.add(button_share);
-
-		// ADD JPanels into JFrame
-		F.add(P, BorderLayout.CENTER); // First row
-		F.add(Pa, BorderLayout.SOUTH); // Bottom
-
-		// Size and Visibility
-		F.setSize(rx, ry);
-		F.setVisible(true);
+		P.setLayout(new BoxLayout(P,BoxLayout.PAGE_AXIS));
+		P.add(Box.createRigidArea(new Dimension(0, 50)));
+		//Panel for Buttons (FLOW LAYOUT)
+		JPanel buttonP = new JPanel();
+		buttonP.setLayout(new FlowLayout());
+		//--Components--//
+		//Labels
+		String[] labels = { "Hello PERSON", 
+				"Display Time", 
+				"Today's Daily Feed", 
+				"THIS WILL BE A GRAPH(hopefully)", 
+				};
+		for (int i = 0; i < labels.length; i++) {
+			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+			P.add(l);
+			l.setAlignmentX(Component.CENTER_ALIGNMENT);
+			//if statement to span everything BUT last component
+			if(i < labels.length-1){P.add(Box.createRigidArea(new Dimension(0, 30)));}
+			else{P.add(Box.createRigidArea(new Dimension(0, 10)));}
+		}
+		// Buttons
+		String[] buttons = {"HEART","STEPS","TEMP","SLEEP","SHARE"};
+		for (int i = 0; i < buttons.length; i++) {
+			JButton b = new JButton(buttons[i]);
+			b.setMargin(new java.awt.Insets(1, 6, 1, 6));
+			buttonP.add(b);
+		}
+		//Graph Image 
+		JLabel graph = new JLabel();
+		graph.setIcon(insertIconScaled("C:/Users/sdmunozsierra/Downloads/health.png", 200, 200));
+		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		P.add(graph);
+		
+		//add panels to frame
+		F.add(bannerPanel(), BorderLayout.NORTH);
+		F.add(P, BorderLayout.CENTER); 
+		F.add(buttonP, BorderLayout.SOUTH); 
+		viewFrame(F); //displays the frame
 	}// end Screen
 
-	public static void screen_sign_in() {
-		// Create a JFrame
+	public static void screen_login() {
 		JFrame F = new JFrame("Log-In");
 
-		// Create a panel in a list order
-		JPanel listPane = new JPanel();
-		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+		//Panel (BOX LAYOUT)
+		JPanel listP = new JPanel();
+		listP.setLayout(new BoxLayout(listP, BoxLayout.PAGE_AXIS));
+		
+		//Panel bottom about us (BOX LAYOUT) ----Method?----
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		// Create Buttons
+		JButton button_about = new JButton("About Us");
+		JButton button_help = new JButton("Help");
+		// Add to panel with glue between two buttons
+		panel.add(button_about);
+		panel.add(Box.createHorizontalGlue());
+		panel.add(button_help);
+		panel.setOpaque(false);
+		// ----Method?---- Panel bottom about us (BOX LAYOUT)
+		
+		// Login Text Field
+		JTextField t_login = new JTextField(20);
+		t_login.setBorder(border_default); // login text field
+		t_login.setMaximumSize(new Dimension(200, 20)); // login dimension
 
 		// Labels
-		// Banner
-		JLabel banner = new JLabel("Activifit"); // Banner
-		banner.setFont(new Font(null, 0, 25)); // latter on we could use fancier
-												// fonts ;)
-		// Login
-		e_login.setBorder(border_default); // login text field
-		e_login.setMaximumSize(new Dimension(200, 6)); // login dimension
-
-		// Create more labels to test the layout
-		JLabel thing1 = new JLabel("SIGN IN"); // RENAME
-		JLabel thing2 = new JLabel("SECOND THING"); // RENAME
-		JLabel thing3 = new JLabel("Third THING");// RENAME
-
+		JLabel l_sign = new JLabel("Sign In"); 
+		l_sign.setFont(new Font(null, Font.BOLD, 20));
+		l_sign.setForeground(black_midnight);
+		JLabel l_enter = new JLabel("(enter your email)"); 
+		l_enter.setForeground(gray_concrete);
+		
 		// Buttons
-		// Accept
-		JButton button_accept = new JButton("ACCEPT");
-
-		// Add components to the Panel
-		listPane.add(banner);
-		listPane.add(Box.createRigidArea(new Dimension(0, 30)));
-		listPane.add(thing1); // SING IN
-		listPane.add(Box.createRigidArea(new Dimension(10, 0)));
-		listPane.add(e_login); // login box
-		listPane.add(Box.createRigidArea(new Dimension(0, 10)));
-		listPane.add(button_accept); // accept
-		listPane.add(Box.createVerticalGlue()); // GLUE STETCHES!!
-		listPane.add(thing2);
-		listPane.add(Box.createRigidArea(new Dimension(10, 0)));
-		listPane.add(thing3);
+		JButton button_accept = new JButton("Done");
+		
+		// Add components and span.
+		listP.add(Box.createRigidArea(new Dimension(0, ry/4)));
+		listP.add(l_sign); //Sign in label
+		listP.add(Box.createRigidArea(new Dimension(0, 20)));
+		listP.add(t_login); //Text Field
+		listP.add(Box.createRigidArea(new Dimension(0, 6)));
+		listP.add(l_enter); //Enter your email
+		listP.add(Box.createRigidArea(new Dimension(0, 50)));
+		listP.add(button_accept);
 
 		// Align every component (-.-)
-		banner.setAlignmentX(Component.CENTER_ALIGNMENT);
-		thing1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		thing2.setAlignmentX(Component.CENTER_ALIGNMENT);
-		thing3.setAlignmentX(Component.CENTER_ALIGNMENT);
+		l_sign.setAlignmentX(Component.CENTER_ALIGNMENT);
+		t_login.setAlignmentX(Component.CENTER_ALIGNMENT);
+		l_enter.setAlignmentX(Component.CENTER_ALIGNMENT);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-		e_login.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		F.add(listPane); // First row
-
-		F.setSize(rx, ry);
-		F.setVisible(true);
-
+		F.add(bannerPanel(), BorderLayout.NORTH);
+		F.add(listP); // First row
+		F.add(panel, BorderLayout.SOUTH);
+		viewFrame(F);
 	}// End sign-in screen
 	
 	/* Screen Register */
@@ -194,9 +205,7 @@ public class Screen {
 		F.add(bannerPanel(), BorderLayout.NORTH);
 		F.add(p, BorderLayout.EAST);
 		F.add(boxPane, BorderLayout.SOUTH);
-		// Global values
-		F.setSize(rx, ry);
-		F.setVisible(true);
+		viewFrame(F);
 	}// end screen_register
 	
 	/* Heart Rate Screen */
@@ -226,8 +235,7 @@ public class Screen {
 		F.add(p1, BorderLayout.WEST);
 		F.add(p2, BorderLayout.EAST);
 		F.add(navPanel(), BorderLayout.SOUTH);
-		F.setSize(rx, ry);
-		F.setVisible(true);
+		viewFrame(F);
 	}
 	
 	/* Temperature Screen */
@@ -261,8 +269,7 @@ public class Screen {
 		
 		F.add(background, BorderLayout.CENTER);
 		F.add(navPanel(), BorderLayout.SOUTH);
-		F.setSize(rx, ry);
-		F.setVisible(true);
+		viewFrame(F);
 	}
 	
 	/* Steps Screen */
@@ -296,8 +303,7 @@ public class Screen {
 		
 		F.add(background, BorderLayout.CENTER);
 		F.add(navPanel(), BorderLayout.SOUTH);
-		F.setSize(rx, ry);
-		F.setVisible(true);
+		viewFrame(F);
 	}
 	
 	/* Sleep Screen */
@@ -336,8 +342,7 @@ public class Screen {
 		
 		F.add(background, BorderLayout.CENTER);
 		F.add(navPanel(), BorderLayout.SOUTH);
-		F.setSize(rx, ry);
-		F.setVisible(true);
+		viewFrame(F);
 	}
 	
 	/* Share Screen */
@@ -388,10 +393,10 @@ public class Screen {
 		
 		F.add(container, BorderLayout.CENTER);
 		F.add(backP, BorderLayout.SOUTH);
-		F.setSize(rx, ry);
-		F.setVisible(true);
-		
+		viewFrame(F);
 	}//end screen_share
+	
+	/* Logout Screen */
 	public static void screen_logout(){
 		JFrame F = new JFrame("Logout");
 	
@@ -407,12 +412,17 @@ public class Screen {
 		F.add(thank_youP, BorderLayout.NORTH);
 		F.add(bannerPanel(), BorderLayout.CENTER);
 		F.add(button_ok, BorderLayout.SOUTH);
-		F.setSize(rx, ry);
-		F.setVisible(true);
+		viewFrame(F);
 	}
 	
-	/* Logout Screen */
-
+	/* --Frame Properties-- */
+	/* View Frame */
+	public static void viewFrame(JFrame F){
+		F.setSize(rx, ry);
+		F.setVisible(true);
+		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
 	/* --Custom Panels-- */
 	/* Banner Panel */
 	public static JPanel bannerPanel() {
@@ -475,7 +485,7 @@ public class Screen {
 		return panel;
 	}
 	
-	/* --Custom JLabels*/
+	/* --Custom JLabels--*/
 	/* Icon from web w/custom size */
 	public static JLabel getWebIcon(String web_address, int width, int height){
 		ImageUtilities buffer = new ImageUtilities(); //create instance
@@ -486,5 +496,14 @@ public class Screen {
 		JLabel label = new JLabel(new ImageIcon(img));
 
 		return label;
+	}
+
+	/* --Image Related-- */
+	public static ImageIcon insertIconScaled(String path, int x, int y){
+		ImageUtilities img = new ImageUtilities();
+		img.readFromSource(path);
+		img.setImage(img.getScaledImage(img.getImage(), x, y));
+		ImageIcon icon = new ImageIcon(img.getImage()); 
+		return icon;
 	}
 }// end Screen Class
