@@ -1,5 +1,4 @@
-package activifit_gui;
-package activifit_gui;
+package activifit;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,15 +13,23 @@ import java.awt.Image;
 public class Screen {
 
 	/** Resources */
+	/* Maybe it would be a good idea to change remove as much resources as possible and
+	 * leave everything inside it's own method. Colors, and Images can be in a
+	 * different class if things get messy.
+	 */
 	/* Variables */
 	final static int rx = 320; // horizontal resolution
 	final static int ry = 568; // vertical resolution
 	
 	/* Colors */
+	static Color red_alizarin = new Color(231,76,60);
 	static Color green_emerald = new Color(46,204,113);
 	static Color blue_peterriver = new Color(52,152,219);
 	static Color black_midnight = new Color(44,62,80);
 
+	/* Images */
+	//static Image background_temp_green = new Image("/activifit/src/b_temp_g.png");
+	
 	/* Buttons */
 	private JButton button_heart = new JButton("[HEART]");
 	private JButton button_steps = new JButton("[STEPS]");
@@ -47,8 +54,9 @@ public class Screen {
 		//screen_register();
 		//new Screen(); // Main calls home_page screen
 		//screen_heart();
+		screen_temperature();
 		//screen_share();
-		screen_logout();
+		//screen_logout();
 	}// end main
 
 	/** Methods */
@@ -216,6 +224,49 @@ public class Screen {
 		F.setVisible(true);
 	}
 	
+	/* Temperature Screen */
+	public static void screen_temperature() {
+		JFrame F = new JFrame("Temperature");
+		ImageUtilities backG = new ImageUtilities();
+		
+		//CHANGE FOLLOWING TO A METHOD UNTIL #
+		backG.readFromSource("C:/Users/xerg/workspace/activifit/src/b_temp_g.png");
+		backG.setImage(backG.getScaledImage(backG.img, rx, ry)); //rescale the background img (Horrible)
+		JPanel background = backG.backgroundPanel(backG.getImage());
+		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS)); // vertical
+		//# CHANGE TO A METHOD
+		
+		JLabel current_temp = new JLabel("Current temp"); //This will be pulled from TEMP.CLASS
+		JLabel current_temp_state = new JLabel("Current body temp state"); //From TEMP.CLASS
+		
+		JPanel change_displayP = new JPanel();
+		change_displayP.setLayout(new BoxLayout(change_displayP, BoxLayout.X_AXIS));
+		JButton button_week = new JButton("Change to Week");
+		JButton button_month = new JButton("Change to Month");
+		change_displayP.add(button_week);
+		change_displayP.add(Box.createHorizontalGlue());
+		change_displayP.add(button_month);
+		change_displayP.setOpaque(false); //THIS IS FUCKING GOLD!!!!!!
+		
+		JPanel banner = activityBannerPanel("Body Temperature", red_alizarin);
+		
+		background.add(banner);
+		background.add(Box.createRigidArea(new Dimension(0,50)));
+		background.add(current_temp);
+		current_temp.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0,75)));
+		background.add(current_temp_state);
+		current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0,100)));
+		background.add(change_displayP);
+		
+		F.add(background, BorderLayout.CENTER);
+		F.add(navPanel(), BorderLayout.SOUTH);
+		F.setSize(rx, ry);
+		F.setVisible(true);
+	}
+	
+	
 	/* Share Screen */
 	public static void screen_share(){
 		//Icons URLs
@@ -318,9 +369,26 @@ public class Screen {
 		panel.add(Box.createHorizontalGlue());
 		panel.add(button_share_this);
 		// Return panel
+		panel.setBackground(Color.WHITE); //Sets the 'glue' color
 		return panel;
 	}// end navPanel
-
+	
+	public static JPanel activityBannerPanel(String activity, Color color) {
+		/* Panel containing a custom banner for an activity. */
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		JLabel banner = new JLabel(activity); // Banner
+		panel.add(banner);
+		banner.setFont(new Font(null, 0, 25)); 
+		banner.setForeground(color);
+		panel.setOpaque(false);
+		
+		//MIGHT NEED TO ADJUST BANNER MAX SIZE
+		panel.setMaximumSize(new Dimension(rx,50));
+		
+		return panel;
+	}
+	
 	/* --Custom JLabels*/
 	/* Icon from web w/custom size */
 	public static JLabel getWebIcon(String web_address, int width, int height){
