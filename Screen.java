@@ -1,4 +1,4 @@
-package activifit;
+package activifit_gui;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,6 +18,7 @@ public class Screen {
 	 * different class if things get messy.
 	 */
 	/* Variables */
+	//Resolution taken from an iPhone5 320x568 pixels
 	final static int rx = 320; // horizontal resolution
 	final static int ry = 568; // vertical resolution
 	
@@ -25,7 +26,10 @@ public class Screen {
 	static Color red_alizarin = new Color(231,76,60);
 	static Color green_emerald = new Color(46,204,113);
 	static Color blue_peterriver = new Color(52,152,219);
+	static Color purple_amethyst= new Color(155,89,182);
 	static Color black_midnight = new Color(44,62,80);
+	static Color white_clouds = new Color(236,240,241);
+	
 
 	/* Images */
 	//static Image background_temp_green = new Image("/activifit/src/b_temp_g.png");
@@ -54,7 +58,9 @@ public class Screen {
 		//screen_register();
 		//new Screen(); // Main calls home_page screen
 		//screen_heart();
-		screen_temperature();
+		//screen_temperature();
+		//screen_steps();
+		screen_sleep();
 		//screen_share();
 		//screen_logout();
 	}// end main
@@ -230,24 +236,17 @@ public class Screen {
 		ImageUtilities backG = new ImageUtilities();
 		
 		//CHANGE FOLLOWING TO A METHOD UNTIL #
-		backG.readFromSource("C:/Users/xerg/workspace/activifit/src/b_temp_g.png");
+		backG.readFromSource("C:/Users/sdmunozsierra/Downloads/fennekin.png");
 		backG.setImage(backG.getScaledImage(backG.img, rx, ry)); //rescale the background img (Horrible)
 		JPanel background = backG.backgroundPanel(backG.getImage());
 		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS)); // vertical
 		//# CHANGE TO A METHOD
-		
+		//Labels
 		JLabel current_temp = new JLabel("Current temp"); //This will be pulled from TEMP.CLASS
 		JLabel current_temp_state = new JLabel("Current body temp state"); //From TEMP.CLASS
 		
-		JPanel change_displayP = new JPanel();
-		change_displayP.setLayout(new BoxLayout(change_displayP, BoxLayout.X_AXIS));
-		JButton button_week = new JButton("Change to Week");
-		JButton button_month = new JButton("Change to Month");
-		change_displayP.add(button_week);
-		change_displayP.add(Box.createHorizontalGlue());
-		change_displayP.add(button_month);
-		change_displayP.setOpaque(false); //THIS IS FUCKING GOLD!!!!!!
-		
+		//Custom panels
+		JPanel change_displayP = changeDisplayPanel();
 		JPanel banner = activityBannerPanel("Body Temperature", red_alizarin);
 		
 		background.add(banner);
@@ -266,6 +265,80 @@ public class Screen {
 		F.setVisible(true);
 	}
 	
+	/* Steps Screen */
+	public static void screen_steps() {
+		JFrame F = new JFrame("Steps");
+		ImageUtilities backG = new ImageUtilities();
+		
+		//CHANGE FOLLOWING TO A METHOD UNTIL #
+		backG.readFromSource("C:/Users/sdmunozsierra/Downloads/flareon.jpg");
+		backG.setImage(backG.getScaledImage(backG.img, rx, ry)); //rescale the background img (Horrible)
+		JPanel background = backG.backgroundPanel(backG.getImage());
+		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS)); // vertical
+		//# CHANGE TO A METHOD
+		//Labels
+		JLabel current_steps = new JLabel("Today Number of Steps"); //This will be pulled from TEMP.CLASS
+		JLabel current_steps_state = new JLabel("Current fitness level"); //From TEMP.CLASS
+		
+		//Custom panels
+		JPanel change_displayP = changeDisplayPanel();
+		JPanel banner = activityBannerPanel("Steps", purple_amethyst);
+		
+		background.add(banner);
+		background.add(Box.createRigidArea(new Dimension(0,50)));
+		background.add(current_steps);
+		current_steps.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0,75)));
+		background.add(current_steps_state);
+		current_steps_state.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0,100)));
+		background.add(change_displayP);
+		
+		F.add(background, BorderLayout.CENTER);
+		F.add(navPanel(), BorderLayout.SOUTH);
+		F.setSize(rx, ry);
+		F.setVisible(true);
+	}
+	
+	/* Sleep Screen */
+	public static void screen_sleep() {
+		JFrame F = new JFrame("Sleep");
+		ImageUtilities backG = new ImageUtilities();
+		
+		//CHANGE FOLLOWING TO A METHOD UNTIL #
+		backG.readFromSource("C:/Users/sdmunozsierra/Downloads/moon.jpg");
+		backG.setImage(backG.getScaledImage(backG.img, rx, ry)); //rescale the background img (Horrible)
+		JPanel background = backG.backgroundPanel(backG.getImage());
+		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS)); // vertical
+		//# CHANGE TO A METHOD
+		//Labels
+		JLabel current_sleep = new JLabel("Yesterday's Sleep Quality"); //This will be pulled from//From SLEEP.CLASS
+		JLabel rem = new JLabel("REM Time"); //From SLEEP.CLASS
+		JLabel light = new JLabel("Light Sleep Time"); //From SLEEP.CLASS
+		JLabel deep = new JLabel("Deep Sleep Time"); //From SLEEP.CLASS
+		
+		//Custom panels
+		JPanel change_displayP = changeDisplayPanel();
+		JPanel banner = activityBannerPanel("Sleep", white_clouds);
+		
+		background.add(banner);
+		background.add(Box.createRigidArea(new Dimension(0,50)));
+		background.add(current_sleep);
+		current_sleep.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0,75)));
+		
+		background.add(rem);
+		background.add(light);
+		background.add(deep);
+		//current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0,100)));
+		background.add(change_displayP);
+		
+		F.add(background, BorderLayout.CENTER);
+		F.add(navPanel(), BorderLayout.SOUTH);
+		F.setSize(rx, ry);
+		F.setVisible(true);
+	}
 	
 	/* Share Screen */
 	public static void screen_share(){
@@ -372,7 +445,7 @@ public class Screen {
 		panel.setBackground(Color.WHITE); //Sets the 'glue' color
 		return panel;
 	}// end navPanel
-	
+	/* Activity Banner Panel */
 	public static JPanel activityBannerPanel(String activity, Color color) {
 		/* Panel containing a custom banner for an activity. */
 		JPanel panel = new JPanel();
@@ -386,6 +459,19 @@ public class Screen {
 		//MIGHT NEED TO ADJUST BANNER MAX SIZE
 		panel.setMaximumSize(new Dimension(rx,50));
 		
+		return panel;
+	}
+	
+	/* Change Display Panel */
+	public static JPanel changeDisplayPanel(){
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		JButton button_week = new JButton("Change to Week");
+		JButton button_month = new JButton("Change to Month");
+		panel.add(button_week);
+		panel.add(Box.createHorizontalGlue());
+		panel.add(button_month);
+		panel.setOpaque(false); //THIS IS FUCKING GOLD!!!!!!
 		return panel;
 	}
 	
