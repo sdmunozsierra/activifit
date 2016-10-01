@@ -61,8 +61,7 @@ public class ImageUtilities {
 
 	// Resizes any image
 	public Image getScaledImage(Image srcImg, int w, int h) {
-		/*
-		 * Method from:
+		/* Method from:
 		 * http://stackoverflow.com/questions/6714045/how-to-resize-jlabel-
 		 * imageicon
 		 */
@@ -77,7 +76,7 @@ public class ImageUtilities {
 	}// end getScaledImage
 
 	//Creates a backgroundPanel
-	public JPanel backgroundPanel(Image backgound_image) {
+	public JPanel setBackgroundPanelImage(Image backgound_image) {
 		this.img = backgound_image;
 		JPanel panel = new JPanel() {
 			@Override
@@ -86,8 +85,6 @@ public class ImageUtilities {
 				g.drawImage(img, 0, 0, null);
 			}// end @override paintComponent
 		};// end new JPanel
-			// panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
 		return panel;
 	}
 
