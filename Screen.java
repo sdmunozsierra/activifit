@@ -1,4 +1,4 @@
-package activifit_gui;
+package activifit;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -39,16 +39,15 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		screen_login(); 
-		//screen_register();
-		//screen_home();
-		//new Screen(); // Main calls home_page screen
-		//screen_heart();
-		//screen_temperature();
-		//screen_steps();
-		//screen_sleep();
-		//screen_share();
-		//screen_logout();
+		//screen_login(); 
+		screen_register();
+		screen_home();
+		screen_heart();
+		screen_temperature();
+		screen_steps();
+		screen_sleep();
+		screen_share();
+		screen_logout();
 	}// end main
 
 	/** Methods */
@@ -92,7 +91,7 @@ public class Screen {
 		}
 		//Graph Image 
 		JLabel graph = new JLabel();
-		graph.setIcon(insertIconScaled("C:/Users/sdmunozsierra/Downloads/health.png", 200, 200));
+		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200,200));
 		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
 		P.add(graph);
 		
@@ -177,11 +176,8 @@ public class Screen {
 			p.add(textField);
 			textField.setMaximumSize(new Dimension(300, 6));// change text field size
 		}
-		// Make grid layout
 		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
-		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20); // #Change init x
-																// to fit banner
-
+		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20); 
 		// Bottom panels
 		JPanel boxPane = new JPanel(); // Will use 2 rows
 		boxPane.setLayout(new BoxLayout(boxPane, BoxLayout.Y_AXIS)); // Vertical
@@ -211,29 +207,28 @@ public class Screen {
 	/* Heart Rate Screen */
 	public static void screen_heart() {
 		JFrame F = new JFrame("Heartbeat");
-		JPanel p1 = new JPanel();
-		p1.setLayout(new BoxLayout(p1, BoxLayout.Y_AXIS)); // vertical
-		JPanel p2 = new JPanel();
-		p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+		
+		JPanel banner = activityBannerPanel("Heart Rate", black_midnight);
+		
+		JPanel background = backgroundPanel("http://i.imgur.com/mnvGX7w.jpg",2);
+		
+		JPanel displayP = changeDisplayPanel();
 
 		// TEST LABELS
-		JLabel c1 = new JLabel("c1"); // Curr rate
-		JLabel c2 = new JLabel("c2"); // #variable for curr rate
-		JLabel c3 = new JLabel("c3"); // Weekly View
-		JLabel c4 = new JLabel("c4"); // Avg rate
-		JLabel c5 = new JLabel("c5"); // #variable for avg rate
-		JLabel c6 = new JLabel("c6"); // Monthly View
-		p1.add(c1);
-		p1.add(c2);
-		p1.add(c3);
-		p2.add(c4);
-		p2.add(c5);
-		p2.add(c6);
-
-		// TEST BACKGROUND IMG
-		// F.add(background);
-		F.add(p1, BorderLayout.WEST);
-		F.add(p2, BorderLayout.EAST);
+		JLabel c1 = new JLabel("Current Rate"); // Curr rate
+		JLabel c2 = new JLabel("Health State"); // #variable for curr rate
+		
+		background.add(banner);
+		background.add(Box.createRigidArea(new Dimension(0,ry/6)));
+		background.add(c1);
+		c1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0,20)));
+		c2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(c2);
+		background.add(Box.createRigidArea(new Dimension(0,200)));
+		background.add(displayP);
+		
+		F.add(background, BorderLayout.CENTER);
 		F.add(navPanel(), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
@@ -241,14 +236,9 @@ public class Screen {
 	/* Temperature Screen */
 	public static void screen_temperature() {
 		JFrame F = new JFrame("Temperature");
-		ImageUtilities backG = new ImageUtilities();
+			
+		JPanel background = backgroundPanel("http://i.imgur.com/oX1jm12.png",2);
 		
-		//CHANGE FOLLOWING TO A METHOD UNTIL #
-		backG.readFromSource("C:/Users/sdmunozsierra/Downloads/fennekin.png");
-		backG.setImage(backG.getScaledImage(backG.img, rx, ry)); //rescale the background img (Horrible)
-		JPanel background = backG.backgroundPanel(backG.getImage());
-		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS)); // vertical
-		//# CHANGE TO A METHOD
 		//Labels
 		JLabel current_temp = new JLabel("Current temp"); //This will be pulled from TEMP.CLASS
 		JLabel current_temp_state = new JLabel("Current body temp state"); //From TEMP.CLASS
@@ -276,13 +266,8 @@ public class Screen {
 	public static void screen_steps() {
 		JFrame F = new JFrame("Steps");
 		ImageUtilities backG = new ImageUtilities();
-		
-		//CHANGE FOLLOWING TO A METHOD UNTIL #
-		backG.readFromSource("C:/Users/sdmunozsierra/Downloads/flareon.jpg");
-		backG.setImage(backG.getScaledImage(backG.img, rx, ry)); //rescale the background img (Horrible)
-		JPanel background = backG.backgroundPanel(backG.getImage());
-		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS)); // vertical
-		//# CHANGE TO A METHOD
+
+		JPanel background = backgroundPanel("http://i.imgur.com/MCsjuEm.png",2);
 		//Labels
 		JLabel current_steps = new JLabel("Today Number of Steps"); //This will be pulled from TEMP.CLASS
 		JLabel current_steps_state = new JLabel("Current fitness level"); //From TEMP.CLASS
@@ -309,14 +294,9 @@ public class Screen {
 	/* Sleep Screen */
 	public static void screen_sleep() {
 		JFrame F = new JFrame("Sleep");
-		ImageUtilities backG = new ImageUtilities();
 		
-		//CHANGE FOLLOWING TO A METHOD UNTIL #
-		backG.readFromSource("C:/Users/sdmunozsierra/Downloads/moon.jpg");
-		backG.setImage(backG.getScaledImage(backG.img, rx, ry)); //rescale the background img (Horrible)
-		JPanel background = backG.backgroundPanel(backG.getImage());
-		background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS)); // vertical
-		//# CHANGE TO A METHOD
+		JPanel background = backgroundPanel("http://i.imgur.com/1BxhCZb.jpg",2);
+		
 		//Labels
 		JLabel current_sleep = new JLabel("Yesterday's Sleep Quality"); //This will be pulled from//From SLEEP.CLASS
 		JLabel rem = new JLabel("REM Time"); //From SLEEP.CLASS
@@ -369,15 +349,15 @@ public class Screen {
 		postP.add(label1);
 		
 		//Add icons to panel #FROM HERE
-		JLabel icon_f = getWebIcon(url_f, 50,50);
-		JLabel icon_t = getWebIcon(url_f, 50,45);
-		JLabel icon_m = getWebIcon(url_f, 50,50);
+		JLabel icon_f = getWebIconScaledLabel(url_f, 50,50);
+		JLabel icon_t = getWebIconScaledLabel(url_f, 50,45);
+		JLabel icon_m = getWebIconScaledLabel(url_f, 50,50);
 		
 		iconsP.add(icon_f);
 		iconsP.add(icon_t);
 		iconsP.add(icon_m);
 		//#TO HERE. change to make a loop
-		JLabel icon_s = getWebIcon(url_s, 50,50);
+		JLabel icon_s = getWebIconScaledLabel(url_s, 50,50);
 		JLabel sharing = new JLabel("Sharing...");
 		sharing_iconP.add(icon_s);
 		sharing_iconP.add(sharing);
@@ -471,7 +451,6 @@ public class Screen {
 		
 		return panel;
 	}
-	
 	/* Change Display Panel */
 	public static JPanel changeDisplayPanel(){
 		JPanel panel = new JPanel();
@@ -484,10 +463,29 @@ public class Screen {
 		panel.setOpaque(false); //THIS IS FUCKING GOLD!!!!!!
 		return panel;
 	}
+	/* Set Background Panel */
+	public static JPanel backgroundPanel(String path, int opt){
+		/* OPT => Option
+		 * Use 1 for Local Path
+		 * Use 2 for Web Path
+		 */
+		JPanel panel= new JPanel();
+		ImageUtilities image = new ImageUtilities();
+		
+		if(opt == 1){image.readFromSource(path);}
+		else if(opt == 2){image.readImgFromWeb(path);}
+		else{throw new Error(""); }
+		
+		image.setImage(image.getScaledImage(image.getImage(), rx, ry));
+		panel = image.setBackgroundPanelImage(image.getImage());
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // vertical
+		return panel;
+	}
+	
 	
 	/* --Custom JLabels--*/
 	/* Icon from web w/custom size */
-	public static JLabel getWebIcon(String web_address, int width, int height){
+	public static JLabel getWebIconScaledLabel(String web_address, int width, int height){
 		ImageUtilities buffer = new ImageUtilities(); //create instance
 		buffer.readImgFromWeb(web_address); //read from url
 		Image img = buffer.getImage(); //pull img
@@ -497,8 +495,9 @@ public class Screen {
 
 		return label;
 	}
-
+	
 	/* --Image Related-- */
+	//Insert and scale image from local path
 	public static ImageIcon insertIconScaled(String path, int x, int y){
 		ImageUtilities img = new ImageUtilities();
 		img.readFromSource(path);
@@ -506,4 +505,13 @@ public class Screen {
 		ImageIcon icon = new ImageIcon(img.getImage()); 
 		return icon;
 	}
+	//Insert and scale image from web (EITHER USE THIS OR getWebIconScaledLabel)
+	public static ImageIcon insertWebIconScaled(String web_address, int x, int y){
+		ImageUtilities img = new ImageUtilities(); //create instance
+		img.readImgFromWeb(web_address); //read from url
+		img.setImage(img.getScaledImage(img.getImage(), x, y));
+		ImageIcon icon = new ImageIcon(img.getImage()); 
+		return icon;
+	}
+	
 }// end Screen Class
