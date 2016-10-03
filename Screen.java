@@ -10,6 +10,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class Screen {
 
@@ -35,7 +38,7 @@ public class Screen {
 
 	/* Borders */
 	private static Border border_default = BorderFactory.createLineBorder(Color.BLACK);
-	private Border border_error = BorderFactory.createLineBorder(Color.RED);
+	private static Border border_error = BorderFactory.createLineBorder(Color.RED);
 
 	/** Main Method */
 	public static void main(String args[]) {
@@ -49,9 +52,9 @@ public class Screen {
 		// screen_steps();
 		// screen_sleep();
 		// screen_share();
-		screen_logout();
-		screen_about();
-		screen_help();
+		// screen_logout();
+		// screen_about();
+		// screen_help();
 	}// end main
 
 	/** Methods */
@@ -139,8 +142,29 @@ public class Screen {
 		l_enter.setForeground(gray_concrete);
 
 		// Buttons
-		JButton button_accept = new JButton("Done");
+		JButton button_accept = new JButton("DONE");
+		button_accept.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				t_login.setBorder(border_default); // login text field
+				String input = t_login.getText();
+				if (input.equals("") || !isValidEmailAddress(input)) {
+					// JOptionPane.showMessageDialog(null, "Invalid
+					// characters\nUse letters only!");
+					t_login.setBorder(border_error);
+					t_login.selectAll();
+					t_login.setSelectedTextColor(Color.RED);
+				} else {
+					// Here will check the User class for a valid email.
+					t_login.setEditable(false);
+					t_login.setBorder(border_default); // login text field
 
+					// If email was not found on Users class..
+					screen_register();
+				}//end else
+			}//end action performed
+		});
+		
 		// Add components and span.
 		listP.add(Box.createRigidArea(new Dimension(0, ry / 4)));
 		listP.add(l_sign); // Sign in label
@@ -273,7 +297,6 @@ public class Screen {
 	/* Steps Screen */
 	public static void screen_steps() {
 		JFrame F = new JFrame("Steps");
-		ImageUtilities backG = new ImageUtilities();
 
 		JPanel background = backgroundPanel("http://i.imgur.com/MCsjuEm.png", 2);
 		// Labels
@@ -639,4 +662,12 @@ public class Screen {
 		return icon;
 	}
 
+	/* --Extra Methods-- */
+	public static boolean isValidEmailAddress(String email) {
+		//From http://stackoverflow.com/questions/624581/what-is-the-best-java-email-address-validation-method
+		String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+		java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+		java.util.regex.Matcher m = p.matcher(email);
+		return m.matches();
+	}
 }// end Screen Class
