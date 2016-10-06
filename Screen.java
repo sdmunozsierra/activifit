@@ -1,7 +1,9 @@
-package activifit;
+package activifit_gui;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import action_package.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,9 +12,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 public class Screen {
 
@@ -31,21 +30,18 @@ public class Screen {
 	static Color red_alizarin = new Color(231, 76, 60);
 	static Color green_emerald = new Color(46, 204, 113);
 	static Color blue_peterriver = new Color(52, 152, 219);
+	static Color blue_belizehole = new Color(41,128,185);
 	static Color purple_amethyst = new Color(155, 89, 182);
 	static Color gray_concrete = new Color(149, 165, 166);
 	static Color black_midnight = new Color(44, 62, 80);
 	static Color white_clouds = new Color(236, 240, 241);
 
-	/* Borders */
-	private static Border border_default = BorderFactory.createLineBorder(Color.BLACK);
-	private static Border border_error = BorderFactory.createLineBorder(Color.RED);
-
 	/** Main Method */
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		screen_login();
-		// screen_register();
+		//screen_login();
+		 screen_register();
 		// screen_home();
 		// screen_heart();
 		// screen_temperature();
@@ -110,6 +106,8 @@ public class Screen {
 
 	/* Login Screen */
 	public static void screen_login() {
+		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
+		Border border_blue = BorderFactory.createLineBorder(blue_belizehole);
 		JFrame F = new JFrame("Log-In");
 
 		// Panel (BOX LAYOUT)
@@ -143,27 +141,6 @@ public class Screen {
 
 		// Buttons
 		JButton button_accept = new JButton("DONE");
-		button_accept.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				t_login.setBorder(border_default); // login text field
-				String input = t_login.getText();
-				if (input.equals("") || !isValidEmailAddress(input)) {
-					// JOptionPane.showMessageDialog(null, "Invalid
-					// characters\nUse letters only!");
-					t_login.setBorder(border_error);
-					t_login.selectAll();
-					t_login.setSelectedTextColor(Color.RED);
-				} else {
-					// Here will check the User class for a valid email.
-					t_login.setEditable(false);
-					t_login.setBorder(border_default); // login text field
-
-					// If email was not found on Users class..
-					screen_register();
-				}//end else
-			}//end action performed
-		});
 		
 		// Add components and span.
 		listP.add(Box.createRigidArea(new Dimension(0, ry / 4)));
@@ -181,6 +158,11 @@ public class Screen {
 		l_enter.setAlignmentX(Component.CENTER_ALIGNMENT);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+		//Actions
+		LoginActionListener action = new LoginActionListener(t_login, F);
+		button_accept.addActionListener(action);
+		
+		//Frames
 		F.add(bannerPanel(), BorderLayout.NORTH);
 		F.add(listP); // First row
 		F.add(panel, BorderLayout.SOUTH);
@@ -191,28 +173,30 @@ public class Screen {
 	public static void screen_register() {
 		JFrame F = new JFrame("Register");
 
-		String[] labels = { "Name: ", "Age: ", "Weight: ", "Height: ", "Active Idx: ", "Email: " };
+		String[] labels = { "Name: ", "Age: ", "Weight: ", "Height: ", "Active Id: ", "Email: " };
 		int numPairs = labels.length;
 
+		JTextField[] t_array = new JTextField[numPairs];
 		// Create and populate the form panel.
 		JPanel p = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
 			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
 			p.add(l);
-			JTextField textField = new JTextField(20);
-			l.setLabelFor(textField);
-			p.add(textField);
-			textField.setMaximumSize(new Dimension(300, 6));// change text field
-															// size
+			t_array[i] = new JTextField(20);
+			l.setLabelFor(t_array[i]);
+			p.add(t_array[i]);
+			t_array[i].setMaximumSize(new Dimension(300, 6));
 		}
 		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
 		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20);
+		
 		// Bottom panels
 		JPanel boxPane = new JPanel(); // Will use 2 rows
 		boxPane.setLayout(new BoxLayout(boxPane, BoxLayout.Y_AXIS)); // Vertical
 		JButton button_accept = new JButton("Accept");
 		JButton button_back = new JButton("BACK");
 		JButton button_help = new JButton("HELP");
+		
 		// Bottom panel (panel-ception) last row
 		JPanel p2 = new JPanel(); // Will have back and help buttons
 		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); // Horizontal
@@ -225,8 +209,13 @@ public class Screen {
 		p2.add(button_back);
 		p2.add(Box.createHorizontalGlue());
 		p2.add(button_help);
-		// add last row panel to bottom panel
-		boxPane.add(p2);
+		
+		boxPane.add(p2); // add last row panel to bottom panel
+		
+		//Actions
+		RegisterAcceptActionListener action = new RegisterAcceptActionListener(t_array ,F);
+		button_accept.addActionListener(action);
+		
 		// Set panels to the Frame
 		F.add(bannerPanel(), BorderLayout.NORTH);
 		F.add(p, BorderLayout.EAST);
