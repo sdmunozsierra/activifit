@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import activifit_gui.Screen;
+
 public class RegisterAcceptActionListener implements ActionListener {
 
 	private final JTextField[] t_input_array;
@@ -22,7 +24,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 	private String e; // email
 
 	// Constructor
-	public AcceptActionListener(final JTextField[] t_array, JFrame F) {
+	public RegisterAcceptActionListener(final JTextField[] t_array, JFrame F) {
 		super();
 		this.size = t_array.length;
 		this.t_input_array = new JTextField[size];
@@ -50,6 +52,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 			// If everything all right dispose Screen 
 			// Create a USER
 			// F.dispose();
+			Screen.screen_home();
 		}
 
 	}// end action performed
