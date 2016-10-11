@@ -6,10 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import activifit_gui.Screen;
+import activifit.Screen;
 
 public class RegisterAcceptActionListener implements ActionListener {
 
+	// Create Private Variables
 	private final JTextField[] t_input_array;
 	private final int size;
 	private final JFrame F;
@@ -36,7 +37,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Pressed a button");
+		//System.out.println("Pressed a button"); //Debugging 
 		extractData(t_input_array);
 		//I suppose the following can be done with a CASE Statement
 		if (this.a == -1) {
@@ -48,10 +49,10 @@ public class RegisterAcceptActionListener implements ActionListener {
 		} else if (this.id == -1) {
 			System.out.println("BAD INDEX");
 		} else {
-			printData();
+			//printData(); //Debugging purposes
 			// If everything all right dispose Screen 
 			// Create a USER
-			// F.dispose();
+			F.dispose();
 			Screen.screen_home();
 		}
 
