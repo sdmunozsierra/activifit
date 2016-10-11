@@ -28,7 +28,7 @@ public class Screen {
 	static Color red_alizarin = new Color(231, 76, 60);
 	static Color green_emerald = new Color(46, 204, 113);
 	static Color blue_peterriver = new Color(52, 152, 219);
-	static Color blue_belizehole = new Color(41, 128, 185);
+	public static Color blue_belizehole = new Color(41, 128, 185);
 	static Color purple_amethyst = new Color(155, 89, 182);
 	static Color gray_concrete = new Color(149, 165, 166);
 	static Color black_midnight = new Color(44, 62, 80);
@@ -116,10 +116,10 @@ public class Screen {
 		// Actions
 		LoginActionListener action = new LoginActionListener(t_login, F);
 		button_accept.addActionListener(action);
-		LoginAboutUsActionListener action2 = new LoginAboutUsActionListener(F);
-		button_about.addActionListener(action2);
-		LoginHelpActionListener action3 = new LoginHelpActionListener(F);
-		button_help.addActionListener(action3);
+		button_about.addActionListener(new LoginAboutUsActionListener(F));
+		button_help.addActionListener(new LoginHelpActionListener(F));
+		// Change Color Action
+		t_login.addMouseListener(new LoginMouseAdapter(t_login));
 		
 		// Frames
 		F.add(bannerPanel(), BorderLayout.NORTH);
@@ -189,10 +189,8 @@ public class Screen {
 		// Actions
 		RegisterAcceptActionListener action = new RegisterAcceptActionListener(t_array, F);
 		button_accept.addActionListener(action);
-		RegisterBackActionListener action2 = new RegisterBackActionListener(F);
-		button_back.addActionListener(action2);
-		RegisterHelpActionListener action3 = new RegisterHelpActionListener(F);
-		button_help.addActionListener(action3);
+		button_back.addActionListener(new RegisterBackActionListener(F));
+		button_help.addActionListener(new RegisterHelpActionListener(F));
 		
 		// Set panels to the Frame
 		F.add(bannerPanel(), BorderLayout.NORTH);
