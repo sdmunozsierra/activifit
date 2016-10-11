@@ -38,9 +38,9 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		// screen_login();
+		 screen_login();
 		// screen_register();
-		 screen_home();
+		// screen_home();
 		// screen_heart();
 		// screen_temperature();
 		// screen_steps();
@@ -49,6 +49,7 @@ public class Screen {
 		// screen_logout();
 		// screen_about();
 		// screen_help();
+		
 	}// end main
 
 	/** Methods */
@@ -60,11 +61,6 @@ public class Screen {
 
 	/* Login Screen */
 	public static void screen_login() {
-		/* Missing Buttons:
-		 * Back 
-		 * Help
-		 */
-
 		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 		Border border_blue = BorderFactory.createLineBorder(blue_belizehole);
 		JFrame F = new JFrame("Log-In");
@@ -120,7 +116,11 @@ public class Screen {
 		// Actions
 		LoginActionListener action = new LoginActionListener(t_login, F);
 		button_accept.addActionListener(action);
-
+		LoginAboutUsActionListener action2 = new LoginAboutUsActionListener(F);
+		button_about.addActionListener(action2);
+		LoginHelpActionListener action3 = new LoginHelpActionListener(F);
+		button_help.addActionListener(action3);
+		
 		// Frames
 		F.add(bannerPanel(), BorderLayout.NORTH);
 		F.add(listP); // First row
@@ -479,8 +479,12 @@ public class Screen {
 		mainP.add(picturesP);
 		mainP.add(Box.createRigidArea(new Dimension(0, 250)));
 		mainP.add(buttonP);
-
+		
 		// mainP.setBackground(gray_concrete);
+		
+		//Actions
+		AboutUsActionListener action = new AboutUsActionListener(F);
+		button_accept.addActionListener(action);
 
 		F.add(mainP);
 		viewFrame(F);
@@ -521,7 +525,10 @@ public class Screen {
 		mainP.add(buttonP);
 
 		// mainP.setBackground(gray_concrete);
-
+		//Actions
+		HelpActionListener action = new HelpActionListener(F);
+		button_accept.addActionListener(action);
+		
 		F.add(mainP);
 		viewFrame(F);
 	}
