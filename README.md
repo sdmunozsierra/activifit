@@ -8,3 +8,5 @@ There include actions for calling different screens and validating data.
 
 Resources:
 https://www.materialui.co/
+
+###Commented from Eclipse IDE
