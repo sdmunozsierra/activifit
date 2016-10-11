@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import activifit.Screen;
+import user_package.*;
+
 
 public class RegisterAcceptActionListener implements ActionListener {
 
@@ -22,7 +24,10 @@ public class RegisterAcceptActionListener implements ActionListener {
 	private int w; // weight
 	private int h; // height
 	private int id; // active Id
-	private String e; // email
+	private String email; // email
+	
+	//DATABASE INFO
+	private UserDatabase dataB;
 
 	// Constructor
 	public RegisterAcceptActionListener(final JTextField[] t_array, JFrame F) {
@@ -52,11 +57,19 @@ public class RegisterAcceptActionListener implements ActionListener {
 			//printData(); //Debugging purposes
 			// If everything all right dispose Screen 
 			// Create a USER
+			registerUser();
 			F.dispose();
 			Screen.screen_home();
 		}
 
 	}// end action performed
+	
+	public void registerUser(){
+		User newUser = new User(n, a, w, h, id, email);
+		dataB.addToDatabase(newUser);
+	}
+	
+	
 
 	// Extracts the data from the JTextField
 	public void extractData(JTextField[] data) {
@@ -69,7 +82,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 		this.w = tryParse(data[2].getText());
 		this.h = tryParse(data[3].getText());
 		this.id = tryParse(data[4].getText());
-		this.e = data[5].getText();
+		this.email = data[5].getText();
 	}
 
 	// Prints the data [debugging purposes]
