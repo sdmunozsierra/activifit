@@ -1,13 +1,13 @@
 #Contains Graphical User Interface
 
-*Screen: has all the screens that the program uses.
-  *Login
-  *Register
-  *Etc
+* Screen: has all the screens that the program uses.
+  * Login
+  * Register
+  * Etc
   
-*SpringUtilities: Utilities for forms.
+* SpringUtilities: Utilities for forms.
 
-*ImageUtilities: Utilities for images.
+* ImageUtilities: Utilities for images.
   *Pull images from internet
   *Pull images from local directory
   
