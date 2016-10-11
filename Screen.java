@@ -1,4 +1,4 @@
-package activifit_gui;
+package activifit;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,9 +17,7 @@ public class Screen {
 
 	/** Resources */
 	/*
-	 * Maybe it would be a good idea to change remove as much resources as
-	 * possible and leave everything inside it's own method. Colors, and Images
-	 * can be in a different class if things get messy.
+	 * Color can be moved to another package or class afterwards.
 	 */
 	/* Variables */
 	// Resolution taken from an iPhone5 320x568 pixels
@@ -30,7 +28,7 @@ public class Screen {
 	static Color red_alizarin = new Color(231, 76, 60);
 	static Color green_emerald = new Color(46, 204, 113);
 	static Color blue_peterriver = new Color(52, 152, 219);
-	static Color blue_belizehole = new Color(41,128,185);
+	static Color blue_belizehole = new Color(41, 128, 185);
 	static Color purple_amethyst = new Color(155, 89, 182);
 	static Color gray_concrete = new Color(149, 165, 166);
 	static Color black_midnight = new Color(44, 62, 80);
@@ -40,9 +38,9 @@ public class Screen {
 	public static void main(String args[]) {
 		// For alpha stage, main will be developed here for simplicity
 
-		//screen_login();
-		 screen_register();
-		// screen_home();
+		// screen_login();
+		// screen_register();
+		 screen_home();
 		// screen_heart();
 		// screen_temperature();
 		// screen_steps();
@@ -60,52 +58,13 @@ public class Screen {
 	public Screen() {
 	}
 
-	/* HomePage screen */
-	public static void screen_home() {
-		JFrame F = new JFrame("Homepage");
-		// Panel for information (BOX LAYOUT)
-		JPanel P = new JPanel();
-		P.setLayout(new BoxLayout(P, BoxLayout.PAGE_AXIS));
-		P.add(Box.createRigidArea(new Dimension(0, 50)));
-		// Panel for Buttons (FLOW LAYOUT)
-		JPanel buttonP = new JPanel();
-		buttonP.setLayout(new FlowLayout());
-		// --Components--//
-		// Labels
-		String[] labels = { "Hello PERSON", "Display Time", "Today's Daily Feed", "THIS WILL BE A GRAPH(hopefully)", };
-		for (int i = 0; i < labels.length; i++) {
-			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-			P.add(l);
-			l.setAlignmentX(Component.CENTER_ALIGNMENT);
-			// if statement to span everything BUT last component
-			if (i < labels.length - 1) {
-				P.add(Box.createRigidArea(new Dimension(0, 30)));
-			} else {
-				P.add(Box.createRigidArea(new Dimension(0, 10)));
-			}
-		}
-		// Buttons
-		String[] buttons = { "HEART", "STEPS", "TEMP", "SLEEP", "SHARE" };
-		for (int i = 0; i < buttons.length; i++) {
-			JButton b = new JButton(buttons[i]);
-			b.setMargin(new java.awt.Insets(1, 6, 1, 6));
-			buttonP.add(b);
-		}
-		// Graph Image
-		JLabel graph = new JLabel();
-		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
-		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
-		P.add(graph);
-
-		// add panels to frame
-		F.add(bannerPanel(), BorderLayout.NORTH);
-		F.add(P, BorderLayout.CENTER);
-		F.add(buttonP, BorderLayout.SOUTH);
-		viewFrame(F); // displays the frame
-	}// end Screen
-
 	/* Login Screen */
 	public static void screen_login() {
+		/* Missing Buttons:
+		 * Back 
+		 * Help
+		 */
+
 		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 		Border border_blue = BorderFactory.createLineBorder(blue_belizehole);
 		JFrame F = new JFrame("Log-In");
@@ -141,7 +100,7 @@ public class Screen {
 
 		// Buttons
 		JButton button_accept = new JButton("DONE");
-		
+
 		// Add components and span.
 		listP.add(Box.createRigidArea(new Dimension(0, ry / 4)));
 		listP.add(l_sign); // Sign in label
@@ -158,11 +117,11 @@ public class Screen {
 		l_enter.setAlignmentX(Component.CENTER_ALIGNMENT);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		//Actions
+		// Actions
 		LoginActionListener action = new LoginActionListener(t_login, F);
 		button_accept.addActionListener(action);
-		
-		//Frames
+
+		// Frames
 		F.add(bannerPanel(), BorderLayout.NORTH);
 		F.add(listP); // First row
 		F.add(panel, BorderLayout.SOUTH);
@@ -171,57 +130,125 @@ public class Screen {
 
 	/* Screen Register */
 	public static void screen_register() {
+		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 		JFrame F = new JFrame("Register");
 
 		String[] labels = { "Name: ", "Age: ", "Weight: ", "Height: ", "Active Id: ", "Email: " };
 		int numPairs = labels.length;
 
+		// Create an array of JTextFields 
 		JTextField[] t_array = new JTextField[numPairs];
-		// Create and populate the form panel.
-		JPanel p = new JPanel(new SpringLayout());
+		
+		// Container Panel (Box Layout)
+		JPanel containerP = new JPanel();
+		containerP.setLayout(new BoxLayout(containerP, BoxLayout.PAGE_AXIS));
+				
+		// Create form panel (Spring Layout)
+		JPanel springP = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
 			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-			p.add(l);
+			springP.add(l);
 			t_array[i] = new JTextField(20);
 			l.setLabelFor(t_array[i]);
-			p.add(t_array[i]);
+			springP.add(t_array[i]);
+			t_array[i].setBorder(border_default);
 			t_array[i].setMaximumSize(new Dimension(300, 6));
 		}
 		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
-		SpringUtilities.makeGrid(p, numPairs, 2, 6, 6, 6, 20);
-		
+		SpringUtilities.makeGrid(springP, numPairs, 2, 6, 6, 6, 20);
+
 		// Bottom panels
-		JPanel boxPane = new JPanel(); // Will use 2 rows
-		boxPane.setLayout(new BoxLayout(boxPane, BoxLayout.Y_AXIS)); // Vertical
+		JPanel bottomP = new JPanel(); // Will use 2 rows
+		bottomP.setLayout(new BoxLayout(bottomP, BoxLayout.Y_AXIS)); // Vertical
+		
+		// Create buttons
 		JButton button_accept = new JButton("Accept");
 		JButton button_back = new JButton("BACK");
 		JButton button_help = new JButton("HELP");
-		
-		// Bottom panel (panel-ception) last row
-		JPanel p2 = new JPanel(); // Will have back and help buttons
-		p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS)); // Horizontal
 
-		// Add buttons, properties and spaces
-		boxPane.add(button_accept);
+		// Navigation panel for last row
+		JPanel navP = new JPanel(); // Will have back and help buttons
+		navP.setLayout(new BoxLayout(navP, BoxLayout.X_AXIS)); // Horizontal
+
+		// Add springP to ContainerP (for spacing options)
+		containerP.add(Box.createRigidArea(new Dimension(0, 35))); //Add space
+		containerP.add(springP); //Add form panel
+		containerP.add(Box.createRigidArea(new Dimension(0, 35)));
+		
+		// Add buttons, properties and spaces to Bottom panel
+		bottomP.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-		boxPane.add(Box.createRigidArea(new Dimension(0, 50))); // rigid area to
-																// last row
-		p2.add(button_back);
-		p2.add(Box.createHorizontalGlue());
-		p2.add(button_help);
+		bottomP.add(Box.createRigidArea(new Dimension(0, 50))); // rigid area to
+		// Add NavPanel 	
+		navP.add(button_back);
+		navP.add(Box.createHorizontalGlue());
+		navP.add(button_help);
+		// Add last row panel to bottom panel
+		bottomP.add(navP); 
 		
-		boxPane.add(p2); // add last row panel to bottom panel
-		
-		//Actions
-		RegisterAcceptActionListener action = new RegisterAcceptActionListener(t_array ,F);
+		// Actions
+		RegisterAcceptActionListener action = new RegisterAcceptActionListener(t_array, F);
 		button_accept.addActionListener(action);
+		RegisterBackActionListener action2 = new RegisterBackActionListener(F);
+		button_back.addActionListener(action2);
+		RegisterHelpActionListener action3 = new RegisterHelpActionListener(F);
+		button_help.addActionListener(action3);
 		
 		// Set panels to the Frame
 		F.add(bannerPanel(), BorderLayout.NORTH);
-		F.add(p, BorderLayout.EAST);
-		F.add(boxPane, BorderLayout.SOUTH);
+		F.add(containerP, BorderLayout.EAST);
+		F.add(bottomP, BorderLayout.SOUTH);
 		viewFrame(F);
 	}// end screen_register
+
+	/* HomePage screen */
+	public static void screen_home() {
+		JFrame F = new JFrame("Homepage");
+		// Panel for information (BOX LAYOUT)
+		JPanel P = new JPanel();
+		P.setLayout(new BoxLayout(P, BoxLayout.PAGE_AXIS));
+		P.add(Box.createRigidArea(new Dimension(0, 50)));
+		// Panel for Buttons (FLOW LAYOUT)
+		JPanel buttonP = new JPanel();
+		buttonP.setLayout(new FlowLayout());
+		
+		// Labels
+		String[] labels = { "Hello PERSON", "Display Time", "Today's Daily Feed", "THIS WILL BE A GRAPH(hopefully)", };
+		for (int i = 0; i < labels.length; i++) {
+			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+			P.add(l);
+			l.setAlignmentX(Component.CENTER_ALIGNMENT);
+			// if statement to span everything BUT last component
+			if (i < labels.length - 1) {
+				P.add(Box.createRigidArea(new Dimension(0, 33)));
+			} else {
+				P.add(Box.createRigidArea(new Dimension(0, 10)));
+			}
+		}
+		// Actions
+		HomeMenuActionListener action = new HomeMenuActionListener(F);
+		
+		// Buttons
+		String[] buttons = { "HEART", "STEPS", "TEMP", "SLEEP", "SHARE" };
+		for (int i = 0; i < buttons.length; i++) {
+			JButton b = new JButton(buttons[i]);
+			b.setMargin(new java.awt.Insets(1, 6, 1, 6)); // Format
+			action = new HomeMenuActionListener(F, i);
+			b.addActionListener(action);
+			buttonP.add(b);
+		}
+		// Graph Image
+		JLabel graph = new JLabel();
+		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
+		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		P.add(graph);
+
+		// add panels to frame
+		F.add(bannerPanel(), BorderLayout.NORTH);
+		F.add(P, BorderLayout.CENTER);
+		F.add(buttonP, BorderLayout.SOUTH);
+		viewFrame(F); // displays the frame
+	}// end Screen
 
 	/* Heart Rate Screen */
 	public static void screen_heart() {
@@ -248,7 +275,7 @@ public class Screen {
 		background.add(displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(), BorderLayout.SOUTH);
+		F.add(navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -279,7 +306,7 @@ public class Screen {
 		background.add(change_displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(), BorderLayout.SOUTH);
+		F.add(navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -311,7 +338,7 @@ public class Screen {
 		background.add(change_displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(), BorderLayout.SOUTH);
+		F.add(navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -322,12 +349,7 @@ public class Screen {
 		JPanel background = backgroundPanel("http://i.imgur.com/1BxhCZb.jpg", 2);
 
 		// Labels
-		JLabel current_sleep = new JLabel("Yesterday's Sleep Quality"); // This
-																		// will
-																		// be
-																		// pulled
-																		// from//From
-																		// SLEEP.CLASS
+		JLabel current_sleep = new JLabel("Yesterday's Sleep Quality"); 
 		JLabel rem = new JLabel("REM Time"); // From SLEEP.CLASS
 		JLabel light = new JLabel("Light Sleep Time"); // From SLEEP.CLASS
 		JLabel deep = new JLabel("Deep Sleep Time"); // From SLEEP.CLASS
@@ -350,7 +372,7 @@ public class Screen {
 		background.add(change_displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(), BorderLayout.SOUTH);
+		F.add(navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -400,6 +422,10 @@ public class Screen {
 		container.add(iconsP);// add icons panel
 		iconsP.add(Box.createVerticalGlue()); // add glue
 		container.add(sharing_iconP);// add sharing icon
+		
+		// Actions
+		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
+		button_back.addActionListener(action);
 
 		F.add(container, BorderLayout.CENTER);
 		F.add(backP, BorderLayout.SOUTH);
@@ -547,7 +573,7 @@ public class Screen {
 	}
 
 	/* Banner navPanel */
-	public static JPanel navPanel() {
+	public static JPanel navPanel(JFrame F) {
 		/*
 		 * Add to the as-> Frame.add(navPanel(), BorderLayout.SOUTH) Panel
 		 * containing back and share.
@@ -555,12 +581,17 @@ public class Screen {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		// Create Buttons
-		JButton button_back = new JButton("[BACK]");
+		JButton button_back = new JButton("BACK");
 		JButton button_share_this = new JButton("[SHARE_T]");
 		// Add to panel with glue between two buttons
 		panel.add(button_back);
 		panel.add(Box.createHorizontalGlue());
 		panel.add(button_share_this);
+		
+		//Action
+		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
+		button_back.addActionListener(action);
+		
 		// Return panel
 		panel.setBackground(Color.WHITE); // Sets the 'glue' color
 		return panel;
@@ -653,7 +684,8 @@ public class Screen {
 
 	/* --Extra Methods-- */
 	public static boolean isValidEmailAddress(String email) {
-		//From http://stackoverflow.com/questions/624581/what-is-the-best-java-email-address-validation-method
+		// From
+		// http://stackoverflow.com/questions/624581/what-is-the-best-java-email-address-validation-method
 		String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 		java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
 		java.util.regex.Matcher m = p.matcher(email);
