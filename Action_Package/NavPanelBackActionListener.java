@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import gui_package.Screen;
+import activifit.Screen;
 
 /* Class for going back to the home screen */
 public class NavPanelBackActionListener implements ActionListener {

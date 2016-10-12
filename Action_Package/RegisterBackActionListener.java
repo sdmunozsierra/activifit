@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import gui_package.Screen;
+import activifit.Screen;
 
 public class RegisterBackActionListener implements ActionListener {
 

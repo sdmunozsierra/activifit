@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import gui_package.Screen;
+import activifit.Screen;
 
 public class LoginActionListener implements ActionListener{
 	private static Border border_default = BorderFactory.createLineBorder(Color.BLACK);
