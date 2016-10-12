@@ -4,12 +4,12 @@ Developed on Java.  :shipit:
 
 ##Features
 
-#Heartbeat
+###Heartbeat
 
-#Steps
+###Steps
 
-#Temperature
+###Temperature
 
-#Sleep Quality
+###Sleep Quality
 
-#Share
+###Share
