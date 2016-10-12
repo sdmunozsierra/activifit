@@ -5,11 +5,12 @@ package user_package;
 public class User {
 	
 	private String name;	
+	
 	private int age; 
 	private int weight;
 	private int height; 
 	private int actId; 
-	private String email; 
+	private String email;
 	
 	//Constructor
 	/* Variables are already sanitized at this point, so 
@@ -23,10 +24,23 @@ public class User {
 		this.email = e;
 	}
 
+	//Getters
+	//GetName
+	public String getName() {
+		return name;
+	}
+	//Get email
+	public String getEmail(){
+		return this.email;
+	}
+	
+	
 	//Prints the name of the user
 	/* Not to be confused with username */
 	public void printUserName(){
 		System.out.printf("User Name: %s", this.name);
 	}
 
+	
+	
 }
