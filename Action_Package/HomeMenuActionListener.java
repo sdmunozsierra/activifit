@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import activifit.Screen;
+import gui_package.Screen;
 
 /* This class will be a more dynamic way to implement the actions for buttons
  * in the Home Screen, requiring a opt parameter 
