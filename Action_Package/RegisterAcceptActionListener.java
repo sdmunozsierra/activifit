@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import activifit.Screen;
+import gui_package.Screen;
 import user_package.*;
 
 

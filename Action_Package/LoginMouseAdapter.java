@@ -7,7 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import activifit.Screen;
+import gui_package.Screen;
 
 public class LoginMouseAdapter implements MouseListener{
 private Border border_blue = BorderFactory.createLineBorder(Screen.blue_belizehole);
