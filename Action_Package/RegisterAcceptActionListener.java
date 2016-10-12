@@ -27,8 +27,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 	private String email; // email
 	
 	//DATABASE INFO
-	private UserDatabase dataB;
-
+	
 	// Constructor
 	public RegisterAcceptActionListener(final JTextField[] t_array, JFrame F) {
 		super();
@@ -39,6 +38,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 		}
 		this.F = F;
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -58,21 +58,22 @@ public class RegisterAcceptActionListener implements ActionListener {
 			// If everything all right dispose Screen 
 			// Create a USER
 			registerUser();
+			System.out.println("Temporal database items:\n");
+			Screen.globalDatabase.printAll();
 			F.dispose();
 			Screen.screen_home();
 		}
 
 	}// end action performed
 	
+	//Register a user
 	public void registerUser(){
 		User newUser = new User(n, a, w, h, id, email);
-		dataB.addToDatabase(newUser);
+		Screen.globalDatabase.addUserToDatabase(newUser);;
 	}
-	
-	
 
 	// Extracts the data from the JTextField
-	public void extractData(JTextField[] data) {
+	private void extractData(JTextField[] data) {
 		/*
 		 * I don't know if there is a way to loop this instead of hard coding
 		 * it..?
