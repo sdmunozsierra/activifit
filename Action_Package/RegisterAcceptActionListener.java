@@ -1,32 +1,33 @@
 package action_package;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import gui_package.Screen;
 import user_package.*;
 
 
 public class RegisterAcceptActionListener implements ActionListener {
-
+	// Border
+	private static Border border_error = BorderFactory.createLineBorder(Color.RED);
 	// Create Private Variables
 	private final JTextField[] t_input_array;
 	private final int size;
 	private final JFrame F;
-
+	// Input Variables
 	private String[] labels = { "Name: ", "Age: ", "Weight: ", "Height: ", "Active Id: ", "Email: " };
-
 	private String n; // name
 	private int a; // age
 	private int w; // weight
 	private int h; // height
 	private int id; // active Id
 	private String email; // email
-	
-	//DATABASE INFO
 	
 	// Constructor
 	public RegisterAcceptActionListener(final JTextField[] t_array, JFrame F) {
@@ -39,35 +40,38 @@ public class RegisterAcceptActionListener implements ActionListener {
 		this.F = F;
 	}
 	
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//System.out.println("Pressed a button"); //Debugging 
+		boolean flagError = false;
 		extractData(t_input_array);
-		//I suppose the following can be done with a CASE Statement
-		if (this.a == -1) {
-			System.out.println("BAD AGE INPUT");
-		} else if (this.w == -1) {
-			System.out.println("BAD WEIGHT");
-		} else if (this.h == -1) {
-			System.out.println("BAD HEIGHT");
-		} else if (this.id == -1) {
-			System.out.println("BAD INDEX");
-		} else {
-			//printData(); //Debugging purposes
-			// If everything all right dispose Screen 
-			// Create a USER
-			registerUser();
-			System.out.println("Temporal database items:\n");
-			Screen.globalDatabase.printAll();
+		//TO-DO change to a switch statement for a better design
+		//TO-DO make some pop ups showing what exactly the error is
+		if (this.a <0 || this.a > 120) {
+			t_input_array[1].setBorder(border_error);
+			flagError = true;
+		}
+		if (this.w < 0 || this.w > 300) {
+			t_input_array[2].setBorder(border_error);
+			flagError = true;
+		} 
+		if (this.h < 0 || this.h > 500) {
+			t_input_array[3].setBorder(border_error);
+			flagError = true;
+		} 
+		if (this.id < 0 || this.id> 9) {
+			t_input_array[4].setBorder(border_error);
+			flagError = true;
+		} 
+		if (!flagError) {
+			registerUser(); // Create a USER
+			Screen.globalDatabase.printAllDetails();
 			F.dispose();
 			Screen.screen_home();
 		}
-
 	}// end action performed
 	
 	//Register a user
-	public void registerUser(){
+	private void registerUser(){
 		User newUser = new User(n, a, w, h, id, email);
 		Screen.globalDatabase.addUserToDatabase(newUser);;
 	}
@@ -96,7 +100,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 	}
 
 	//Method for checking if the parsed Int is really an Integer
-	public static Integer tryParse(String text) {
+	private static Integer tryParse(String text) {
 		try {
 			return Integer.parseInt(text);
 		} catch (NumberFormatException e) {
