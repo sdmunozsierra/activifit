@@ -262,7 +262,7 @@ public class Screen {
 
 		JPanel banner = activityBannerPanel("Heart Rate", black_midnight);
 
-		JPanel background = backgroundPanel("http://i.imgur.com/mnvGX7w.jpg", 2);
+		JPanel background = backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
 
 		JPanel displayP = changeDisplayPanel();
 
@@ -289,7 +289,7 @@ public class Screen {
 	public static void screen_temperature() {
 		JFrame F = new JFrame("Temperature");
 
-		JPanel background = backgroundPanel("http://i.imgur.com/oX1jm12.png", 2);
+		JPanel background = backgroundPanel("http://i.imgur.com/vZ0rtrH.png", 3);
 
 		// Labels
 		JLabel current_temp = new JLabel("Current temp"); // This will be pulled
@@ -320,7 +320,7 @@ public class Screen {
 	public static void screen_steps() {
 		JFrame F = new JFrame("Steps");
 
-		JPanel background = backgroundPanel("http://i.imgur.com/MCsjuEm.png", 2);
+		JPanel background = backgroundPanel("http://i.imgur.com/rFeyEtS.png", 3);
 		// Labels
 		JLabel current_steps = new JLabel("Today Number of Steps"); // This will
 																	// be pulled
@@ -642,21 +642,29 @@ public class Screen {
 
 	/* Set Background Panel */
 	public static JPanel backgroundPanel(String path, int opt) {
-		/*
-		 * OPT => Option Use 1 for Local Path Use 2 for Web Path
+		/*	OPT =>
+		 *  Use 1 for Local Path 
+		 *  Use 2 for Web Path
+		 *  Use 3 for Web path with no scaling
 		 */
 		JPanel panel = new JPanel();
 		ImageUtilities image = new ImageUtilities();
 
 		if (opt == 1) {
 			image.readFromSource(path);
+			image.setImage(image.getScaledImage(image.getImage(), rx, ry));
 		} else if (opt == 2) {
 			image.readImgFromWeb(path);
-		} else {
+			image.setImage(image.getScaledImage(image.getImage(), rx, ry));
+		} else if (opt == 3){
+			image.readImgFromWeb(path);
+			image.setImage(image.getImage());
+		}
+		else {
 			throw new Error("");
 		}
 
-		image.setImage(image.getScaledImage(image.getImage(), rx, ry));
+		//image.setImage(image.getScaledImage(image.getImage(), rx, ry));
 		panel = image.setBackgroundPanelImage(image.getImage());
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // vertical
 		return panel;
@@ -704,4 +712,3 @@ public class Screen {
 		java.util.regex.Matcher m = p.matcher(email);
 		return m.matches();
 	}
-}// end Screen Class
