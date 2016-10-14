@@ -149,11 +149,12 @@ public class Screen {
 		for (int i = 0; i < numPairs; i++) {
 			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
 			springP.add(l);
-			t_array[i] = new JTextField(20);
+			t_array[i] = new JTextField(20); //new field
 			l.setLabelFor(t_array[i]);
 			springP.add(t_array[i]);
-			t_array[i].setBorder(border_default);
-			t_array[i].setMaximumSize(new Dimension(300, 6));
+			t_array[i].setBorder(border_default); //Border color
+ 			t_array[i].setMaximumSize(new Dimension(300, 6)); //Max border
+			t_array[i].addMouseListener(new LoginMouseAdapter(t_array[i])); //Action
 			if(i == numPairs-1){ //Change email label
 				t_array[i].setText(LoginActionListener.returnValidEmail() );
 			}
