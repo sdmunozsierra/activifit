@@ -1,11 +1,9 @@
 package user_package;
 
-/* In this early stage it will be developed as a set
- * */
 public class User {
 	
+	//private fields
 	private String name;	
-	
 	private int age; 
 	private int weight;
 	private int height; 
@@ -14,7 +12,7 @@ public class User {
 	
 	//Constructor
 	/* Variables are already sanitized at this point, so 
-	 * the program will added them expecting no errors. */
+	 * the User will be added expecting no errors. */
 	public User(String n, int a, int w, int h, int id, String e){
 		this.name = n;
 		this.age = a;
@@ -24,23 +22,28 @@ public class User {
 		this.email = e;
 	}
 
-	//Getters
-	//GetName
 	public String getName() {
-		return name;
-	}
-	//Get email
-	public String getEmail(){
-		return this.email;
-	}
-	
-	
-	//Prints the name of the user
-	/* Not to be confused with username */
-	public void printUserName(){
-		System.out.printf("User Name: %s", this.name);
+		return this.name;
 	}
 
+	public int getAge() {
+		return this.age;
+	}
+
+	public int getWeight() {
+		return this.weight;
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
+	public int getActId() {
+		return this.actId;
+	}
+
+	public String getEmail() {
+		return email;
+	}
 	
-	
-}
+}//end User class
