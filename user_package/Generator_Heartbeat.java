@@ -1,5 +1,7 @@
+package user_package;
 
-public class Generator_Heartbeat {
+
+public class Generator_Heartbeat extends Generator {
 
 	// Pseudo code
 
