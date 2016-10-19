@@ -8,7 +8,7 @@ public class runMVC {
 	//Model, View, Controller Class (a.k.a. main)
 	public static void main(String args[]){
 		
-		//Screen gui = new Screen();
+		Screen gui = new Screen();
 		
 		Generator gen = new Generator(new User("Henry", 24, 70, 164, 5, "henry@hotmail.com"));
 		Generator gen1 = new Generator(new User("Monica", 36, 52, 152, 3, "monicaLeal@hotmail.com"));

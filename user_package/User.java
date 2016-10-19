@@ -45,7 +45,7 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	//Quick print (mainly for debugging)
 	public void printUser(){
 		System.out.println("Name: "+this.name+
