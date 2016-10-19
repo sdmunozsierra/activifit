@@ -46,4 +46,14 @@ public class User {
 		return email;
 	}
 	
+	//Quick print (mainly for debugging)
+	public void printUser(){
+		System.out.println("Name: "+this.name+
+				"Age: "+this.age+
+				"Weight: "+this.weight+
+				"Height: "+this.height+
+				"Active ID: "+this.actId+
+				"Email: "+this.email);
+	}
+	
 }//end User class
