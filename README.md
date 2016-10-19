@@ -16,6 +16,9 @@ __Controller__ has all the actions that the program will perform, in this projec
 All custom action listeners are in the package ActionPackage.
 There include actions for calling different screens and validating data.
 
+Generators: Will provide ‘random’ but credible information about the many activities that the user is “generating”. Each generator will have their own class and will have inheritance from a main Generator which will pull the personal data of the current user (logged-in). They are included in the _user_package_ until they become large enough to be placed in their own package, most of the data is backend, thus giving the user a clean interface.
+
+
 Resources:
 https://www.materialui.co/
 
