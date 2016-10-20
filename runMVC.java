@@ -1,5 +1,6 @@
 import gui_package.Screen;
 import user_package.Generator;
+import user_package.Generator_Heartbeat;
 import user_package.Generator_Steps;
 import user_package.Generator_Temperature;
 import user_package.User;
@@ -34,8 +35,13 @@ public class runMVC {
 		
 		//TEMPERATURE GENERATOR
 		Generator_Temperature temp = new Generator_Temperature(gen.getUser());
-		temp.testRandomness();
-		temp.printDetailTemperature();
+		//temp.testRandomness();
+		//temp.printDetailTemperature();
+		
+		//HEARTBEAT GENERATOR
+		Generator_Heartbeat heart = new Generator_Heartbeat(gen.getUser());
+		heart.testRandomness();
+		heart.printDetailTemperature();
 		
 	}//end main
 	

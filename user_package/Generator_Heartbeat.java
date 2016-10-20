@@ -1,64 +1,114 @@
 package user_package;
 
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Generator_Heartbeat extends Generator {
 
-	// Pseudo code
+	//Heart-beat States 
+	// "Too Fast" 
+	private final int TACHYCARDIA = 100; //over 100 at rest
+	// "Too Slow"
+	private final int BRADYCARDIA = 60; //less than
+	// "Normal" and Healthy heart beat 60-90
+	private final int REST_MIN = 60;
+	private final int REST_MAX = 90; 
+	
+	//User Variables
+	private int maxHR; // During exercise
+	private int dailyTargetHR; // Training or Target HR
+	private int dailyRestBPM; // Current bpm at rest
 
-	// "Normal" and Healthy heart beat 50-90
-
-	final int NormalMin = 50;
-	
-	private int maxHR;
-	final int NormalMax = maxHR;
-	
-	
-	private int age;
-	private int actId;
-
-	private int currentBPM; // Do getters
-	
-	//Constructor
-	public Generator_Heartbeat(int age, int actId){
-		this.age = age;
-		this.actId = actId;
-		this.maxHR = getHRmax(age);
+	// Constructor
+	public Generator_Heartbeat(User user) {
+		super(user);
+		this.maxHR = getMaxHR(user.getAge());
+		this.dailyTargetHR = (int) Math.round(getTargetHR(maxHR));
+		this.dailyRestBPM = getRestHR();
 	}
 
-	/**
-	 * Implement the following as a method:
-	 * 
-	 * For healthy people, the Target Heart Rate or Training Heart Rate (THR) is
-	 * a desired range of heart rate reached during aerobic exercise which
-	 * enables one's heart and lungs to receive the most benefit from a workout.
-	 * This theoretical range varies based mostly on age; however, a person's
-	 * physical condition, sex, and previous training also are used in the
-	 * calculation. Below are two ways to calculate one's THR. In each of these
-	 * methods, there is an element called "intensity" which is expressed as a
-	 * percentage. The THR can be calculated as a range of 65–85% intensity.
-	 * However, it is crucial to derive an accurate HRmax to ensure these
-	 * calculations are meaningful.[citation needed]
-	 * 
-	 * Example for someone with a HRmax of 180 (age 40, estimating HRmax As 220 minus age):
-	 * 
-	 * 65% Intensity: (220 minus (age = 40)) times 0.65 arrow 117 bpm 85% Intensity: (220 minus
-	 * (age = 40)) times 0.85 arrow 153 bpm
-	 */
+	/* Haskell and Fox Method.
+	 * Gets the max heart beat according to the age */
+	private int getMaxHR(int age) {
+		// Right now it does not differentiate between male and female
+		// So it will grab the median. 226 woman 220 men.
+		return 223 - age;
+	}// end method
 
-	/**
-	 * Implement this method. 
-	 * HRmax = 211 minus (0.64 times age)	 * 
-	 * This relationship was found to hold substantially regardless of gender,
-	 * physical activity status, maximal oxygen uptake, smoking, or body mass
-	 * index. However, a standard error of the estimate of 10.8 beats/min must
-	 * be accounted for when applying the formula to clinical settings, and the
-	 * researchers concluded that actual measurement via a maximal test may be
-	 * preferable whenever possible.
-	 */
-	private int getHRmax(int age){
-		int max = (int) (211 - (0.64 * age));
-		return max;
-	}//end method
+	/* Get random rest rate */
+	private int getRestHR(){
+		return ThreadLocalRandom.current().nextInt(REST_MIN, REST_MAX);
+	}
 	
-
+	/* Get the 50% - 85% of MaxHR */
+	private double getTargetHR(int maxHeartRate) {
+		double random = ThreadLocalRandom.current().nextDouble(.50, .85);
+		return random * maxHeartRate;
+	}
+	
+	/* Get current BPM depending on the active id */
+	private int getRandomCurrentHR(){
+		//HECHALE MAS MATES
+		double act = getRestHR() * (user.getActId() *0.25); 
+		int h = (int) Math.round(act);
+		return h;
+	}
+	
+	/* Returns the condition of the current heartbeat
+	 * @Param in bpm at rest */
+	private String getRestHeartStatus(int bpm){
+		//Note that this gives the status at rest
+		if(bpm<= BRADYCARDIA) 
+			return "BRADYCARDIA"; //<60 bpm
+		else if(bpm > REST_MIN && bpm <= REST_MAX)
+			return "NORMAL";  //61 to 90
+		else if(bpm > REST_MAX && bpm < TACHYCARDIA)
+			return "ABOVE AVERAGE"; //91 to 99
+		else
+			return "TACHYCARDIA"; // <100
+	}
+	
+	/* Print detail information about today's temperature */
+	public void printDetailTemperature(){
+		System.out.println("\nToday's Detail Activity Log ");
+		System.out.println("Time|Heartrate|Status");
+		System.out.println("---------------------");
+		for (int i = 0; i <= 24-0; i++) {
+			int t = 0+i;
+			int hr = getRandomCurrentHR();
+			String s = getRestHeartStatus(hr);
+			if (t < 10)					
+				System.out.printf("0%dam|  %d bpm|%s\n", (t), hr, s);
+			else if (t < 12)
+				System.out.printf("%dam|   %d bpm|%s\n", (t), hr, s);
+			else
+				System.out.printf("%dpm|   %d bpm|%s\n", (t), hr, s);
+		}
+		System.out.println("-----------------------");
+		System.out.println("End of temperature report");
+	}
+	
+	
+	/* See how 'random' random really is */
+	public void testRandomness(){
+		int i = 0;
+		while(i<20){
+			int h = (int) Math.round(getTargetHR(maxHR));
+			int r = getRestHR();
+			System.out.println("AGE:"+user.getAge()+" HR Target:"+h+" HR Rest: "+r);
+			i++;
+		}
+	}
+	/**
+	 * Extra information 
+	 * 
+	 * The following can and will be related to the activity index that will
+	 * modulate and change according to the user.
+	 * 
+	 * Levels of Exercises = Benefits -> Max HR (%)
+	 * Light Exercise = Maintenance for healthy heart 50% - 60%
+	 * Weight Loss = Burn fat and calories  60% - 70%
+	 * Base - Aerobic = Increase endurance and stamina 70% - 80%
+	 * Conditioning = Fitness conditioning, athletic training and muscle building  80% - 90%
+	 * Athletic - Elite = Athletic training and endurance 90% - 100%
+	 */
 }

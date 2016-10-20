@@ -47,7 +47,7 @@ public class Generator_Temperature extends Generator {
 		if(celcius<= HYPOTHERMIA) 
 			return "Hypothermia"; //<35.0 °C
 		else if(celcius> HYPOTHERMIA && celcius < NORMAL)
-			return "Cold";  //35.1- 36.4 °C
+			return "Normal Cold";  //35.1- 36.4 °C
 		else if(celcius >= NORMAL && celcius < FEVER)
 			return "Normal"; //36.5–37.5 °C
 		else if(celcius >= FEVER && celcius < HYPERPYREXIA)
@@ -68,7 +68,7 @@ public class Generator_Temperature extends Generator {
 	/* Print detail information about today's temperature */
 	public void printDetailTemperature(){
 		System.out.println("\nToday's Detail Activity Log ");
-		System.out.println("TIME|Temperature|Status");
+		System.out.println("Time|Temperature|Status");
 		System.out.println("-----------------------");
 		for (int i = 0; i <= DAY_END-DAY_START; i++) {
 			int t = DAY_START+i;
