@@ -28,6 +28,9 @@ public class RegisterAcceptActionListener implements ActionListener {
 	private int h; // height
 	private int id; // active Id
 	private String email; // email
+	// User
+	private User newUser;
+	
 	
 	// Constructor
 	public RegisterAcceptActionListener(final JTextField[] t_array, JFrame F) {
@@ -62,20 +65,33 @@ public class RegisterAcceptActionListener implements ActionListener {
 			t_input_array[4].setBorder(border_error);
 			flagError = true;
 		} 
-		if (!flagError) {
+		if (!flagError) { //VERY IMPORTANT
+			//After the registration has succeded, the user is going to be
+			//created in the database and the random data is going to be
+			//generated in order to be used EVERYWHERE else.
 			registerUser(); // Create a USER
-			Screen.globalDatabase.printAllDetails();
-			F.dispose();
-			Screen.screen_home();
+			createGlobalGen(); //Create generators
+			Screen.globalDatabase.printAllDetails(); //Debugging
+			Screen.globalGen.printAllDetails(); //Debugging
+			//F.dispose();
+			//Screen.screen_home();
 		}
 	}// end action performed
 	
 	//Register a user
 	private void registerUser(){
-		User newUser = new User(n, a, w, h, id, email);
-		Screen.globalDatabase.addUserToDatabase(newUser);;
+		this.newUser = new User(n, a, w, h, id, email);
+		Screen.globalDatabase.addUserToDatabase(newUser);
+		
+	}
+	
+	//Create Data Generator
+	private void createGlobalGen(){
+		Generator newGen = new Generator(newUser);
+		Screen.globalGen = new DataGenerator(newGen);
 	}
 
+	
 	// Extracts the data from the JTextField
 	private void extractData(JTextField[] data) {
 		/*

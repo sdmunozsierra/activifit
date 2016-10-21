@@ -16,8 +16,8 @@ import java.awt.Image;
 
 public class Screen {
 
-	/* Resources 
-	 * Many resources can be changed to private */
+	/* Resources  */
+	/* Resolutions */
 	// Resolution taken from an iPhone5 320x568 pixels
 	final static int rx = 320; // horizontal resolution
 	final static int ry = 568; // vertical resolution
@@ -32,8 +32,9 @@ public class Screen {
 	static Color black_midnight = new Color(44, 62, 80);
 	static Color white_clouds = new Color(236, 240, 241);
 	
-	/* Database */
+	/* Global Variables */
 	public final static UserDatabase globalDatabase = new UserDatabase();
+	public static DataGenerator globalGen = null; //empty until called
 
 	/** Main Method */
 	public static void main(String args[]) {
@@ -712,3 +713,4 @@ public class Screen {
 		java.util.regex.Matcher m = p.matcher(email);
 		return m.matches();
 	}
+}

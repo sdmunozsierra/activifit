@@ -1,4 +1,4 @@
-package activifit;
+package gui_package;
 
 import java.awt.Graphics;
 

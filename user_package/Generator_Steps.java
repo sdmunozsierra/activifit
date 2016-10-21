@@ -159,7 +159,7 @@ public class Generator_Steps extends Generator {
 	}
 
 	public void printDetailDistance(){
-		System.out.println("\nToday's Detail Activity Log ");
+		System.out.println("Today's Detail Activity Log ");
 		System.out.println("TIME|Distance|Steps");
 		System.out.println("-------------------");
 		for (int i = 0; i <= DAY_END-DAY_START; i++) {
@@ -175,6 +175,6 @@ public class Generator_Steps extends Generator {
 				System.out.printf("%dpm| %.3fkm|%.0f\n", (t), d, getCurrentSteps(d));
 		}
 		System.out.println("-------------------");
-		System.out.println("Have a great day!");
+		System.out.println("End distance report");
 	}
 }

@@ -67,7 +67,7 @@ public class Generator_Temperature extends Generator {
 	
 	/* Print detail information about today's temperature */
 	public void printDetailTemperature(){
-		System.out.println("\nToday's Detail Activity Log ");
+		System.out.println("Today's Detail Activity Log ");
 		System.out.println("Time|Temperature|Status");
 		System.out.println("-----------------------");
 		for (int i = 0; i <= DAY_END-DAY_START; i++) {
@@ -75,11 +75,11 @@ public class Generator_Temperature extends Generator {
 			double temp = (double) getCurrentTemperature(t);
 			String s = getTempStatus(temp);
 			if (t < 10)
-				System.out.printf("0%dam| %.3f°C|%s\n", (t), temp, s);
+				System.out.printf("0%dam|    %.3f°C|%s\n", (t), temp, s);
 			else if (t < 12)
-				System.out.printf("%dam| %.3f°C|%s\n", (t), temp, s);
+				System.out.printf("%dam|     %.3f°C|%s\n", (t), temp, s);
 			else
-				System.out.printf("%dpm| %.3f°C|%s\n", (t), temp, s);
+				System.out.printf("%dpm|     %.3f°C|%s\n", (t), temp, s);
 		}
 		System.out.println("-----------------------");
 		System.out.println("End of temperature report");

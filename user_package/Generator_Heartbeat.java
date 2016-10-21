@@ -68,8 +68,8 @@ public class Generator_Heartbeat extends Generator {
 	}
 	
 	/* Print detail information about today's temperature */
-	public void printDetailTemperature(){
-		System.out.println("\nToday's Detail Activity Log ");
+	public void printDetailHeartbeat(){
+		System.out.println("Today's Detail Activity Log ");
 		System.out.println("Time|Heartrate|Status");
 		System.out.println("---------------------");
 		for (int i = 0; i <= 24-0; i++) {
@@ -77,14 +77,14 @@ public class Generator_Heartbeat extends Generator {
 			int hr = getRandomCurrentHR();
 			String s = getRestHeartStatus(hr);
 			if (t < 10)					
-				System.out.printf("0%dam|  %d bpm|%s\n", (t), hr, s);
+				System.out.printf("0%dam|   %d bpm|%s\n", (t), hr, s);
 			else if (t < 12)
-				System.out.printf("%dam|   %d bpm|%s\n", (t), hr, s);
+				System.out.printf("%dam|    %d bpm|%s\n", (t), hr, s);
 			else
 				System.out.printf("%dpm|   %d bpm|%s\n", (t), hr, s);
 		}
 		System.out.println("-----------------------");
-		System.out.println("End of temperature report");
+		System.out.println("End of Heartbeat report");
 	}
 	
 	
