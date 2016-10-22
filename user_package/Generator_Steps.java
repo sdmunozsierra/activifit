@@ -112,7 +112,7 @@ public class Generator_Steps extends Generator {
 	/* Current Distance
 	 * @param time -> not implemented yet
 	 * Right now it only checks time per hour, no minutes allowed */
-	private double getCurrentDistance(int currentTime){
+	public double getCurrentDistance(int currentTime){
 		//@param time in military time ej: 22 hrs, 08 hrs
 		//As right now the program will start the day at 06 and end at 24
 		//TO-DO: check bounds for time (half implemented)
@@ -125,7 +125,7 @@ public class Generator_Steps extends Generator {
 	}
 
 	/* Returns the number of steps at the time */ 
-	private double getCurrentSteps(double currDist){
+	public double getCurrentSteps(double currDist){
 		this.currentSteps = (double) currDist*this.stepsPerKm;
 		return this.currentSteps;
 	}

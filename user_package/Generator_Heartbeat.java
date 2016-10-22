@@ -5,10 +5,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Generator_Heartbeat extends Generator {
 
 	//Heart-beat States 
-	// "Too Fast" 
-	private final int TACHYCARDIA = 100; //over 100 at rest
-	// "Too Slow"
-	private final int BRADYCARDIA = 60; //less than
+	private final int TACHYCARDIA = 100; //over 100 at rest "Too Fast" 
+	private final int BRADYCARDIA = 60; //less than "Too Slow"
 	// "Normal" and Healthy heart beat 60-90
 	private final int REST_MIN = 60;
 	private final int REST_MAX = 90; 
@@ -35,7 +33,8 @@ public class Generator_Heartbeat extends Generator {
 	}// end method
 
 	/* Get random rest rate */
-	private int getRestHR(){
+	public int getRestHR(){
+		//This never returns an annormal state
 		return ThreadLocalRandom.current().nextInt(REST_MIN, REST_MAX);
 	}
 	
@@ -48,14 +47,14 @@ public class Generator_Heartbeat extends Generator {
 	/* Get current BPM depending on the active id */
 	private int getRandomCurrentHR(){
 		//HECHALE MAS MATES
-		double act = getRestHR() * (user.getActId() *0.25); 
+		double act = getRestHR() + (user.getActId() *3.5); 
 		int h = (int) Math.round(act);
 		return h;
 	}
 	
 	/* Returns the condition of the current heartbeat
 	 * @Param in bpm at rest */
-	private String getRestHeartStatus(int bpm){
+	public String getRestHeartStatus(int bpm){
 		//Note that this gives the status at rest
 		if(bpm<= BRADYCARDIA) 
 			return "BRADYCARDIA"; //<60 bpm
@@ -66,6 +65,66 @@ public class Generator_Heartbeat extends Generator {
 		else
 			return "TACHYCARDIA"; // <100
 	}
+	
+	/* Returns an array with a day's worth of information */
+	private int[] dayStatistics(){
+		int [] array = new int[24]; //24 hours
+		for (int i = 0; i < array.length; i++) {
+			array[i] = getRandomCurrentHR();
+		}
+		return array;
+	}
+	
+	/* Returns an array with a week's worth of information */
+	private int[] weekStatistics(){
+		int [] array = new int[7]; //7 days (boooo scaryyyy)
+		for (int i = 0; i < array.length; i++) {
+			array[i] = findAverage(dayStatistics()); 
+		}
+		return array;
+	}
+	
+	/* Returns an array with a months' worth of information */
+	private int[] monthlyStatistics(){
+		int [] array = new int[4]; //4 weeks
+		for (int i = 0; i < array.length; i++) {
+			array[i] = findAverage(weekStatistics());
+		}
+		return array;
+	}
+	
+	/* Returns the Random HB at rest influenced by active ID */
+	public int[][] sendRandomData(){
+		int[][] data = new int[3][];
+		data[0] = new int[4]; //Monthly Data
+		data[1] = new int[7]; //Weekly Data
+		data[2] = new int[24]; //Daily Data
+		int[] month = monthlyStatistics();
+		int[] week = weekStatistics();
+		int[] day = dayStatistics();
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if(i == 0) //Month data
+					data[i][j] = month[j];
+				if(i == 1) //Week data
+					data[i][j] = week[j];
+				else
+					data[i][j] = day[j];
+			}//end for
+		}//end for
+		return data;
+	}
+	
+	/* Returns the average of information */
+	private int findAverage(int[] intArray){
+		int avg = 0;
+		for (int i = 0; i < intArray.length; i++) {
+			avg += intArray[i];
+		}
+		return avg/intArray.length; 
+	}
+	
 	
 	/* Print detail information about today's temperature */
 	public void printDetailHeartbeat(){
@@ -98,6 +157,7 @@ public class Generator_Heartbeat extends Generator {
 			i++;
 		}
 	}
+	
 	/**
 	 * Extra information 
 	 * 

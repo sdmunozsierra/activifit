@@ -7,12 +7,12 @@ import user_package.Generator_Temperature;
 import user_package.User;
 
 public class DataGenerator {
-	//Private variables
-	private Generator gen;
-	private Generator_Steps steps;
-	private Generator_Temperature temp;
-	private Generator_Heartbeat heart;
-	
+	// Private variables
+	private Generator gen; //Generator must kept as private for sensitive data
+	// Individual Generators are public
+	public Generator_Steps steps;
+	public Generator_Temperature temp;
+	public Generator_Heartbeat heart;
 	
 	//Constructor 
 	public DataGenerator(Generator g){

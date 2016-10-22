@@ -34,7 +34,7 @@ public class Generator_Temperature extends Generator {
 	/* Returns the current temperature according to the time of the day 
 	 * This method is for a normal temperature, change to do more complex
 	 * stuff like, change according to the activity index*/
-	private double getCurrentTemperature(int currentTime){
+	public double getCurrentTemperature(int currentTime){
 		//First get the variation according to time
 		double var = getVariation(currentTime);
 		currentTemperature = NORMAL + var;
@@ -43,7 +43,7 @@ public class Generator_Temperature extends Generator {
 	
 	/* Returns the condition of the current temperature
 	 * @Param in celcius degrees */
-	private String getTempStatus(double celcius){
+	public String getTempStatus(double celcius){
 		if(celcius<= HYPOTHERMIA) 
 			return "Hypothermia"; //<35.0 °C
 		else if(celcius> HYPOTHERMIA && celcius < NORMAL)

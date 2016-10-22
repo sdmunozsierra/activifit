@@ -4,7 +4,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import action_package.*;
+import user_package.CustomJPanels;
+//import user_package.
+import user_package.Generator_Heartbeat;
 import user_package.UserDatabase;
+import user_package.JChart;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,29 +17,36 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class Screen {
 
 	/* Resources  */
 	/* Resolutions */
 	// Resolution taken from an iPhone5 320x568 pixels
-	final static int rx = 320; // horizontal resolution
-	final static int ry = 568; // vertical resolution
+	public final static int rx = 320; // horizontal resolution
+	public final static int ry = 568; // vertical resolution
 
 	/* Colors */
-	static Color red_alizarin = new Color(231, 76, 60);
-	static Color green_emerald = new Color(46, 204, 113);
-	static Color blue_peterriver = new Color(52, 152, 219);
+	public static Color red_alizarin = new Color(231, 76, 60);
+	public static Color green_emerald = new Color(46, 204, 113);
+	public static Color blue_peterriver = new Color(52, 152, 219);
 	public static Color blue_belizehole = new Color(41, 128, 185);
-	static Color purple_amethyst = new Color(155, 89, 182);
-	static Color gray_concrete = new Color(149, 165, 166);
-	static Color black_midnight = new Color(44, 62, 80);
-	static Color white_clouds = new Color(236, 240, 241);
+	public static Color purple_amethyst = new Color(155, 89, 182);
+	public static Color gray_concrete = new Color(149, 165, 166);
+	public static Color black_midnight = new Color(44, 62, 80);
+	public static Color white_clouds = new Color(236, 240, 241);
 	
 	/* Global Variables */
 	public final static UserDatabase globalDatabase = new UserDatabase();
 	public static DataGenerator globalGen = null; //empty until called
-
+	
+	/* Time Variables */
+	static Calendar rightNow = Calendar.getInstance();
+	static int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+	public static int CURRENT_TIME = hour;
+	
 	/** Main Method */
 	public static void main(String args[]) {
 		// Test each screen individually
@@ -43,7 +54,7 @@ public class Screen {
 		// screen_login();
 		// screen_register();
 		// screen_home();
-		// screen_heart();
+//		 screen_heart();
 		// screen_temperature();
 		// screen_steps();
 		// screen_sleep();
@@ -124,7 +135,7 @@ public class Screen {
 		t_login.addMouseListener(new LoginMouseAdapter(t_login));
 		
 		// Frames
-		F.add(bannerPanel(), BorderLayout.NORTH);
+		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		F.add(listP); // First row
 		F.add(panel, BorderLayout.SOUTH);
 		viewFrame(F);
@@ -199,7 +210,7 @@ public class Screen {
 		button_help.addActionListener(new RegisterHelpActionListener(F));
 		
 		// Set panels to the Frame
-		F.add(bannerPanel(), BorderLayout.NORTH);
+		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		F.add(containerP, BorderLayout.EAST);
 		F.add(bottomP, BorderLayout.SOUTH);
 		viewFrame(F);
@@ -220,7 +231,8 @@ public class Screen {
 		String currentUser = globalDatabase.getCurrentUser().getName();
 		
 		//Labels
-		String[] labels = { "Hello "+currentUser, "Display Time", "Today's Daily Feed", "THIS WILL BE A GRAPH(hopefully)", };
+		String[] labels = { "Hello "+currentUser, "Time: "+CURRENT_TIME+" Hours", "Today's Daily Feed"
+				, "THIS WILL BE A GRAPH(hopefully)", };
 		for (int i = 0; i < labels.length; i++) {
 			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
 			P.add(l);
@@ -251,7 +263,7 @@ public class Screen {
 		P.add(graph);
 
 		// add panels to frame
-		F.add(bannerPanel(), BorderLayout.NORTH);
+		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		F.add(P, BorderLayout.CENTER);
 		F.add(buttonP, BorderLayout.SOUTH);
 		viewFrame(F); // displays the frame
@@ -260,17 +272,20 @@ public class Screen {
 	/* Heart Rate Screen */
 	public static void screen_heart() {
 		JFrame F = new JFrame("Heartbeat");
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
+		
+		// Custom panels
+		JPanel displayP = CustomJPanels.changeDisplayPanel(F);
+		JPanel banner = CustomJPanels.activityBannerPanel("Heart Rate", black_midnight);
 
-		JPanel banner = activityBannerPanel("Heart Rate", black_midnight);
-
-		JPanel background = backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
-
-		JPanel displayP = changeDisplayPanel();
-
-		// TEST LABELS
-		JLabel c1 = new JLabel("Current Rate"); // Curr rate
-		JLabel c2 = new JLabel("Health State"); // #variable for curr rate
-
+		// Local Variables from global generator
+		int restHB = globalGen.heart.getRestHR();
+		String status = globalGen.heart.getRestHeartStatus(restHB);
+		
+		// Labels
+		JLabel c1 = new JLabel("Current Rate: "+restHB); 
+		JLabel c2 = new JLabel("Health State: "+status); 
+		
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, ry / 6)));
 		background.add(c1);
@@ -282,25 +297,26 @@ public class Screen {
 		background.add(displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
 	/* Temperature Screen */
 	public static void screen_temperature() {
 		JFrame F = new JFrame("Temperature");
-
-		JPanel background = backgroundPanel("http://i.imgur.com/vZ0rtrH.png", 3);
-
-		// Labels
-		JLabel current_temp = new JLabel("Current temp"); // This will be pulled
-															// from TEMP.CLASS
-		JLabel current_temp_state = new JLabel("Current body temp state"); // From
-																			// TEMP.CLASS
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/vZ0rtrH.png", 3);
 
 		// Custom panels
-		JPanel change_displayP = changeDisplayPanel();
-		JPanel banner = activityBannerPanel("Body Temperature", red_alizarin);
+		JPanel change_displayP = CustomJPanels.changeDisplayPanel(F);
+		JPanel banner = CustomJPanels.activityBannerPanel("Body Temperature", red_alizarin);
+		
+		// Local Variables from global generator
+		double currentTemp = globalGen.temp.getCurrentTemperature(CURRENT_TIME);
+		String status = globalGen.temp.getTempStatus(currentTemp);
+		
+		// Labels
+		JLabel current_temp = new JLabel("Current temp: "+currentTemp); 
+		JLabel current_temp_state = new JLabel("Current body temp state: "+status); 
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -313,26 +329,27 @@ public class Screen {
 		background.add(change_displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
 	/* Steps Screen */
 	public static void screen_steps() {
 		JFrame F = new JFrame("Steps");
-
-		JPanel background = backgroundPanel("http://i.imgur.com/rFeyEtS.png", 3);
-		// Labels
-		JLabel current_steps = new JLabel("Today Number of Steps"); // This will
-																	// be pulled
-																	// from
-																	// TEMP.CLASS
-		JLabel current_steps_state = new JLabel("Current fitness level"); // From
-																			// TEMP.CLASS
-
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/rFeyEtS.png", 3);
+		
 		// Custom panels
-		JPanel change_displayP = changeDisplayPanel();
-		JPanel banner = activityBannerPanel("Steps", purple_amethyst);
+		JPanel change_displayP = CustomJPanels.changeDisplayPanel(F);
+		JPanel banner = CustomJPanels.activityBannerPanel("Steps", purple_amethyst);
+		
+		// Local Variables from global generator
+		DecimalFormat df = new DecimalFormat("#.##");
+		double currentDistance = globalGen.steps.getCurrentDistance(CURRENT_TIME);
+		int currentSteps = (int) globalGen.steps.getCurrentSteps(currentDistance);
+		
+		// Labels
+		JLabel current_steps = new JLabel("Current Number of Steps\n"+currentSteps); 
+		JLabel current_steps_state = new JLabel("Current Distance Traveled\n"+df.format(currentDistance)); 
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -345,7 +362,7 @@ public class Screen {
 		background.add(change_displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -353,7 +370,7 @@ public class Screen {
 	public static void screen_sleep() {
 		JFrame F = new JFrame("Sleep");
 
-		JPanel background = backgroundPanel("http://i.imgur.com/1BxhCZb.jpg", 2);
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/1BxhCZb.jpg", 2);
 
 		// Labels
 		JLabel current_sleep = new JLabel("Yesterday's Sleep Quality"); 
@@ -362,8 +379,8 @@ public class Screen {
 		JLabel deep = new JLabel("Deep Sleep Time"); // From SLEEP.CLASS
 
 		// Custom panels
-		JPanel change_displayP = changeDisplayPanel();
-		JPanel banner = activityBannerPanel("Sleep", white_clouds);
+		JPanel change_displayP = CustomJPanels.changeDisplayPanel(F);
+		JPanel banner = CustomJPanels.activityBannerPanel("Sleep", white_clouds);
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -379,10 +396,46 @@ public class Screen {
 		background.add(change_displayP);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
+	/* Custom View Screen */
+	public static void screen_customView(String featureName, String frequency){
+		JFrame F = new JFrame("Custom View");
+		
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+		
+		// Labels
+		JLabel title = new JLabel(featureName); 
+		JLabel mode = new JLabel(frequency);
+		
+		// Buttons
+		JButton button_back = new JButton("BACK");
+		
+		//Graph
+		JPanel graph = JChart.chartMonthHeart();
+		
+		
+		container.add(title);
+		title.setAlignmentX(Component.CENTER_ALIGNMENT);
+		container.add(graph);
+		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		container.add(mode);
+		mode.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//add glue
+		container.add(button_back);
+		button_back.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		//Actions
+		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
+		button_back.addActionListener(action);
+		
+		F.add(container, BorderLayout.CENTER);
+		viewFrame(F);
+	}
+	
 	/* Share Screen */
 	public static void screen_share() {
 		// Icons URLs
@@ -555,7 +608,7 @@ public class Screen {
 		JButton button_ok = new JButton("OK");
 
 		F.add(thank_youP, BorderLayout.NORTH);
-		F.add(bannerPanel(), BorderLayout.CENTER);
+		F.add(CustomJPanels.bannerPanel(), BorderLayout.CENTER);
 		F.add(button_ok, BorderLayout.SOUTH);
 		viewFrame(F);
 	}
@@ -569,107 +622,7 @@ public class Screen {
 	}
 
 	/* --Custom Panels-- */
-	/* Banner Panel */
-	public static JPanel bannerPanel() {
-		/*
-		 * Add to the as-> Frame.add(bannerPanel(), BorderLayout.NORTH) Panel
-		 * containing banner.
-		 */
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-		JLabel banner = new JLabel("Activifit"); // Banner
-		panel.add(banner);
-		banner.setFont(new Font(null, 0, 25));
-		banner.setForeground(black_midnight);
-		panel.setBackground(blue_peterriver);
-
-		return panel;
-	}
-
-	/* Banner navPanel */
-	public static JPanel navPanel(JFrame F) {
-		/*
-		 * Add to the as-> Frame.add(navPanel(), BorderLayout.SOUTH) Panel
-		 * containing back and share.
-		 */
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		// Create Buttons
-		JButton button_back = new JButton("BACK");
-		JButton button_share_this = new JButton("[SHARE_T]");
-		// Add to panel with glue between two buttons
-		panel.add(button_back);
-		panel.add(Box.createHorizontalGlue());
-		panel.add(button_share_this);
-		
-		//Action
-		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
-		button_back.addActionListener(action);
-		
-		// Return panel
-		panel.setBackground(Color.WHITE); // Sets the 'glue' color
-		return panel;
-	}// end navPanel
-	/* Activity Banner Panel */
-
-	public static JPanel activityBannerPanel(String activity, Color color) {
-		/* Panel containing a custom banner for an activity. */
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-		JLabel banner = new JLabel(activity); // Banner
-		panel.add(banner);
-		banner.setFont(new Font(null, 0, 25));
-		banner.setForeground(color);
-		panel.setOpaque(false);
-
-		// MIGHT NEED TO ADJUST BANNER MAX SIZE
-		panel.setMaximumSize(new Dimension(rx, 50));
-
-		return panel;
-	}
-
-	/* Change Display Panel */
-	public static JPanel changeDisplayPanel() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		JButton button_week = new JButton("Change to Week");
-		JButton button_month = new JButton("Change to Month");
-		panel.add(button_week);
-		panel.add(Box.createHorizontalGlue());
-		panel.add(button_month);
-		panel.setOpaque(false); // THIS IS FUCKING GOLD!!!!!!
-		return panel;
-	}
-
-	/* Set Background Panel */
-	public static JPanel backgroundPanel(String path, int opt) {
-		/*	OPT =>
-		 *  Use 1 for Local Path 
-		 *  Use 2 for Web Path
-		 *  Use 3 for Web path with no scaling
-		 */
-		JPanel panel = new JPanel();
-		ImageUtilities image = new ImageUtilities();
-
-		if (opt == 1) {
-			image.readFromSource(path);
-			image.setImage(image.getScaledImage(image.getImage(), rx, ry));
-		} else if (opt == 2) {
-			image.readImgFromWeb(path);
-			image.setImage(image.getScaledImage(image.getImage(), rx, ry));
-		} else if (opt == 3){
-			image.readImgFromWeb(path);
-			image.setImage(image.getImage());
-		}
-		else {
-			throw new Error("");
-		}
-
-		//image.setImage(image.getScaledImage(image.getImage(), rx, ry));
-		panel = image.setBackgroundPanelImage(image.getImage());
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // vertical
-		return panel;
-	}
+	//Moved to class -> CustomJPanels
 
 	/* --Custom JLabels-- */
 	/* Icon from web w/custom size */
@@ -713,4 +666,6 @@ public class Screen {
 		java.util.regex.Matcher m = p.matcher(email);
 		return m.matches();
 	}
+	
+	
 }

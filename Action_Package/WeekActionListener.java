@@ -7,21 +7,21 @@ import javax.swing.JFrame;
 
 import gui_package.Screen;
 
-public class RegisterBackActionListener implements ActionListener {
+public class WeekActionListener implements ActionListener {
 
 	// Create private variables
 	private final JFrame F;
-	
-	//Constructor
-	public RegisterBackActionListener(JFrame F){
-	        super();
-	        this.F = F;
-	    }
+
+	// Constructor
+	public WeekActionListener(JFrame F) {
+		super();
+		this.F = F;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Screen.screen_login(); // open login Screen
+		Screen.screen_customView("Hearbeat @ Rest", "Weekly"); // open help
 		F.dispose(); // Kill window once launched the next one
 	}// end action performed
 
-}//end class
+}// end class

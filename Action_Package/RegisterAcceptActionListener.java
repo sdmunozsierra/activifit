@@ -74,7 +74,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 			Screen.globalDatabase.printAllDetails(); //Debugging
 			Screen.globalGen.printAllDetails(); //Debugging
 			//F.dispose();
-			//Screen.screen_home();
+			Screen.screen_home();
 		}
 	}// end action performed
 	
