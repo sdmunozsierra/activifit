@@ -5,6 +5,7 @@ Developed on Java.  :shipit:
 ##Features
 
 ###Heartbeat
+Measure the heartbeat of the subject according to the age and activity index.
 
 ###Steps
 This feature will be generated with a random step generation along with with the age of the user and a preset value on how active the person is during the day.
