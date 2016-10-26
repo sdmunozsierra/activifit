@@ -19,7 +19,10 @@ There include actions for calling different screens and validating data.
 Generators: Will provide ‘random’ but credible information about the many activities that the user is “generating”. Each generator will have their own class and will have inheritance from a main Generator which will pull the personal data of the current user (logged-in). They are included in the _user_package_ until they become large enough to be placed in their own package, most of the data is backend, thus giving the user a clean interface.
 
 ###Resources
-__Plugins (Eclipse):__ _eGit:_ Is used to maintain compatibility with online repositories from Github, commits and history are the main functionalities.
+__Plugins (Eclipse):__ 
+
+_eGit:_ Is used to maintain compatibility with online repositories from Github, commits and history are the main functionalities.
+
 _e(fx)clipse:_ Because some machines do not have compatibility with JavaFX (mainly used to create charts and scenes), e(fx)clipse is a great tool that works flawlessly.
  
  
