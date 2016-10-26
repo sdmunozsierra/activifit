@@ -78,6 +78,11 @@ public class Generator_Heartbeat extends Generator {
 	/* Returns an array with a week's worth of information */
 	private int[] weekStatistics(){
 		int [] array = new int[7]; //7 days (boooo scaryyyy)
+		
+		//Tienes que hacer un array de 7 que agarre uno de 24
+		//A ese de 24 lo vas a correr 7 veces y vas a sacar un avg
+		//Ese avg lo vas a depositar en el nuevo array
+		
 		for (int i = 0; i < array.length; i++) {
 			array[i] = findAverage(dayStatistics()); 
 		}
@@ -109,7 +114,7 @@ public class Generator_Heartbeat extends Generator {
 					data[i][j] = month[j];
 				if(i == 1) //Week data
 					data[i][j] = week[j];
-				else
+				else //day data
 					data[i][j] = day[j];
 			}//end for
 		}//end for
@@ -147,7 +152,7 @@ public class Generator_Heartbeat extends Generator {
 	}
 	
 	
-	/* See how 'random' random really is */
+	/* See how 'random' random really is [Debugging]*/
 	public void testRandomness(){
 		int i = 0;
 		while(i<20){
@@ -156,6 +161,35 @@ public class Generator_Heartbeat extends Generator {
 			System.out.println("AGE:"+user.getAge()+" HR Target:"+h+" HR Rest: "+r);
 			i++;
 		}
+	}
+	
+	/* Print the 2dArray [Debugging]*/
+	public void print2d(int[][] data) {
+		//int[][] data = sendRandomData();
+		int[] month = monthlyStatistics();
+		int[] week = weekStatistics();
+		int[] day = dayStatistics();
+
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				System.out.println("GLOBAL I AND J: i = "+(i)+" j = "+(j));
+				if (i == 0){ // Month data
+					System.out.println("Month Data");
+					System.out.println("month J ->"+j)
+					;data[i][j] = month[j];
+				}
+				if (i == 1) {// Week data
+					System.out.println("week Data");
+					System.out.println("week J ->"+j);
+					data[i][j] = week[j];
+				}
+				if (i == 2){// day data
+					System.out.println("day Data");
+					System.out.println("day J ->"+j);
+					data[i][j] = day[j];
+				}
+			} // end for
+		} // end for
 	}
 	
 	/**
