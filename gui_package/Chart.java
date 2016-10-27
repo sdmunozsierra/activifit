@@ -30,13 +30,10 @@ import user_package.Generator;
 import user_package.User;
 
 
-// IMPORT SWING INTEROP
-
 public class Chart extends Application{
-	// Variables to test the chart
-	static User tempUsr = new User("UsainBolt", 15, 165, 165, 5, "gay@hotmail.com");
-	static Generator tempGen = new Generator(tempUsr);
-	static DataGenerator dataGen = new DataGenerator(tempGen);
+	// Import Global Gen
+	static DataGenerator localGen = Screen.globalGen;
+
 	//Screen resolutions
 	public final static int rx = 320; // horizontal resolution
 	public final static int ry = 568; // vertical resolution
@@ -58,68 +55,14 @@ public class Chart extends Application{
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                personalGUI();
+              //  personalGUI();
             }
         });
 		
 	}//end main
 		
-		 
-	/** Returns a JPanel to be used anywhere <3 */
-	public static JPanel heartChart(){
-		//Create a FXPanel
-		final JFXPanel fxPanel = new JFXPanel();
-		
-		//Panel Create panel
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.add(fxPanel);
-		
-		// Run latter
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				// initFX(fxPanel);
-				initFXHeart(fxPanel, 3);
-			}
-		});
-		return panel;
-	}
 	
-	/** Add to GUI*/
-	private static void personalGUI(){
-		// This method is invoked on the EDT thread
-
-		//Create a new JFrame!!! and JPanel
-		JFrame F = new JFrame("Test");
-		//Create a FXPanel
-		final JFXPanel fxPanel = new JFXPanel();
-		
-		//Panel Create panel
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		
-		panel.add(fxPanel);
-		F.add(panel);
-		F.setSize(rx, ry);
-		F.setVisible(true);
-		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//Run latter 
-		Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                //initFX(fxPanel);
-            	initFXHeart(fxPanel, 3);
-            }
-       });
-		
-		
-	}
-
-	
-	
-	/** Heartbeat Charts, Scenes, and Init */
+	/** Heartbeat Init, Scene, Chart and JPanel */
 	/** Create a Heart FX */
 	private static void initFXHeart(JFXPanel fxPanel, int opt) {
         // This method is invoked on the JavaFX thread
@@ -155,7 +98,7 @@ public class Chart extends Application{
 		yAxis.setLabel("Beats per Minute (BPM)"); // yAxis label
 		
 		// Data Information
-		int[][] data = dataGen.heart.sendRandomData();
+		int[][] data = localGen.heart.sendRandomData();
 		
 		// Chart Labels
 		
@@ -215,7 +158,32 @@ public class Chart extends Application{
 		return bc;
 	}
 
-	
+	/** Returns a JPanel to be used anywhere <3 */
+	public static JPanel heartChart(int opt){
+		/*	OPT =>
+		 *  Use 1 for Only Month Chart
+		 *  Use 2 for Only Week Chart
+		 *  Use 3 for Only Day Chart
+		 *  Use 4 for All Charts //Change resolution or drag screen (big chart)
+		 */
+		//Create a FXPanel
+		final JFXPanel fxPanel = new JFXPanel();
+		
+		//Panel Create panel
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(fxPanel);
+		
+		// Run latter
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				// initFX(fxPanel);
+				initFXHeart(fxPanel, opt);
+			}
+		});
+		return panel;
+	}
 	
 	
 	

@@ -78,7 +78,7 @@ public class CustomJPanels {
 	}// end navPanel
 	
 	/** Change Display Panel  */
-	public static JPanel changeDisplayPanel(JFrame F) {
+	public static JPanel changeDisplayPanel(JFrame F, int opt) {
 		/* Panel that has two buttons to change views of infomation */
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
@@ -90,7 +90,7 @@ public class CustomJPanels {
 		panel.setOpaque(false); // THIS IS FUCKING GOLD!!!!!!
 		
 		//Action
-		WeekActionListener action = new WeekActionListener(F);
+		WeekActionListener action = new WeekActionListener(F, opt);
 		button_week.addActionListener(action);
 
 		return panel;
@@ -125,5 +125,39 @@ public class CustomJPanels {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // vertical
 		return panel;
 	}
+	
+//	/** Change Display Panel  */
+//	public static JPanel graphPanel(int opt) {
+//		/* Panel that creates a graph into a jpanel
+//		 * OPT =>  
+//		 * Heart Day Week Month 0,1,2
+//		 * Steps Week Month 3,4
+//		 * Temp  Week Month 5,6
+//		 * Sleep Week Month 7,8
+//		 * Extras:
+//		 * Heart All xx*/
+//		JPanel panel = new JPanel();
+//		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+//		
+//		JPanel graph = new JPanel();
+//		
+//		switch (opt){
+//		case 1: //Day Graph Heart
+//			graph = Chart.heartChart(3);
+//		case 2: //Weekly Graph Heart
+//			graph = Chart.heartChart(2);
+//		case 3: //Monthly Graph Heart
+//			graph = Chart.heartChart(1);
+//		default:
+//			graph = null;
+//		}//end switch
+//		
+//		panel.add(graph);
+//		panel.setOpaque(false); // THIS IS FUCKING GOLD!!!!!!
+//		
+//		//Action [Maybe] a zoom in/out feature
+//		
+//		return panel;
+//	}
 	
 }

@@ -78,11 +78,6 @@ public class Generator_Heartbeat extends Generator {
 	/* Returns an array with a week's worth of information */
 	private int[] weekStatistics(){
 		int [] array = new int[7]; //7 days (boooo scaryyyy)
-		
-		//Tienes que hacer un array de 7 que agarre uno de 24
-		//A ese de 24 lo vas a correr 7 veces y vas a sacar un avg
-		//Ese avg lo vas a depositar en el nuevo array
-		
 		for (int i = 0; i < array.length; i++) {
 			array[i] = findAverage(dayStatistics()); 
 		}

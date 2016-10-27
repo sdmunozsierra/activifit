@@ -23,6 +23,10 @@ public class DataGenerator {
 		createData(); //Generate Generators lolololo
 	}
 	
+	//TODO
+	//SELECT USER FROM DATABASE
+	
+	
 	/* Call each generator */
 	public void createData(){
 		//Create a Steps Generator

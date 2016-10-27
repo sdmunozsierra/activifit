@@ -64,13 +64,12 @@ public class Screen {
 
 	/** Methods */
 	/* --Screens-- */
-
 	// constructor
 	public Screen() {
 		screen_login();
 	}
 
-	/* Login Screen */
+	/** Login Screen */
 	public static void screen_login() {
 		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 		JFrame F = new JFrame("Log-In");
@@ -138,7 +137,7 @@ public class Screen {
 		viewFrame(F);
 	}// End sign-in screen
 
-	/* Screen Register */
+	/** Screen Register */
 	public static void screen_register() {
 		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 		JFrame F = new JFrame("Register");
@@ -213,7 +212,7 @@ public class Screen {
 		viewFrame(F);
 	}// end screen_register
 
-	/* HomePage screen */
+	/** HomePage Screen */
 	public static void screen_home() {
 		JFrame F = new JFrame("Homepage");
 		// Panel for information (BOX LAYOUT)
@@ -268,11 +267,14 @@ public class Screen {
 
 	/* Heart Rate Screen */
 	public static void screen_heart() {
+		int opt = 1;//week or 2 for moth
+		
+		
 		JFrame F = new JFrame("Heartbeat");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
 		
 		// Custom panels
-		JPanel displayP = CustomJPanels.changeDisplayPanel(F);
+		JPanel displayP = CustomJPanels.changeDisplayPanel(F,opt); //With OPT 0,1,2
 		JPanel banner = CustomJPanels.activityBannerPanel("Heart Rate", black_midnight);
 
 		// Local Variables from global generator
@@ -291,6 +293,7 @@ public class Screen {
 		c2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(c2);
 		background.add(Box.createRigidArea(new Dimension(0, 200)));
+		//Display Panel --Week/Month--
 		background.add(displayP);
 
 		F.add(background, BorderLayout.CENTER);
@@ -398,7 +401,7 @@ public class Screen {
 	}
 
 	/* Custom View Screen */
-	public static void screen_customView(String featureName, String frequency){
+	public static void screen_customView(String featureName, String frequency, int opt){
 		JFrame F = new JFrame("Custom View");
 		
 		JPanel container = new JPanel();
@@ -411,17 +414,33 @@ public class Screen {
 		// Buttons
 		JButton button_back = new JButton("BACK");
 		
-		//Graph
-		//JPanel graph = JChart.chartMonthHeart();
-		JPanel hGraph = Chart.heartChart();
+		//Graph Panel
+		/** OPT =>  
+		 * Heart Day Week Month 0,1,2
+		 * Steps Week Month 3,4
+		 * Temp  Week Month 5,6
+		 * Sleep Week Month 7,8
+		 * Extras:
+		 * Heart All xx*/
+		
+		JPanel graph = new JPanel();
+		
+		switch (opt){
+		case 0: //Day Graph Heart
+			graph = Chart.heartChart(3);
+		case 1: //Weekly Graph Heart
+			graph = Chart.heartChart(2);
+		case 2: //Monthly Graph Heart
+			graph = Chart.heartChart(1);
+		default:
+			graph = null;
+			
+		}//end switch
 		
 		container.add(title);
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//container.add(graph);
-		//graph.setAlignmentX(Component.CENTER_ALIGNMENT);\
 		//
-		container.add(hGraph);
-		hGraph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		container.add(graph);
 		//
 		container.add(mode);
 		mode.setAlignmentX(Component.CENTER_ALIGNMENT);
