@@ -1,0 +1,11 @@
+.chart-bar {
+    
+    -fx-border-color: rgba(0,168,355,0.3) rgba(0,168,355,0.3) 
+        transparent rgba(0,168,355,0.3);
+    -fx-background-radius: 0;
+    -fx-background-position: left center;
+}
+
+.data0.chart-bar {
+    -fx-bar-fill: firebrick;
+}
