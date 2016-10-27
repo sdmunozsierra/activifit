@@ -1,4 +1,4 @@
-package user_package;
+package gui_package;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,8 +14,6 @@ import javax.swing.JPanel;
 
 import action_package.NavPanelBackActionListener;
 import action_package.WeekActionListener;
-import gui_package.ImageUtilities;
-import gui_package.Screen;
 
 //Put here all the custom panels in the gui_package
 public class CustomJPanels {

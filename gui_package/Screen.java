@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import action_package.*;
-import user_package.CustomJPanels;
 //import user_package.
 import user_package.Generator_Heartbeat;
 import user_package.UserDatabase;
@@ -54,7 +53,7 @@ public class Screen {
 		// screen_login();
 		// screen_register();
 		// screen_home();
-//		 screen_heart();
+		// screen_heart();
 		// screen_temperature();
 		// screen_steps();
 		// screen_sleep();
