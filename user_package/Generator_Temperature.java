@@ -11,7 +11,7 @@ package user_package;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Generator_Temperature extends Generator {
+public class Generator_Temperature extends Generator implements Statistics{
 
 	private final int DAY_START = 0; // in hours
 	private final int DAY_END = 24; // in hours
@@ -65,6 +65,83 @@ public class Generator_Temperature extends Generator {
 			return ThreadLocalRandom.current().nextDouble(-1, 0);
 	}
 	
+	/* Not used interface methods */
+	public int[] getDayStatisticsInt() { 
+		return null; }
+
+	public int[] getWeekStatisticsInt() { 
+		return null; }
+	
+	public double[] getMonthlyStatisticsInt() {
+		return null; }
+	
+	public int findAverageInt(int[] arr) { 
+		return 0; }
+	
+	public int[][] sendRandomDataInt() { 
+		return null; }
+
+	/* Interface Methods */
+	@Override
+	public double[] getDayStatisticsDouble() {
+		double [] array = new double[24]; //24 hours
+		for (int i = 0; i < array.length; i++) {
+			array[i] = getCurrentTemperature(i);
+		}
+		return array;
+	}
+
+	@Override
+	public double[] getWeekStatisticsDouble() {
+		double [] array = new double[7]; //7 days
+		for (int i = 0; i < array.length; i++) {
+			array[i] = findAverageDouble(getDayStatisticsDouble()); 
+		}
+		return array;
+	}
+
+	@Override
+	public double[] getMonthlyStatisticsDouble() {
+		double [] array = new double[4]; //4 weeks
+		for (int i = 0; i < array.length; i++) {
+			array[i] = findAverageDouble(getWeekStatisticsDouble());
+		}
+		return array;
+	}
+	
+	@Override
+	public double[][] sendRandomDataDouble() {
+		double[][] data = new double[3][];
+		data[0] = new double[4]; //Monthly Data
+		data[1] = new double[7]; //Weekly Data
+		data[2] = new double[24]; //Daily Data
+		double[] month = getMonthlyStatisticsDouble();
+		double[] week = getWeekStatisticsDouble();
+		double[] day = getDayStatisticsDouble();
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if(i == 0) //Month data
+					data[i][j] = month[j];
+				if(i == 1) //Week data
+					data[i][j] = week[j];
+				else //day data
+					data[i][j] = day[j];
+			}//end for
+		}//end for
+		return data;
+	}
+
+	@Override
+	public double findAverageDouble(double[] arr) {
+		double avg = 0;
+		for (int i = 0; i < arr.length; i++) {
+			avg += arr[i];
+		}
+		return avg/arr.length; 
+	}
+	
+	
 	/* Print detail information about today's temperature */
 	public void printDetailTemperature(){
 		System.out.println("Today's Detail Activity Log ");
@@ -95,6 +172,8 @@ public class Generator_Temperature extends Generator {
 		}
 		
 	}
+
+
 	/*
 	 * Extra information that would be cool to add.
 	 * Hot

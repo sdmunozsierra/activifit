@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import action_package.NavPanelBackActionListener;
-import action_package.WeekActionListener;
 
 //Put here all the custom panels in the gui_package
 public class CustomJPanels {
@@ -77,25 +76,6 @@ public class CustomJPanels {
 		return panel;
 	}// end navPanel
 	
-	/** Change Display Panel  */
-	public static JPanel changeDisplayPanel(JFrame F, int opt) {
-		/* Panel that has two buttons to change views of infomation */
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		JButton button_week = new JButton("Change to Week");
-		JButton button_month = new JButton("Change to Month");
-		panel.add(button_week);
-		panel.add(Box.createHorizontalGlue());
-		panel.add(button_month);
-		panel.setOpaque(false); // THIS IS FUCKING GOLD!!!!!!
-		
-		//Action
-		WeekActionListener action = new WeekActionListener(F, opt);
-		button_week.addActionListener(action);
-
-		return panel;
-	}
-	
 	/** Set Background Panel */
 	public static JPanel backgroundPanel(String path, int opt) {
 		/*	OPT =>
@@ -126,38 +106,4 @@ public class CustomJPanels {
 		return panel;
 	}
 	
-//	/** Change Display Panel  */
-//	public static JPanel graphPanel(int opt) {
-//		/* Panel that creates a graph into a jpanel
-//		 * OPT =>  
-//		 * Heart Day Week Month 0,1,2
-//		 * Steps Week Month 3,4
-//		 * Temp  Week Month 5,6
-//		 * Sleep Week Month 7,8
-//		 * Extras:
-//		 * Heart All xx*/
-//		JPanel panel = new JPanel();
-//		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-//		
-//		JPanel graph = new JPanel();
-//		
-//		switch (opt){
-//		case 1: //Day Graph Heart
-//			graph = Chart.heartChart(3);
-//		case 2: //Weekly Graph Heart
-//			graph = Chart.heartChart(2);
-//		case 3: //Monthly Graph Heart
-//			graph = Chart.heartChart(1);
-//		default:
-//			graph = null;
-//		}//end switch
-//		
-//		panel.add(graph);
-//		panel.setOpaque(false); // THIS IS FUCKING GOLD!!!!!!
-//		
-//		//Action [Maybe] a zoom in/out feature
-//		
-//		return panel;
-//	}
-	
-}
+}//end class

@@ -20,4 +20,5 @@ public class Generator {
 	public void printGenerator(){
 		System.out.println("ACCESSING SUPER GENERATOR OF USER: "+user.getName());
 	}
+
 }//end class

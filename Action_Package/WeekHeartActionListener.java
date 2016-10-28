@@ -7,22 +7,20 @@ import javax.swing.JFrame;
 
 import gui_package.Screen;
 
-public class WeekActionListener implements ActionListener {
+public class WeekHeartActionListener implements ActionListener {
 
 	// Create private variables
 	private final JFrame F;
-	private final int opt;
 
 	// Constructor
-	public WeekActionListener(JFrame F, int opt) {
+	public WeekHeartActionListener(JFrame F) {
 		super();
 		this.F = F;
-		this.opt = opt;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Screen.screen_customView("Hearbeat @ Rest", "Weekly",opt); // open help
+		Screen.screen_customView(1); // open help
 		F.dispose(); // Kill window once launched the next one
 	}// end action performed
 

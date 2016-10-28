@@ -267,15 +267,20 @@ public class Screen {
 
 	/* Heart Rate Screen */
 	public static void screen_heart() {
-		int opt = 1;//week or 2 for moth
-		
-		
 		JFrame F = new JFrame("Heartbeat");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
 		
-		// Custom panels
-		JPanel displayP = CustomJPanels.changeDisplayPanel(F,opt); //With OPT 0,1,2
+		//Activity Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("Heart Rate", black_midnight);
+		//Display Panel
+		JPanel displayP = new JPanel();
+		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
+		JButton button_week = new JButton("Change to Week");
+		JButton button_month = new JButton("Change to Month");
+		displayP.add(button_week);
+		displayP.add(Box.createHorizontalGlue());
+		displayP.add(button_month);
+		displayP.setOpaque(true);
 
 		// Local Variables from global generator
 		int restHB = globalGen.heart.getRestHR();
@@ -295,21 +300,35 @@ public class Screen {
 		background.add(Box.createRigidArea(new Dimension(0, 200)));
 		//Display Panel --Week/Month--
 		background.add(displayP);
-
+		
+		//Actions
+		WeekHeartActionListener action = new WeekHeartActionListener(F);
+		button_week.addActionListener(action);
+		MonthHeartActionListener action2 = new MonthHeartActionListener(F);
+		button_month.addActionListener(action2);
+		
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
-	/* Temperature Screen */
+	/** Temperature Screen */
 	public static void screen_temperature() {
 		JFrame F = new JFrame("Temperature");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/vZ0rtrH.png", 3);
 
-		// Custom panels
-		JPanel change_displayP = CustomJPanels.changeDisplayPanel(F);
+		// Activity Banner
 		JPanel banner = CustomJPanels.activityBannerPanel("Body Temperature", red_alizarin);
-		
+		// Display Panel
+		JPanel displayP = new JPanel();
+		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
+		JButton button_week = new JButton("Change to Week");
+		JButton button_month = new JButton("Change to Month");
+		displayP.add(button_week);
+		displayP.add(Box.createHorizontalGlue());
+		displayP.add(button_month);
+		displayP.setOpaque(true);
+
 		// Local Variables from global generator
 		double currentTemp = globalGen.temp.getCurrentTemperature(CURRENT_TIME);
 		String status = globalGen.temp.getTempStatus(currentTemp);
@@ -326,7 +345,13 @@ public class Screen {
 		background.add(current_temp_state);
 		current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(Box.createRigidArea(new Dimension(0, 100)));
-		background.add(change_displayP);
+		background.add(displayP);
+
+		// Actions
+		WeekTempActionListener action = new WeekTempActionListener(F);
+		button_week.addActionListener(action);
+		MonthTempActionListener action2 = new MonthTempActionListener(F);
+		button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
@@ -338,10 +363,18 @@ public class Screen {
 		JFrame F = new JFrame("Steps");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/rFeyEtS.png", 3);
 		
-		// Custom panels
-		JPanel change_displayP = CustomJPanels.changeDisplayPanel(F);
+		// Activity Banner Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("Steps", purple_amethyst);
-		
+		// Display Panel
+		JPanel displayP = new JPanel();
+		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
+		JButton button_week = new JButton("Change to Week");
+		JButton button_month = new JButton("Change to Month");
+		displayP.add(button_week);
+		displayP.add(Box.createHorizontalGlue());
+		displayP.add(button_month);
+		displayP.setOpaque(true);
+
 		// Local Variables from global generator
 		DecimalFormat df = new DecimalFormat("#.##");
 		double currentDistance = globalGen.steps.getCurrentDistance(CURRENT_TIME);
@@ -359,7 +392,13 @@ public class Screen {
 		background.add(current_steps_state);
 		current_steps_state.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(Box.createRigidArea(new Dimension(0, 100)));
-		background.add(change_displayP);
+		background.add(displayP);
+
+		// Actions
+		WeekStepsActionListener action = new WeekStepsActionListener(F);
+		button_week.addActionListener(action);
+		MonthStepsActionListener action2 = new MonthStepsActionListener(F);
+		button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
@@ -378,9 +417,17 @@ public class Screen {
 		JLabel light = new JLabel("Light Sleep Time"); // From SLEEP.CLASS
 		JLabel deep = new JLabel("Deep Sleep Time"); // From SLEEP.CLASS
 
-		// Custom panels
-		JPanel change_displayP = CustomJPanels.changeDisplayPanel(F);
+		// Activity Banner Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("Sleep", white_clouds);
+		// Display Panel
+		JPanel displayP = new JPanel();
+		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
+		JButton button_week = new JButton("Change to Week");
+		JButton button_month = new JButton("Change to Month");
+		displayP.add(button_week);
+		displayP.add(Box.createHorizontalGlue());
+		displayP.add(button_month);
+		displayP.setOpaque(true);
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -393,7 +440,13 @@ public class Screen {
 		background.add(deep);
 		// current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(Box.createRigidArea(new Dimension(0, 100)));
-		background.add(change_displayP);
+		background.add(displayP);
+
+		// Actions
+		WeekSleepActionListener action = new WeekSleepActionListener(F);
+		button_week.addActionListener(action);
+		MonthSleepsActionListener action2 = new MonthSleepsActionListener(F);
+		button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
@@ -401,15 +454,11 @@ public class Screen {
 	}
 
 	/* Custom View Screen */
-	public static void screen_customView(String featureName, String frequency, int opt){
+	public static void screen_customView(int opt){
 		JFrame F = new JFrame("Custom View");
 		
 		JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-		
-		// Labels
-		JLabel title = new JLabel(featureName); 
-		JLabel mode = new JLabel(frequency);
 		
 		// Buttons
 		JButton button_back = new JButton("BACK");
@@ -425,37 +474,42 @@ public class Screen {
 		
 		JPanel graph = new JPanel();
 		
+		
 		switch (opt){
 		case 0: //Day Graph Heart
 			graph = Chart.heartChart(3);
+			break;
 		case 1: //Weekly Graph Heart
 			graph = Chart.heartChart(2);
+			break;
 		case 2: //Monthly Graph Heart
 			graph = Chart.heartChart(1);
-		default:
-			graph = null;
-			
+			break;
 		}//end switch
 		
-		container.add(title);
-		title.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+            Chart.heartChart(4); //run something, ask the professor why
+            }
+        });
+		
+		//Add Components to container
 		container.add(graph);
-		//
-		container.add(mode);
-		mode.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//add glue
+		container.add(Box.createVerticalGlue()); // add glue
 		container.add(button_back);
 		button_back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//Actions
-		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
+		HomeMenuActionListener action = new HomeMenuActionListener(F, 0);;
+		if(opt <=2 ) action = new HomeMenuActionListener(F, 0); //hb
+		else if (opt == 3 || opt == 4) action = new HomeMenuActionListener(F, 1); 
+		else if (opt == 5 || opt == 6) action = new HomeMenuActionListener(F, 2);
+		else if (opt == 7 || opt == 8) action = new HomeMenuActionListener(F, 3);
 		button_back.addActionListener(action);
 		
 		F.add(container, BorderLayout.CENTER);
 		viewFrame(F);
-		
-		
 	}
 	
 	/* Share Screen */
