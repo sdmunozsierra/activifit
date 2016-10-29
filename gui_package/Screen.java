@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 
 import action_package.*;
 import user_package.Generator_Heartbeat;
+import user_package.Generator_Sleep;
 import user_package.UserDatabase;
 
 import java.awt.BorderLayout;
@@ -47,7 +48,7 @@ public class Screen {
 	/** Main Method */
 	public static void main(String args[]) {
 		// Test each screen individually
-
+			
 		// screen_login();
 		// screen_register();
 		// screen_home();
@@ -485,6 +486,10 @@ public class Screen {
 		case 2: //Monthly Graph Heart
 			graph = Chart.heartChart(1);
 			break;
+		case 5: //Weekly Graph Temp
+			graph = Chart.tempChart(2);
+		case 6: //Month
+			graph = Chart.tempChart(1);
 		}//end switch
 		
 		SwingUtilities.invokeLater(new Runnable() {

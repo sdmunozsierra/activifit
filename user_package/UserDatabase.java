@@ -20,6 +20,7 @@ public class UserDatabase {
 			this.database.add(newUser);
 	}
 	
+	
 	//Print all users in database
 	public void printAll(){
 		System.out.println("Users in this database:" );

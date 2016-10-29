@@ -73,6 +73,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 			createGlobalGen(); //Create generators
 			Screen.globalDatabase.printAllDetails(); //Debugging
 			Screen.globalGen.printAllDetails(); //Debugging
+			testSleepGen(); //debugging
 			//F.dispose();
 			Screen.screen_home();
 		}
@@ -123,9 +124,16 @@ public class RegisterAcceptActionListener implements ActionListener {
 			return -1;
 		}
 	}
+	
+	private static void testSleepGen(){
+		Generator_Sleep test = new Generator_Sleep(Screen.globalDatabase.getCurrentUser());
+		int[][] data = test.getRandomData();
+		test.print2d(data);
+	}
 
+	
 	/**
-	 * TO-DO: Create a method for checking the name for invalid chars
+	 * TODO: Create a method for checking the name for invalid chars
 	 * 
 	 * */
 }// end class

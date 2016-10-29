@@ -2,6 +2,7 @@ package action_package;
 
 import user_package.Generator;
 import user_package.Generator_Heartbeat;
+import user_package.Generator_Sleep;
 import user_package.Generator_Steps;
 import user_package.Generator_Temperature;
 import user_package.User;
@@ -13,6 +14,7 @@ public class DataGenerator {
 	public Generator_Steps steps;
 	public Generator_Temperature temp;
 	public Generator_Heartbeat heart;
+	public Generator_Sleep sleep;
 	
 	//Constructor 
 	public DataGenerator(Generator g){
@@ -23,10 +25,6 @@ public class DataGenerator {
 		createData(); //Generate Generators lolololo
 	}
 	
-	//TODO
-	//SELECT USER FROM DATABASE
-	
-	
 	/* Call each generator */
 	public void createData(){
 		//Create a Steps Generator
@@ -36,13 +34,13 @@ public class DataGenerator {
 		//Heartbeat Generator
 		this.heart = new Generator_Heartbeat(gen.getUser());
 		//Sleep Quality Generator
-		//TODO Missing
+		this.sleep = new Generator_Sleep(gen.getUser());
 	}
 
 	/* Prints ALL the details for the current user */
 	public void printAllDetails(){
 		//Prints the whole generated data
-		String[] labels = {"HEARTBEAT GENERATOR","STEPS GENERATOR","TEMPERATURE GENERATOR"};
+		String[] labels = {"HEARTBEAT GENERATOR","STEPS GENERATOR","TEMPERATURE GENERATOR","SLEEP GENERATOR"};
 		
 		System.out.println(""); //Force empty line
 		formatLine(30);
@@ -53,7 +51,8 @@ public class DataGenerator {
 			formatLine(30);
 			if(i == 0) heart.printDetailHeartbeat();
 			else if( i == 1) steps.printDetailDistance();
-			else temp.printDetailTemperature();
+			else if (i == 2) temp.printDetailTemperature();
+			else sleep.printDetailSleep();
 			formatLine(30);
 		}//end for
 		System.out.println("END GENERATOR DATA");
@@ -67,4 +66,7 @@ public class DataGenerator {
 		}
 		System.out.print("\n");
 	}
+	
+	
+	
 }//end class

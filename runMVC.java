@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 public class runMVC extends Application{
 	//Model, View, Controller Class (a.k.a. main)
 	public static void main(String args[]){
-		
+	
 		Screen gui = new Screen();
 		launch(args);
 				

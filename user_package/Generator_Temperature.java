@@ -11,7 +11,7 @@ package user_package;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Generator_Temperature extends Generator implements Statistics{
+public class Generator_Temperature extends StatisticsForDoubles{
 
 	private final int DAY_START = 0; // in hours
 	private final int DAY_END = 24; // in hours
@@ -22,12 +22,13 @@ public class Generator_Temperature extends Generator implements Statistics{
 	private final double FEVER = 37.5; //37.5 or 38.3 °C
 	private final double HYPERPYREXIA =  38.3; // <38.3 °C
 	
+	//User Variables
+	User user;
+	private static double currentTemperature;
 	
-	private double currentTemperature;
-
 	/* Constructor */
-	public Generator_Temperature(User user) {
-		super(user);
+	public Generator_Temperature(User usr) {
+		this.user = usr;
 		
 	}
 
@@ -65,81 +66,66 @@ public class Generator_Temperature extends Generator implements Statistics{
 			return ThreadLocalRandom.current().nextDouble(-1, 0);
 	}
 	
-	/* Not used interface methods */
-	public int[] getDayStatisticsInt() { 
-		return null; }
 
-	public int[] getWeekStatisticsInt() { 
-		return null; }
-	
-	public double[] getMonthlyStatisticsInt() {
-		return null; }
-	
-	public int findAverageInt(int[] arr) { 
-		return 0; }
-	
-	public int[][] sendRandomDataInt() { 
-		return null; }
-
-	/* Interface Methods */
-	@Override
-	public double[] getDayStatisticsDouble() {
-		double [] array = new double[24]; //24 hours
-		for (int i = 0; i < array.length; i++) {
-			array[i] = getCurrentTemperature(i);
-		}
-		return array;
-	}
-
-	@Override
-	public double[] getWeekStatisticsDouble() {
-		double [] array = new double[7]; //7 days
-		for (int i = 0; i < array.length; i++) {
-			array[i] = findAverageDouble(getDayStatisticsDouble()); 
-		}
-		return array;
-	}
-
-	@Override
-	public double[] getMonthlyStatisticsDouble() {
-		double [] array = new double[4]; //4 weeks
-		for (int i = 0; i < array.length; i++) {
-			array[i] = findAverageDouble(getWeekStatisticsDouble());
-		}
-		return array;
-	}
-	
-	@Override
-	public double[][] sendRandomDataDouble() {
-		double[][] data = new double[3][];
-		data[0] = new double[4]; //Monthly Data
-		data[1] = new double[7]; //Weekly Data
-		data[2] = new double[24]; //Daily Data
-		double[] month = getMonthlyStatisticsDouble();
-		double[] week = getWeekStatisticsDouble();
-		double[] day = getDayStatisticsDouble();
-		
-		for (int i = 0; i < data.length; i++) {
-			for (int j = 0; j < data[i].length; j++) {
-				if(i == 0) //Month data
-					data[i][j] = month[j];
-				if(i == 1) //Week data
-					data[i][j] = week[j];
-				else //day data
-					data[i][j] = day[j];
-			}//end for
-		}//end for
-		return data;
-	}
-
-	@Override
-	public double findAverageDouble(double[] arr) {
-		double avg = 0;
-		for (int i = 0; i < arr.length; i++) {
-			avg += arr[i];
-		}
-		return avg/arr.length; 
-	}
+//	/* Interface Methods */
+//	@Override
+//	public double[] getDayStatisticsDouble() {
+//		double [] array = new double[24]; //24 hours
+//		for (int i = 0; i < array.length; i++) {
+//			array[i] = getCurrentTemperature(i);
+//		}
+//		return array;
+//	}
+//
+//	@Override
+//	public double[] getWeekStatisticsDouble() {
+//		double [] array = new double[7]; //7 days
+//		for (int i = 0; i < array.length; i++) {
+//			array[i] = findAverageDouble(getDayStatisticsDouble()); 
+//		}
+//		return array;
+//	}
+//
+//	@Override
+//	public double[] getMonthlyStatisticsDouble() {
+//		double [] array = new double[4]; //4 weeks
+//		for (int i = 0; i < array.length; i++) {
+//			array[i] = findAverageDouble(getWeekStatisticsDouble());
+//		}
+//		return array;
+//	}
+//	
+//	@Override
+//	public double[][] sendRandomDataDouble() {
+//		double[][] data = new double[3][];
+//		data[0] = new double[4]; //Monthly Data
+//		data[1] = new double[7]; //Weekly Data
+//		data[2] = new double[24]; //Daily Data
+//		double[] month = getMonthlyStatisticsDouble();
+//		double[] week = getWeekStatisticsDouble();
+//		double[] day = getDayStatisticsDouble();
+//		
+//		for (int i = 0; i < data.length; i++) {
+//			for (int j = 0; j < data[i].length; j++) {
+//				if(i == 0) //Month data
+//					data[i][j] = month[j];
+//				if(i == 1) //Week data
+//					data[i][j] = week[j];
+//				else //day data
+//					data[i][j] = day[j];
+//			}//end for
+//		}//end for
+//		return data;
+//	}
+//
+//	@Override
+//	public double findAverageDouble(double[] arr) {
+//		double avg = 0;
+//		for (int i = 0; i < arr.length; i++) {
+//			avg += arr[i];
+//		}
+//		return avg/arr.length; 
+//	}
 	
 	
 	/* Print detail information about today's temperature */
@@ -173,7 +159,91 @@ public class Generator_Temperature extends Generator implements Statistics{
 		
 	}
 
+	protected double[] getDayStatistics() {
+		double [] dayArray = new double[24]; //24 hours
+		for (int i = 0; i < dayArray.length; i++)
+			dayArray[i] = getCurrentTemperature(i);
+		return dayArray;
+	}
 
+	protected double[] getWeekStatistics(){
+		double [] a = new double[7]; //7 days
+		for (int i = 0; i < a.length; i++) 
+			a[i] = findAverage(getDayStatistics()); 
+		return a;
+	}
+
+	protected double[] getMonthlyStatistics() {
+		double [] a = new double[4]; //4 weeks
+		for (int i = 0; i < a.length; i++) 
+			a[i] = findAverage(getWeekStatistics());
+		return a;
+		
+	}
+
+	protected double findAverage(double[] arr) {
+		double avg = 0;
+		for (int i = 0; i < arr.length; i++) {
+			avg += arr[i];
+		}
+		return avg/arr.length; 
+	}
+
+	
+	public double[][] getRandomData() {
+		double[][] data = new double[3][];
+		data[0] = new double[4]; //Monthly Data
+		data[1] = new double[7]; //Weekly Data
+		data[2] = new double[24]; //Daily Data
+		double[] month = getMonthlyStatistics();
+		double[] week = getWeekStatistics();
+		double[] day = getDayStatistics();
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if(i == 0) //Month data
+					data[i][j] = month[j];
+				if(i == 1) //Week data
+					data[i][j] = week[j];
+				else //day data
+					data[i][j] = day[j];
+			}//end for
+		}//end for
+		return data;
+	}
+
+	
+	/* Print the 2dArray [Debugging]*/
+	public void print2d(int[][] data) {
+		//int[][] data = sendRandomData();
+		double[] month = getMonthlyStatistics();
+		double[] week = getWeekStatistics();
+		double[] day = getDayStatistics();
+
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				System.out.println("GLOBAL I AND J: i = "+(i)+" j = "+(j));
+				if (i == 0){ // Month data
+					System.out.println("Month Data");
+					System.out.println("month J ->"+j)
+					;data[i][j] = (int) month[j];
+				}
+				if (i == 1) {// Week data
+					System.out.println("week Data");
+					System.out.println("week J ->"+j);
+					data[i][j] = (int) week[j];
+				}
+				if (i == 2){// day data
+					System.out.println("day Data");
+					System.out.println("day J ->"+j);
+					data[i][j] = (int) day[j];
+				}
+			} // end for
+		} // end for
+	}
+	
+	
+	
 	/*
 	 * Extra information that would be cool to add.
 	 * Hot

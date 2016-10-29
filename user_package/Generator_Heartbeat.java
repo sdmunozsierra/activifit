@@ -2,8 +2,8 @@ package user_package;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Generator_Heartbeat extends Generator {
-
+public class Generator_Heartbeat extends StatisticsForIntegers {
+	
 	//Heart-beat States 
 	private final int TACHYCARDIA = 100; //over 100 at rest "Too Fast" 
 	private final int BRADYCARDIA = 60; //less than "Too Slow"
@@ -12,13 +12,14 @@ public class Generator_Heartbeat extends Generator {
 	private final int REST_MAX = 90; 
 	
 	//User Variables
+	private static User user;
 	private int maxHR; // During exercise
 	private int dailyTargetHR; // Training or Target HR
 	private int dailyRestBPM; // Current bpm at rest
 
 	// Constructor
-	public Generator_Heartbeat(User user) {
-		super(user);
+	public Generator_Heartbeat(User usr) {
+		this.user = usr;
 		this.maxHR = getMaxHR(user.getAge());
 		this.dailyTargetHR = (int) Math.round(getTargetHR(maxHR));
 		this.dailyRestBPM = getRestHR();
@@ -67,7 +68,7 @@ public class Generator_Heartbeat extends Generator {
 	}
 	
 	/* Returns an array with a day's worth of information */
-	private int[] dayStatistics(){
+	protected int[] getDayStatistics(){
 		int [] array = new int[24]; //24 hours
 		for (int i = 0; i < array.length; i++) {
 			array[i] = getRandomCurrentHR();
@@ -76,32 +77,32 @@ public class Generator_Heartbeat extends Generator {
 	}
 	
 	/* Returns an array with a week's worth of information */
-	private int[] weekStatistics(){
+	protected int[] getWeekStatistics(){
 		int [] array = new int[7]; //7 days (boooo scaryyyy)
 		for (int i = 0; i < array.length; i++) {
-			array[i] = findAverage(dayStatistics()); 
+			array[i] = findAverage(getDayStatistics()); 
 		}
 		return array;
 	}
 	
 	/* Returns an array with a months' worth of information */
-	private int[] monthlyStatistics(){
+	protected int[] getMonthlyStatistics(){
 		int [] array = new int[4]; //4 weeks
 		for (int i = 0; i < array.length; i++) {
-			array[i] = findAverage(weekStatistics());
+			array[i] = findAverage(getWeekStatistics());
 		}
 		return array;
 	}
 	
 	/* Returns the Random HB at rest influenced by active ID */
-	public int[][] sendRandomData(){
+	public int[][] getRandomData(){
 		int[][] data = new int[3][];
 		data[0] = new int[4]; //Monthly Data
 		data[1] = new int[7]; //Weekly Data
 		data[2] = new int[24]; //Daily Data
-		int[] month = monthlyStatistics();
-		int[] week = weekStatistics();
-		int[] day = dayStatistics();
+		int[] month = getMonthlyStatistics();
+		int[] week = getWeekStatistics();
+		int[] day = getDayStatistics();
 		
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
@@ -117,7 +118,7 @@ public class Generator_Heartbeat extends Generator {
 	}
 	
 	/* Returns the average of information */
-	private int findAverage(int[] intArray){
+	protected int findAverage(int[] intArray){
 		int avg = 0;
 		for (int i = 0; i < intArray.length; i++) {
 			avg += intArray[i];
@@ -161,9 +162,9 @@ public class Generator_Heartbeat extends Generator {
 	/* Print the 2dArray [Debugging]*/
 	public void print2d(int[][] data) {
 		//int[][] data = sendRandomData();
-		int[] month = monthlyStatistics();
-		int[] week = weekStatistics();
-		int[] day = dayStatistics();
+		int[] month = getMonthlyStatistics();
+		int[] week = getWeekStatistics();
+		int[] day = getDayStatistics();
 
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {

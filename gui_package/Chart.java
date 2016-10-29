@@ -48,14 +48,14 @@ public class Chart extends Application{
 	
 	
 	// Main method
-	// Must figure out how to send that to another class
 	// OPT 1: Make another runnable()
 	public static void main(String[] args) {
 	
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-              //  personalGUI();
+            	//BarChart
+               // initFXTemp();
             }
         });
 		
@@ -71,6 +71,7 @@ public class Chart extends Application{
     }
 	
 	/** Create a Heart Scene */
+	@SuppressWarnings("rawtypes")
 	private static Scene heartScene(int opt){
 		BarChart heartChart = BarChartHeart(opt);
 		Scene scene = new Scene(heartChart);
@@ -81,7 +82,7 @@ public class Chart extends Application{
 	}
 	
 	/** Create a Heart Chart */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static BarChart BarChartHeart(int opt) {
 		/*	OPT =>
 		 *  Use 1 for Only Month Chart
@@ -94,11 +95,10 @@ public class Chart extends Application{
 		final NumberAxis yAxis = new NumberAxis();
 		final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
 		bc.setTitle("Heartbeat Summary"); // Title
-		xAxis.setLabel("Week"); // xAxis label
 		yAxis.setLabel("Beats per Minute (BPM)"); // yAxis label
 		
 		// Data Information
-		int[][] data = localGen.heart.sendRandomData();
+		int[][] data = localGen.heart.getRandomData();
 		
 		// Chart Labels
 		
@@ -112,39 +112,42 @@ public class Chart extends Application{
 		// Deposit Data
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[i].length; j++) {
-				
-				//Add different colors to the data
-				final XYChart.Data<String, Number> value = new XYChart.Data(label[i] + j , data[i][j]);
+
+				// Add different colors to the data
+				final XYChart.Data<String, Number> value = new XYChart.Data(label[i] + j, data[i][j]);
 				value.nodeProperty().addListener(new ChangeListener<Node>() {
-				  @Override public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
-				    if (newNode != null) {
-				      if (value.getYValue().intValue() > 100 )  //Tachycardia
-				        newNode.setStyle("-fx-bar-fill: " +red_alizarin+";");
-				      else if (value.getYValue().intValue() > 90 ) //Above average
-					        newNode.setStyle("-fx-bar-fill: " +green_emerland+";");
-				      else if (value.getYValue().intValue() > 60 ) //Average
-					        newNode.setStyle("-fx-bar-fill: " +yellow_sunflower+";");
-				      else if (value.getYValue().intValue() > 0 ) { //Bradychardia
-				        newNode.setStyle("-fx-bar-fill: " +blue_peterriver+";");
-				      }  
-				    }//end if
-				  }//end changed
-				});//end add listener
-				
-				//Select which data to use
-				if (i == 0){  // Month data
+					@Override
+					public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
+						if (newNode != null) {
+							if (value.getYValue().intValue() > 100) // Tachycardia
+								newNode.setStyle("-fx-bar-fill: " + red_alizarin + ";");
+							else if (value.getYValue().intValue() > 90) // Above
+																		// average
+								newNode.setStyle("-fx-bar-fill: " + green_emerland + ";");
+							else if (value.getYValue().intValue() > 60) // Average
+								newNode.setStyle("-fx-bar-fill: " + yellow_sunflower + ";");
+							else if (value.getYValue().intValue() > 0) { // Bradychardia
+								newNode.setStyle("-fx-bar-fill: " + blue_peterriver + ";");
+							}
+						} // end if
+					}// end changed
+				});// end add listener
+
+				// Select which data to use
+				if (i == 0) { // Month data
 					series1.getData().add(new XYChart.Data("WEEK#" + (j + 1), data[i][j]));
 				}
 				if (i == 1) // Week data
 					series2.getData().add(new XYChart.Data("DAY#" + (j + 1), data[i][j]));
-				if (i == 2){ // day data
+				if (i == 2) { // day data
 					series3.getData().add(value);
 				}
 			} // end for
 		} // end for
 
 		// Add correct elements to chart
-		if (opt == 1) bc.getData().addAll(series1);
+		if (opt == 1)
+			bc.getData().addAll(series1);
 		else if (opt == 2)bc.getData().addAll(series2);
 		else if (opt == 3)bc.getData().addAll(series3);
 		else if (opt == 4)bc.getData().addAll(series1, series2, series3);
@@ -186,6 +189,131 @@ public class Chart extends Application{
 	}
 	
 	
+	/** Temperature Init, Scene, Chart and JPanel */
+	/** Create a Heart FX */
+	private static void initFXTemp(JFXPanel fxPanel, int opt) {
+        // This method is invoked on the JavaFX thread
+        Scene scene = tempScene(opt);
+        fxPanel.setScene(scene);
+    }
+	
+	/** Create a Heart Scene */
+	private static Scene tempScene(int opt){
+		BarChart tempChart = BarChartTemp(opt);
+		Scene scene = new Scene(tempChart);
+		//scene.getStylesheets().add(Chart.class.getResource("heartChart.css").toExternalForm());
+		
+		return (scene);
+		
+	}
+	private static BarChart BarChartTemp(int opt) {
+		/*	OPT =>
+		 *  Use 1 for Only Month Chart
+		 *  Use 2 for Only Week Chart
+		 *  Use 3 for Only Day Chart
+		 *  Use 4 for All Charts //Change resolution or drag screen (big chart)
+		 */
+		
+		final CategoryAxis xAxis = new CategoryAxis();
+		final NumberAxis yAxis = new NumberAxis();
+		final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
+		bc.setTitle("Temperature Summary"); // Title
+		xAxis.setLabel("WAKAWAKA U"); // xAxis label
+		yAxis.setLabel("Degrees in Celcius"); // yAxis label
+		
+		// Data Information
+		double[][] data = localGen.temp.getRandomData();
+		
+		// Chart Labels
+		
+		String[] label = {"DAY ","WEEK ","HOUR - "};
+		
+		// Chart Series
+		XYChart.Series series1 = new XYChart.Series();
+		XYChart.Series series2 = new XYChart.Series();
+		XYChart.Series series3 = new XYChart.Series();
+		
+		// Deposit Data
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				
+				//Temperature States 
+//				private final double HYPOTHERMIA = 35; //<35.0 °C
+//				private final double NORMAL = 36.5; //36.5–37.5 °C
+//				private final double FEVER = 37.5; //37.5 or 38.3 °C
+//				private final double HYPERPYREXIA =  38.3; // <38.3 °C
+				
+				//Add different colors to the data
+				final XYChart.Data<String, Number> value = new XYChart.Data(label[i] + j , data[i][j]);
+				value.nodeProperty().addListener(new ChangeListener<Node>() {
+				  @Override public void changed(ObservableValue<? extends Node> ov, Node oldNode, Node newNode) {
+				    if (newNode != null) {
+				      if (value.getYValue().intValue() > 38.9 )  //HYPERPYREXIA
+				        newNode.setStyle("-fx-bar-fill: " +red_alizarin+";");
+				      else if (value.getYValue().intValue() > 37.5 ) //FEVER
+					        newNode.setStyle("-fx-bar-fill: " +yellow_sunflower+";");
+				      else if (value.getYValue().intValue() > 36.5 ) //NORMAL
+					        newNode.setStyle("-fx-bar-fill: " +green_emerland+";");
+				      else if (value.getYValue().intValue() > 0 ) { //HYPOTHERMIA
+				        newNode.setStyle("-fx-bar-fill: " +blue_peterriver+";");
+				      }  
+				    }//end if
+				  }//end changed
+				});//end add listener
+				
+				//Select which data to use
+				if (i == 0){  // Month data
+					series1.getData().add(new XYChart.Data("WEEK#" + (j + 1), data[i][j]));
+				}
+				if (i == 1) // Week data
+					series2.getData().add(new XYChart.Data("DAY#" + (j + 1), data[i][j]));
+				if (i == 2){ // day data
+					series3.getData().add(value);
+				}
+			} // end for
+		} // end for
+
+		// Add correct elements to chart
+		if (opt == 1) bc.getData().addAll(series1);
+		else if (opt == 2)bc.getData().addAll(series2);
+		else if (opt == 3)bc.getData().addAll(series3);
+		else if (opt == 4)bc.getData().addAll(series1, series2, series3);
+		else throw new Error("");
+		// Add Style
+		bc.setLegendVisible(false);
+		bc.setVerticalGridLinesVisible(false);
+		bc.setBarGap(0.5);
+		bc.setCategoryGap(0);
+		
+		return bc;
+	}
+	
+	/** Returns a JPanel to be used anywhere <3 */
+	public static JPanel tempChart(int opt){
+		/*	OPT =>
+		 *  Use 1 for Only Month Chart
+		 *  Use 2 for Only Week Chart
+		 *  Use 3 for Only Day Chart
+		 *  Use 4 for All Charts //Change resolution or drag screen (big chart)
+		 */
+		//Create a FXPanel
+		final JFXPanel fxPanel = new JFXPanel();
+		
+		//Panel Create panel
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(fxPanel);
+		
+		// Run latter
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				// initFX(fxPanel);
+				initFXTemp(fxPanel, opt);
+			}
+		});
+		return panel;
+	}
 	
 	/****** In progress ******/
 	/** Action Listener */
