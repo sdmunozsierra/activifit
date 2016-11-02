@@ -11,7 +11,7 @@ public class Generator_Heartbeat extends StatisticsForIntegers {
 	private final int REST_MIN = 60;
 	private final int REST_MAX = 90; 
 	
-	//User Variables
+	//User Variables TODO CHECK USER STATIC-NESS
 	private static User user;
 	private int maxHR; // During exercise
 	private int dailyTargetHR; // Training or Target HR

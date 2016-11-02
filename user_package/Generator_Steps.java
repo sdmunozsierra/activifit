@@ -3,14 +3,16 @@ package user_package;
 import java.text.DecimalFormat;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Generator_Steps extends Generator {
+public class Generator_Steps extends StatisticsForIntegers {
 
 	//Constants
 	private final int AMERICAN_STEPS_AVG = 5900; 	//in steps
 	private final int DAY_START = 6; //in hours
 	private final int DAY_END = 24; //in hours
 	
+	//User Variables
 	private double currentSteps;
+	private User user;
 	
 	//Metric Variables
 	private int stride; 		//in centimeters
@@ -22,7 +24,7 @@ public class Generator_Steps extends Generator {
 	//Constructor
 	public Generator_Steps(User user) {
 		//The following are order sensitive -Do not change-
-		super(user); //Pull user info
+		this.user = user; //Pull user info
 		this.stride = strideLength();
 		this.stepsPerKm = (1000*100)/this.stride; //1km in cm = 1000m * 100cm
 		this.dailyDistance = getDailyDistance();
@@ -50,7 +52,9 @@ public class Generator_Steps extends Generator {
 		 */
 		//Right now we don't have a genre distinction so we will use 0.0414
 		//for the calculation which is in between male and female
-		return (int) (this.user.getHeight() * 0.414);
+		int tempStride = (int) (this.user.getHeight() * 0.414);
+		if (tempStride <= 0) {return 1;} //prevents a critical division of [0/0] *bug 21
+		return tempStride;
 	}
 	
 	/* Return daily distance according to the Active Id and some randomness */
@@ -61,7 +65,7 @@ public class Generator_Steps extends Generator {
 	
 	/* Returns max distance in km*/
 	private int getMaxDistance(){
-		switch (super.user.getActId()){
+		switch (this.user.getActId()){
 		case 9:
 			return 42; 	//Marathon
 		case 8: 
@@ -86,7 +90,7 @@ public class Generator_Steps extends Generator {
 	
 	/* Returns min distance in km*/
 	private int getMinDistance(){
-		switch (super.user.getActId()){
+		switch (this.user.getActId()){
 		case 9:
 			return 20; 	//Marathon
 		case 8: 
@@ -115,8 +119,8 @@ public class Generator_Steps extends Generator {
 	public double getCurrentDistance(int currentTime){
 		//@param time in military time ej: 22 hrs, 08 hrs
 		//As right now the program will start the day at 06 and end at 24
-		//TO-DO: check bounds for time (half implemented)
-		//TO-DO: add minutes implementation
+		//TODO: check bounds for time (half implemented)
+		//TODO: add minutes implementation
 		int time = currentTime - DAY_START;
 		if(time <= 0 ) return 0;
 		else{
@@ -137,10 +141,10 @@ public class Generator_Steps extends Generator {
 		double d = 0;
 		
 		System.out.println("STEPS GENERATOR GEEKY STATS\n");
-		System.out.printf("User Height %dcm \n", super.user.getHeight());
+		System.out.printf("User Height %dcm \n", this.user.getHeight());
 		System.out.println("Stride Lenght: "+this.stride);
 		System.out.println("Steps per Km: "+stepsPerKm);
-		System.out.println("Activity Index: "+super.user.getActId());;
+		System.out.println("Activity Index: "+this.user.getActId());;
 		System.out.println("DISTANCE STATS");
 		System.out.println("---------------------------------------");
 		System.out.printf("Random Daily Distance %dkm \n",this.dailyDistance);
@@ -176,5 +180,65 @@ public class Generator_Steps extends Generator {
 		}
 		System.out.println("-------------------");
 		System.out.println("End distance report");
+	}
+
+	/* Returns an array with a day's worth of information */
+	protected int[] getDayStatistics() {
+		int [] array = new int[24]; //24 hours
+		for (int i = 0; i < array.length; i++) {
+			array[i] = (int)getCurrentSteps(getCurrentDistance(i));
+		}
+		return array;
+	}
+
+	/* Returns an array with a week's worth of information */
+	protected int[] getWeekStatistics(){
+		int [] array = new int[7]; //7 days (boooo scaryyyy)
+		for (int i = 0; i < array.length; i++) {
+			array[i] = findAverage(getDayStatistics()); 
+		}
+		return array;
+	}
+
+	/* Returns an array with a months' worth of information */
+	protected int[] getMonthlyStatistics(){
+		int [] array = new int[4]; //4 weeks
+		for (int i = 0; i < array.length; i++) {
+			array[i] = findAverage(getWeekStatistics());
+		}
+		return array;
+	}
+
+	/* Returns the Random HB at rest influenced by active ID */
+	public int[][] getRandomData(){
+		int[][] data = new int[3][];
+		data[0] = new int[4]; //Monthly Data
+		data[1] = new int[7]; //Weekly Data
+		data[2] = new int[24]; //Daily Data
+		int[] month = getMonthlyStatistics();
+		int[] week = getWeekStatistics();
+		int[] day = getDayStatistics();
+		
+		for (int i = 0; i < data.length; i++) {
+			for (int j = 0; j < data[i].length; j++) {
+				if(i == 0) //Month data
+					data[i][j] = month[j];
+				if(i == 1) //Week data
+					data[i][j] = week[j];
+				else //day data
+					data[i][j] = day[j];
+			}//end for
+		}//end for
+		return data;
+	}
+
+	@Override
+	/* Returns the average of information */
+	protected int findAverage(int[] intArray){
+		int avg = 0;
+		for (int i = 0; i < intArray.length; i++) {
+			avg += intArray[i];
+		}
+		return avg/intArray.length; 
 	}
 }

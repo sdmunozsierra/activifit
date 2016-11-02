@@ -335,13 +335,14 @@ public class Screen {
 		String status = globalGen.temp.getTempStatus(currentTemp);
 		
 		// Labels
-		JLabel current_temp = new JLabel("Current temp: "+currentTemp); 
-		JLabel current_temp_state = new JLabel("Current body temp state: "+status); 
+		JLabel current_temp = new JLabel();
+		current_temp.setText(String.format("<html>Current Temperature:<br>%.1f°C</html>", currentTemp, SwingConstants.CENTER));
+		JLabel current_temp_state = new JLabel("<html>Body Temperature State:<br>"+status+"</html>", SwingConstants.CENTER); 
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
 		background.add(current_temp);
-		current_temp.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//current_temp.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(Box.createRigidArea(new Dimension(0, 75)));
 		background.add(current_temp_state);
 		current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -382,8 +383,8 @@ public class Screen {
 		int currentSteps = (int) globalGen.steps.getCurrentSteps(currentDistance);
 		
 		// Labels
-		JLabel current_steps = new JLabel("Current Number of Steps\n"+currentSteps); 
-		JLabel current_steps_state = new JLabel("Current Distance Traveled\n"+df.format(currentDistance)); 
+		JLabel current_steps = new JLabel("<html>Current Number of Steps: <br>"+currentSteps+"</html>"); 
+		JLabel current_steps_state = new JLabel("<html>Current Distance Traveled:<br>"+df.format(currentDistance)+"</html>"); 
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -478,24 +479,33 @@ public class Screen {
 		
 		switch (opt){
 		case 0: //Day Graph Heart
-			graph = Chart.heartChart(3);
+			graph = heartChart.drawChart(3);
 			break;
 		case 1: //Weekly Graph Heart
-			graph = Chart.heartChart(2);
+			graph = heartChart.drawChart(2);
 			break;
 		case 2: //Monthly Graph Heart
-			graph = Chart.heartChart(1);
+			graph =tempChart.drawChart(3);
 			break;
-		case 5: //Weekly Graph Temp
+		case 3: //Weekly Graph Steps
+			graph = tempChart.drawChart(2);
+			break;
+		case 4: //Monthly Graph Steps
+			graph = Chart.stepsChart(1);
+			break;
+		case 5: //Weekly Graph Temperature
 			graph = Chart.tempChart(2);
+			break; //<-Never forger a break OK? THANKS
 		case 6: //Month
 			graph = Chart.tempChart(1);
+			break;
 		}//end switch
 		
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-            Chart.heartChart(4); //run something, ask the professor why
+            //Chart.heartChart(4); //run something, ask the professor why
+            heartChart.drawChart(4);
             }
         });
 		

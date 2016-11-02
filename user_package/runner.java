@@ -1,5 +1,13 @@
 package user_package;
 
+import java.awt.BorderLayout;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import gui_package.heartChart;
+
 public class runner {
 
 	public static void main(String[] args) {
@@ -24,7 +32,21 @@ public class runner {
 		gen2.user.printUser();
 		steps2.printDetailDistance();
 		
+		Generator_Heartbeat love = new Generator_Heartbeat(gen.getUser());
 		
+		
+		JFrame F = new JFrame("Logout");
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+		
+		JPanel graph = new JPanel();
+		graph = heartChart.drawChart(4, love);
+		container.add(graph);
+		
+		F.add(container, BorderLayout.CENTER);
+		//F.setSize(rx, ry);
+		F.setVisible(true);
+		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}//end main
 
