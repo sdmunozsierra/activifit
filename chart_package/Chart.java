@@ -1,3 +1,5 @@
+//Can be safely deleted...
+
 package chart_package;
 
 import java.awt.event.ActionEvent;
@@ -241,10 +243,10 @@ public class Chart extends Application{
 			for (int j = 0; j < data[i].length; j++) {
 				
 				//Temperature States 
-//				private final double HYPOTHERMIA = 35; //<35.0 °C
-//				private final double NORMAL = 36.5; //36.5–37.5 °C
-//				private final double FEVER = 37.5; //37.5 or 38.3 °C
-//				private final double HYPERPYREXIA =  38.3; // <38.3 °C
+//				private final double HYPOTHERMIA = 35; //<35.0 Â°C
+//				private final double NORMAL = 36.5; //36.5â€“37.5 Â°C
+//				private final double FEVER = 37.5; //37.5 or 38.3 Â°C
+//				private final double HYPERPYREXIA =  38.3; // <38.3 Â°C
 				
 				//Add different colors to the data
 				final XYChart.Data<String, Number> value = new XYChart.Data(label[i] + j , data[i][j]);
@@ -369,10 +371,10 @@ public class Chart extends Application{
 			for (int j = 0; j < data[i].length; j++) {
 				
 				//Temperature States 
-//				private final double HYPOTHERMIA = 35; //<35.0 °C
-//				private final double NORMAL = 36.5; //36.5–37.5 °C
-//				private final double FEVER = 37.5; //37.5 or 38.3 °C
-//				private final double HYPERPYREXIA =  38.3; // <38.3 °C
+//				private final double HYPOTHERMIA = 35; //<35.0 Â°C
+//				private final double NORMAL = 36.5; //36.5â€“37.5 Â°C
+//				private final double FEVER = 37.5; //37.5 or 38.3 Â°C
+//				private final double HYPERPYREXIA =  38.3; // <38.3 Â°C
 				
 				//Add different colors to the data
 				final XYChart.Data<String, Number> value = new XYChart.Data(label[i] + j , data[i][j]);
