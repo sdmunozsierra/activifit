@@ -8,8 +8,6 @@ import chart_package.Chart;
 import chart_package.HeartChart;
 import chart_package.StepChart;
 import chart_package.tempChart;
-import user_package.Generator_Heartbeat;
-import user_package.Generator_Sleep;
 import user_package.UserDatabase;
 
 import java.awt.BorderLayout;

@@ -6,8 +6,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import chart_package.StepChart;
-import chart_package.HeartChart;
+import chart_package.*;
+import generator_package.*;
 
 public class runner {
 
@@ -20,7 +20,7 @@ public class runner {
 		
 		gen.printGenerator();
 		
-		gen.user.printUser();
+		gen.getUser().printUser();
 		Generator_Steps steps = new Generator_Steps(gen.getUser());
 		//steps.printGeneratorInfo();
 		//steps.printUser();
@@ -28,9 +28,9 @@ public class runner {
 		
 		Generator_Steps steps1 = new Generator_Steps(gen1.getUser());
 		Generator_Steps steps2 = new Generator_Steps(gen2.getUser());
-		gen1.user.printUser();
+		gen1.getUser().printUser();
 		steps1.printDetailDistance();
-		gen2.user.printUser();
+		gen2.getUser().printUser();
 		steps2.printDetailDistance();
 		
 		Generator_Heartbeat love = new Generator_Heartbeat(gen.getUser());

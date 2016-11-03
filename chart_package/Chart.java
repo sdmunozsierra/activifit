@@ -29,7 +29,6 @@ import javafx.stage.Stage;
 
 import action_package.DataGenerator;
 import gui_package.Screen;
-import user_package.Generator;
 import user_package.User;
 
 

@@ -1,6 +1,8 @@
-package user_package;
+package generator_package;
 
 import java.util.concurrent.ThreadLocalRandom;
+
+import user_package.User;
 
 public class Generator_Sleep extends StatisticsForIntegers {
 

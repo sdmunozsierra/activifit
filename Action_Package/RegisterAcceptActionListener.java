@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import generator_package.Generator;
 import gui_package.Screen;
 import user_package.*;
 
@@ -73,7 +74,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 			createGlobalGen(); //Create generators
 			Screen.globalDatabase.printAllDetails(); //Debugging
 			Screen.globalGen.printAllDetails(); //Debugging
-			testSleepGen(); //debugging
+			//testSleepGen(); //debugging
 			//F.dispose();
 			Screen.screen_home();
 		}
@@ -125,11 +126,12 @@ public class RegisterAcceptActionListener implements ActionListener {
 		}
 	}
 	
-	private static void testSleepGen(){
-		Generator_Sleep test = new Generator_Sleep(Screen.globalDatabase.getCurrentUser());
-		int[][] data = test.getRandomData();
-		test.print2d(data);
-	}
+//	/** Debugging purposes */
+//	private static void testSleepGen(){
+//		Generator_Sleep test = new Generator_Sleep(Screen.globalDatabase.getCurrentUser());
+//		int[][] data = test.getRandomData();
+//		test.print2d(data);
+//	}
 
 	
 	/**

@@ -1,4 +1,4 @@
-package user_package;
+package generator_package;
 /*
 	 * Temperature will be affected mainly on how active is the user, and
 	 * depending on the time of the day, a normal person varies in temperature
@@ -10,6 +10,8 @@ package user_package;
 	 */
 
 import java.util.concurrent.ThreadLocalRandom;
+
+import user_package.User;
 
 public class Generator_Temperature extends StatisticsForDoubles{
 

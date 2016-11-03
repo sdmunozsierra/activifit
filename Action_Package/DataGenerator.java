@@ -1,10 +1,6 @@
 package action_package;
 
-import user_package.Generator;
-import user_package.Generator_Heartbeat;
-import user_package.Generator_Sleep;
-import user_package.Generator_Steps;
-import user_package.Generator_Temperature;
+import generator_package.*;
 import user_package.User;
 
 public class DataGenerator {

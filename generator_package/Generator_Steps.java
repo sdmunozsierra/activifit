@@ -1,7 +1,9 @@
-package user_package;
+package generator_package;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.ThreadLocalRandom;
+
+import user_package.User;
 
 public class Generator_Steps extends StatisticsForIntegers {
 

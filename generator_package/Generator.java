@@ -1,4 +1,6 @@
-package user_package;
+package generator_package;
+
+import user_package.User;
 
 //The main purpose of this class is to generate the information of the user that is
 //currently logged-in.

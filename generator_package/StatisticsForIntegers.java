@@ -1,4 +1,4 @@
-package user_package;
+package generator_package;
 
 public abstract class StatisticsForIntegers {
 	

@@ -3,9 +3,9 @@ package chart_package;
 import javax.swing.JPanel;
 
 import action_package.DataGenerator;
+import generator_package.Generator_Steps;
 import gui_package.Screen;
 import javafx.stage.Stage;
-import user_package.Generator_Steps;
 
 public class StepChart extends Charts {
 
