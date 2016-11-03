@@ -17,10 +17,10 @@ public class Generator_Temperature extends StatisticsForDoubles{
 	private final int DAY_END = 24; // in hours
 	
 	//Temperature States 
-	private final double HYPOTHERMIA = 35; //<35.0 °C
-	private final double NORMAL = 36.5; //36.5–37.5 °C
-	private final double FEVER = 37.5; //37.5 or 38.3 °C
-	private final double HYPERPYREXIA =  38.3; // <38.3 °C
+	private final double HYPOTHERMIA = 35; //<35.0 Â°C
+	private final double NORMAL = 36.5; //36.5â€“37.5 Â°C
+	private final double FEVER = 37.5; //37.5 or 38.3 Â°C
+	private final double HYPERPYREXIA =  38.3; // <38.3 Â°C
 	
 	//User Variables
 	User user;
@@ -46,23 +46,23 @@ public class Generator_Temperature extends StatisticsForDoubles{
 	 * @Param in celcius degrees */
 	public String getTempStatus(double celcius){
 		if(celcius<= HYPOTHERMIA) 
-			return "Hypothermia"; //<35.0 °C
+			return "Hypothermia"; //<35.0 Â°C
 		else if(celcius> HYPOTHERMIA && celcius < NORMAL)
-			return "Normal Cold";  //35.1- 36.4 °C
+			return "Normal Cold";  //35.1- 36.4 Â°C
 		else if(celcius >= NORMAL && celcius < FEVER)
-			return "Normal"; //36.5–37.5 °C
+			return "Normal"; //36.5â€“37.5 Â°C
 		else if(celcius >= FEVER && celcius < HYPERPYREXIA)
-			return "Fever"; //37.5 or 38.3 °C
+			return "Fever"; //37.5 or 38.3 Â°C
 		else
-			return "Hyperpyrexia"; // <38.3 °C
+			return "Hyperpyrexia"; // <38.3 Â°C
 	}
 	
 	/* Returns Day and Night temperature variations 
 	 * @Param time in military time*/
 	private double getVariation(int time){
-		if(time>5 && time <23) //Day-Variation 0.5 °C
+		if(time>5 && time <23) //Day-Variation 0.5 Â°C
 			return ThreadLocalRandom.current().nextDouble(0, 0.5);
-		else //Night-Variation -1 °C
+		else //Night-Variation -1 Â°C
 			return ThreadLocalRandom.current().nextDouble(-1, 0);
 	}
 	
@@ -76,11 +76,11 @@ public class Generator_Temperature extends StatisticsForDoubles{
 			double temp = (double) getCurrentTemperature(t);
 			String s = getTempStatus(temp);
 			if (t < 10)
-				System.out.printf("0%dam|    %.3f°C|%s\n", (t), temp, s);
+				System.out.printf("0%dam|    %.3fÂ°C|%s\n", (t), temp, s);
 			else if (t < 12)
-				System.out.printf("%dam|     %.3f°C|%s\n", (t), temp, s);
+				System.out.printf("%dam|     %.3fÂ°C|%s\n", (t), temp, s);
 			else
-				System.out.printf("%dpm|     %.3f°C|%s\n", (t), temp, s);
+				System.out.printf("%dpm|     %.3fÂ°C|%s\n", (t), temp, s);
 		}
 		System.out.println("-----------------------");
 		System.out.println("End of temperature report");
@@ -188,27 +188,27 @@ public class Generator_Temperature extends StatisticsForDoubles{
 		/**
 		 * 
 		 *     HOT:
-	44 °C (111.2 °F) or more – Almost certainly death will occur; however, people have been known to survive up to 46.5 °C (115.7 °F).
-    43 °C (109.4 °F) – Normally death, or there may be serious brain damage, continuous convulsions and shock. Cardio-respiratory collapse will likely occur.
-    42 °C (107.6 °F) – Subject may turn pale or remain flushed and red. They may become comatose, be in severe delirium, vomiting, and convulsions can occur. Blood pressure may be high or low and heart rate will be very fast.
-    41 °C (105.8 °F) – (Medical emergency) – Fainting, vomiting, severe headache, dizziness, confusion, hallucinations, delirium and drowsiness can occur. There may also be palpitations and breathlessness.
-    40 °C (104.0 °F) – Fainting, dehydration, weakness, vomiting, headache, breathlessness and dizziness may occur as well as profuse sweating. Starts to be life-threatening.
-    39 °C (102.2 °F) – Severe sweating, flushed and red. Fast heart rate and breathlessness. There may be exhaustion accompanying this. Children and people with epilepsy may be very likely to get convulsions at this point.
-    38 °C (100.4 °F) – (this is classed as hyperthermia if not caused by a fever) Feeling hot, sweating, feeling thirsty, feeling very uncomfortable, slightly hungry. If this is caused by fever, there may also be chills.
+	44 Â°C (111.2 Â°F) or more â€“ Almost certainly death will occur; however, people have been known to survive up to 46.5 Â°C (115.7 Â°F).
+    43 Â°C (109.4 Â°F) â€“ Normally death, or there may be serious brain damage, continuous convulsions and shock. Cardio-respiratory collapse will likely occur.
+    42 Â°C (107.6 Â°F) â€“ Subject may turn pale or remain flushed and red. They may become comatose, be in severe delirium, vomiting, and convulsions can occur. Blood pressure may be high or low and heart rate will be very fast.
+    41 Â°C (105.8 Â°F) â€“ (Medical emergency) â€“ Fainting, vomiting, severe headache, dizziness, confusion, hallucinations, delirium and drowsiness can occur. There may also be palpitations and breathlessness.
+    40 Â°C (104.0 Â°F) â€“ Fainting, dehydration, weakness, vomiting, headache, breathlessness and dizziness may occur as well as profuse sweating. Starts to be life-threatening.
+    39 Â°C (102.2 Â°F) â€“ Severe sweating, flushed and red. Fast heart rate and breathlessness. There may be exhaustion accompanying this. Children and people with epilepsy may be very likely to get convulsions at this point.
+    38 Â°C (100.4 Â°F) â€“ (this is classed as hyperthermia if not caused by a fever) Feeling hot, sweating, feeling thirsty, feeling very uncomfortable, slightly hungry. If this is caused by fever, there may also be chills.
 Normal
 
-    37 °C (98.6 °F) – Normal internal body temperature (which varies between about 36.12–37.8 °C (97.02–100.04 °F))
+    37 Â°C (98.6 Â°F) â€“ Normal internal body temperature (which varies between about 36.12â€“37.8 Â°C (97.02â€“100.04 Â°F))
 
 Cold
 
-    36 °C (97 °F) – Feeling cold, mild to moderate shivering (body temperature may drop this low during sleep). May be a normal body temperature.
-    35 °C (95 °F) – (Hypothermia is less than 35 °C (95 °F)) – Intense shivering, numbness and bluish/grayness of the skin. There is the possibility of heart irritability.
-    34 °C (93 °F) – Severe shivering, loss of movement of fingers, blueness and confusion. Some behavioural changes may take place.
-    33 °C (91 °F) – Moderate to severe confusion, sleepiness, depressed reflexes, progressive loss of shivering, slow heart beat, shallow breathing. Shivering may stop. Subject may be unresponsive to certain stimuli.
-    32 °C (90 °F) – (Medical emergency) Hallucinations, delirium, complete confusion, extreme sleepiness that is progressively becoming comatose. Shivering is absent (subject may even think they are hot). Reflex may be absent or very slight.
-    31 °C (88 °F) – Comatose, very rarely conscious. No or slight reflexes. Very shallow breathing and slow heart rate. Possibility of serious heart rhythm problems.
-    28 °C (82 °F) – Severe heart rhythm disturbances are likely and breathing may stop at any time. Patient may appear to be dead.
-    24–26 °C (75–79 °F) or less – Death usually occurs due to irregular heart beat or respiratory arrest; however, some patients have been known to survive with body temperatures as low as 14.2 °C (57.6 °F).[17]
+    36 Â°C (97 Â°F) â€“ Feeling cold, mild to moderate shivering (body temperature may drop this low during sleep). May be a normal body temperature.
+    35 Â°C (95 Â°F) â€“ (Hypothermia is less than 35 Â°C (95 Â°F)) â€“ Intense shivering, numbness and bluish/grayness of the skin. There is the possibility of heart irritability.
+    34 Â°C (93 Â°F) â€“ Severe shivering, loss of movement of fingers, blueness and confusion. Some behavioural changes may take place.
+    33 Â°C (91 Â°F) â€“ Moderate to severe confusion, sleepiness, depressed reflexes, progressive loss of shivering, slow heart beat, shallow breathing. Shivering may stop. Subject may be unresponsive to certain stimuli.
+    32 Â°C (90 Â°F) â€“ (Medical emergency) Hallucinations, delirium, complete confusion, extreme sleepiness that is progressively becoming comatose. Shivering is absent (subject may even think they are hot). Reflex may be absent or very slight.
+    31 Â°C (88 Â°F) â€“ Comatose, very rarely conscious. No or slight reflexes. Very shallow breathing and slow heart rate. Possibility of serious heart rhythm problems.
+    28 Â°C (82 Â°F) â€“ Severe heart rhythm disturbances are likely and breathing may stop at any time. Patient may appear to be dead.
+    24â€“26 Â°C (75â€“79 Â°F) or less â€“ Death usually occurs due to irregular heart beat or respiratory arrest; however, some patients have been known to survive with body temperatures as low as 14.2 Â°C (57.6 Â°F).[17]
 		 * 
 		 * */
 	}//End symptoms
