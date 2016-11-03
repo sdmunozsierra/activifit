@@ -6,7 +6,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import gui_package.heartChart;
+import chart_package.StepChart;
+import chart_package.HeartChart;
 
 public class runner {
 
@@ -34,13 +35,14 @@ public class runner {
 		
 		Generator_Heartbeat love = new Generator_Heartbeat(gen.getUser());
 		
-		
+		/** Test Graphs down below */
 		JFrame F = new JFrame("Logout");
 		JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		
 		JPanel graph = new JPanel();
-		graph = heartChart.drawChart(4, love);
+		//graph = heartChart.drawChart(4, love); //Test HeartChart with local data
+		graph = StepChart.drawChart(4, steps1); //Test Steps chart
 		container.add(graph);
 		
 		F.add(container, BorderLayout.CENTER);

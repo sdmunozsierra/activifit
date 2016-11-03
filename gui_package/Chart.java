@@ -1,4 +1,4 @@
-package gui_package;
+package chart_package;
 
 import java.awt.event.ActionEvent;
 
@@ -26,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import action_package.DataGenerator;
+import gui_package.Screen;
 import user_package.Generator;
 import user_package.User;
 

@@ -1,10 +1,11 @@
-package gui_package;
+package chart_package;
 
 import javax.swing.JPanel;
 
 import action_package.DataGenerator;
+import gui_package.Screen;
 import javafx.stage.Stage;
-import user_package.Generator_Heartbeat;
+import user_package.Generator_Temperature;
 
 public class tempChart extends Charts{
 
@@ -25,11 +26,11 @@ public class tempChart extends Charts{
 	}
 	
 	
-	/** Testing a drawChart from outside */
-	public static JPanel drawChart(int opt, Generator_Heartbeat generator){
-		int[][] data = generator.getRandomData();
-		JPanel love = Charts.jPanelChart(opt, data, null, "HEART CHART TEST","Y AXIS TITLE MAN");
-		return love;
+	/** Testing a drawChart from outside [Debugging] */
+	public static JPanel drawChart(int opt, Generator_Temperature generator){
+		double[][] data = generator.getRandomData();
+		JPanel cold = Charts.jPanelChart(opt, null, data, "TEMP CHART TEST","Y AXIS TITLE MAN");
+		return cold;
 	}
 	
 	

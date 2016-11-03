@@ -20,7 +20,8 @@ public class Generator_Steps extends StatisticsForIntegers {
 	private int dailyDistance;  //in kilometers
 	private double pace;		//kilometer/hrs
 	private int totalSteps; 	//in steps
-
+	private int[] parameters;   //for colors
+	
 	//Constructor
 	public Generator_Steps(User user) {
 		//The following are order sensitive -Do not change-
@@ -30,6 +31,7 @@ public class Generator_Steps extends StatisticsForIntegers {
 		this.dailyDistance = getDailyDistance();
 		this.pace = (double) this.dailyDistance / (DAY_END-DAY_START); 
 		this.totalSteps = this.stepsPerKm*this.dailyDistance;
+		this.parameters = getParameters();
 	}
 
 	/*
@@ -61,6 +63,16 @@ public class Generator_Steps extends StatisticsForIntegers {
 	private int getDailyDistance(){
 		//Mainly as a wrapper
 		return ThreadLocalRandom.current().nextInt(getMinDistance(), getMaxDistance() + 1);
+	}
+	
+	/* Return an array with the parameters of the day */
+	private int[] getParameters(){
+		int[] param = new int[3];
+		//Divides the daily distance from 5 to 2. So above half its OK.
+		for (int i = 0, j = 5; i < param.length; i++, j--) {
+			param[i] = this.dailyDistance/j;
+		}
+		return null;
 	}
 	
 	/* Returns max distance in km*/
@@ -128,7 +140,7 @@ public class Generator_Steps extends StatisticsForIntegers {
 		}
 	}
 
-	/* Returns the number of steps at the time */ 
+	/* Returns the number of steps at the current distance */ 
 	public double getCurrentSteps(double currDist){
 		this.currentSteps = (double) currDist*this.stepsPerKm;
 		return this.currentSteps;
@@ -162,6 +174,7 @@ public class Generator_Steps extends StatisticsForIntegers {
 		System.out.println("Total Steps during the day: "+this.totalSteps);
 	}
 
+	/* Print Generator detail information */
 	public void printDetailDistance(){
 		System.out.println("Today's Detail Activity Log ");
 		System.out.println("TIME|Distance|Steps");
@@ -232,6 +245,12 @@ public class Generator_Steps extends StatisticsForIntegers {
 		return data;
 	}
 
+	/** Send the distance parameters */
+	public int[] sendParameters(){
+		return this.parameters;
+	}
+	
+	/* Find the average in an array */
 	@Override
 	/* Returns the average of information */
 	protected int findAverage(int[] intArray){

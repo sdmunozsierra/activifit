@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import action_package.*;
+import chart_package.Chart;
+import chart_package.HeartChart;
+import chart_package.StepChart;
+import chart_package.tempChart;
 import user_package.Generator_Heartbeat;
 import user_package.Generator_Sleep;
 import user_package.UserDatabase;
@@ -479,33 +483,36 @@ public class Screen {
 		
 		switch (opt){
 		case 0: //Day Graph Heart
-			graph = heartChart.drawChart(3);
+			graph = HeartChart.drawChart(4);
 			break;
 		case 1: //Weekly Graph Heart
-			graph = heartChart.drawChart(2);
+			graph = HeartChart.drawChart(2);
 			break;
 		case 2: //Monthly Graph Heart
-			graph =tempChart.drawChart(3);
+			graph = HeartChart.drawChart(1); 
 			break;
 		case 3: //Weekly Graph Steps
-			graph = tempChart.drawChart(2);
+			graph = StepChart.drawChart(2);
 			break;
 		case 4: //Monthly Graph Steps
-			graph = Chart.stepsChart(1);
+			graph = StepChart.drawChart(4); //<- intentionally
 			break;
 		case 5: //Weekly Graph Temperature
-			graph = Chart.tempChart(2);
+			graph = tempChart.drawChart(2);
 			break; //<-Never forger a break OK? THANKS
 		case 6: //Month
-			graph = Chart.tempChart(1);
+			graph = tempChart.drawChart(1);
 			break;
+		case 7: //Week Sleep (2)
+			break;
+		case 8: //Month Sleep (1)
 		}//end switch
 		
 		SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
             //Chart.heartChart(4); //run something, ask the professor why
-            heartChart.drawChart(4);
+            HeartChart.drawChart(4);
             }
         });
 		
