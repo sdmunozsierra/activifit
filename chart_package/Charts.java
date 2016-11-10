@@ -27,7 +27,7 @@ public abstract class Charts extends Application{
 	public static String orange_carrot = "#e67e22";
 	public static String blue_peterriver = "#3498db";
 		
-	/** Genera; Init, Scene, Chart and JPanel */
+	/** General Initialization, Scene, Chart and JPanel */
 	/** Create a General FX Panel */
 	/*** 2 ***/
 	private static void initFXPanel(JFXPanel fxPanel, int opt, int[][] intData, double[][] doubleData, String title, 

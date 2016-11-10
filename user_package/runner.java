@@ -35,6 +35,11 @@ public class runner {
 		
 		Generator_Heartbeat love = new Generator_Heartbeat(gen.getUser());
 		
+		/* Test Sleep */
+		Generator_Sleep night = new Generator_Sleep(gen.getUser());
+		//night.print2d(night.getRandomData());
+		
+		
 		/** Test Graphs down below */
 		JFrame F = new JFrame("Logout");
 		JPanel container = new JPanel();
@@ -42,7 +47,7 @@ public class runner {
 		
 		JPanel graph = new JPanel();
 		//graph = heartChart.drawChart(4, love); //Test HeartChart with local data
-		graph = StepChart.drawChart(4, steps1); //Test Steps chart
+		graph = SleepChart.drawChart(1, night); //Test Steps chart
 		container.add(graph);
 		
 		F.add(container, BorderLayout.CENTER);

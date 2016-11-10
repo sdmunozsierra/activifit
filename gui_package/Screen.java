@@ -415,42 +415,46 @@ public class Screen {
 
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/1BxhCZb.jpg", 2);
 
+		// Local Variables from global generator
+		int totalSleep= globalGen.sleep.getTotalSleep();
+		double cycles =  globalGen.sleep.getTotalCycles();
+		
+		
 		// Labels
-		JLabel current_sleep = new JLabel("Yesterday's Sleep Quality"); 
-		JLabel rem = new JLabel("REM Time"); // From SLEEP.CLASS
-		JLabel light = new JLabel("Light Sleep Time"); // From SLEEP.CLASS
-		JLabel deep = new JLabel("Deep Sleep Time"); // From SLEEP.CLASS
+		JLabel label_totaltime = new JLabel("Total Time:   "+totalSleep);
+		JLabel label_cycles = new JLabel("Total Cycles: "+cycles);
+		
+		
 
 		// Activity Banner Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("Sleep", white_clouds);
 		// Display Panel
 		JPanel displayP = new JPanel();
-		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
-		JButton button_week = new JButton("Change to Week");
-		JButton button_month = new JButton("Change to Month");
-		displayP.add(button_week);
-		displayP.add(Box.createHorizontalGlue());
-		displayP.add(button_month);
-		displayP.setOpaque(true);
+//		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
+//		JButton button_week = new JButton("Change to Week");
+//		JButton button_month = new JButton("Change to Month");
+//		displayP.add(button_week);
+//		displayP.add(Box.createHorizontalGlue());
+//		displayP.add(button_month);
+//		displayP.setOpaque(false);
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
-		background.add(current_sleep);
-		current_sleep.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
 		background.add(Box.createRigidArea(new Dimension(0, 75)));
 
-		background.add(rem);
-		background.add(light);
-		background.add(deep);
+//		background.add(rem);
+//		background.add(light);
+//		background.add(deep);
 		// current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(Box.createRigidArea(new Dimension(0, 100)));
-		background.add(displayP);
+//		background.add(displayP);
 
 		// Actions
-		WeekSleepActionListener action = new WeekSleepActionListener(F);
-		button_week.addActionListener(action);
-		MonthSleepsActionListener action2 = new MonthSleepsActionListener(F);
-		button_month.addActionListener(action2);
+//		WeekSleepActionListener action = new WeekSleepActionListener(F);
+//		button_week.addActionListener(action);
+//		MonthSleepsActionListener action2 = new MonthSleepsActionListener(F);
+//		button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);

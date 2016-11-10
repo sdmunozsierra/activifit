@@ -17,7 +17,7 @@ public class StepChart extends Charts {
 	public static JPanel drawChart(int opt) {
 		int[][] data = localGen.steps.getRandomData();
 		//int[] parameters = localGen.steps.sendParameters();
-		JPanel run = Charts.jPanelChart(opt, data, null, "VAMOS A DARLE LA VUELTA AL MUNDO", "Y AXIS TITLE MAN",
+		JPanel run = Charts.jPanelChart(opt, data, null, "VAMOS A DARLE LA VUELTA AL MUNDO", "Number of Steps",
 				colorParams, null);
 		return run;
 	}
