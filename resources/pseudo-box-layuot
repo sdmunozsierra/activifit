@@ -1,0 +1,50 @@
+package activifit_gui;
+
+import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.*;
+
+//Reference:
+//https://docs.oracle.com/javase/tutorial/uiswing/layout/box.html
+public class box_layout {
+	// This class will run in main method for easy debugging
+	public static void main(String args[]) {
+		JFrame F = new JFrame("box_layout");
+
+		// Create a panel in a list order
+		JPanel listPane = new JPanel();
+		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS)); 
+
+		// Create a "BANNER" Label //Can be edited to be a picture latter on
+		JLabel banner = new JLabel("HUGE BANNER"); // Take this from git
+		// banner.setFont..().. //edit to be big
+
+		// Create two more labels to test the layout
+		JLabel thing1 = new JLabel("FIRST THING");
+		JLabel thing2 = new JLabel("SECOND THING");
+		JLabel thing3 = new JLabel("Third THING");
+		JLabel thing4 = new JLabel("Forth THING");
+		//JLabel center = new JLabel("  ");
+
+		// Add labels to the 'list' panel
+		listPane.add(banner);
+		listPane.add(thing1);
+		listPane.add(Box.createRigidArea(new Dimension(0,15))); //CREATES EMPTY SPACE BETWEEN STUFF
+		listPane.add(thing2);
+		listPane.add(Box.createVerticalGlue()); //GLUE STETCHES!!
+		listPane.add(thing3);
+		listPane.add(thing4);
+		
+		//Align every component (-.-)
+		banner.setAlignmentX(Component.CENTER_ALIGNMENT);
+		thing1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		thing2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		thing3.setAlignmentX(Component.CENTER_ALIGNMENT);
+		thing4.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		F.add(listPane);
+		F.setSize(500, 200);
+		F.setVisible(true);
+
+	}// end main method
+}//end class
