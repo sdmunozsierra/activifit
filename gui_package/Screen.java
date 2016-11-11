@@ -338,7 +338,7 @@ public class Screen {
 		
 		// Labels
 		JLabel current_temp = new JLabel();
-		current_temp.setText(String.format("<html>Current Temperature:<br>%.1f°C</html>", currentTemp, SwingConstants.CENTER));
+		current_temp.setText(String.format("<html>Current Temperature:<br>%.1fC</html>", currentTemp, SwingConstants.CENTER));
 		JLabel current_temp_state = new JLabel("<html>Body Temperature State:<br>"+status+"</html>", SwingConstants.CENTER); 
 
 		background.add(banner);

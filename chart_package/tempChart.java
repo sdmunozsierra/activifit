@@ -27,7 +27,7 @@ public class tempChart extends Charts{
 	/** Returns a JPanel with the invoked data */
 	public static JPanel drawChart(int opt){
 		double[][] data = localGen.temp.getRandomData();
-		JPanel hot = Charts.jPanelChart(opt, null, data, "HOT SINCE 92","°C",
+		JPanel hot = Charts.jPanelChart(opt, null, data, "HOT SINCE 92","C",
 				null, colorParams);
 		return hot;
 	}
