@@ -1,26 +1,29 @@
 package generator_package;
 
 import user_package.User;
-
-//The main purpose of this class is to generate the information of the user that is
-//currently logged-in.
+/** Class that creates Generator for the current user.
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class Generator {
 	
 	protected User user;
-	
-	//User Constructor
+	/** Constructor
+	 * @param User. Current logged-in.
+	 * */
 	public Generator(User user){
 		this.user = user;
 	}
-	
-	//Get user
+	/** Returns the current user.
+	 * @return User 
+	 * */
 	public User getUser(){
 		return user;
 	}
-
-	//Some quick info [Mainly Debugging]
+	/** print Generator information [Debugging]
+	 * */
 	public void printGenerator(){
+		System.out.println("Creating a Generator...");
 		System.out.println("ACCESSING SUPER GENERATOR OF USER: "+user.getName());
 	}
-
 }//end class

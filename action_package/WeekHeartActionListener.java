@@ -6,7 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import gui_package.Screen;
-/** Class that registers a new user.
+/** Action listener class for displaying Weekly view
+ *  Screen Chart for Heart.
  * @author JSSP Engineers
  * @version 1.0
  */
@@ -22,8 +23,9 @@ public class WeekHeartActionListener implements ActionListener {
 		super();
 		this.F = F;
 	}
-	/** Action Performed. Triggers the action go to screen login.
+	/** Action Performed. Triggers the action go to weekly view.
 	 *  Disposes the current frame.
+	 *  @param arg0 Button clicked.
 	 *  @see Screen.screen_customView(1)
 	 * */
 	@Override
