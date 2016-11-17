@@ -6,12 +6,20 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import gui_package.Screen;
-
+/**The action listener is for clicking the button to display monthly heart rate
+ * that directs the user to a graph of data.
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class MonthHeartActionListener implements ActionListener {
 	// Create private variables
 		private final JFrame F;
 
 		// Constructor
+		/**
+		 * 
+		 * @param F A JFrame to display the chart of data for the heart rate
+		 */
 		public MonthHeartActionListener(JFrame F) {
 			super();
 			this.F = F;
