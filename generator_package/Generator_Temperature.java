@@ -12,7 +12,10 @@ package generator_package;
 import java.util.concurrent.ThreadLocalRandom;
 
 import user_package.User;
-
+/**This is the generator for the temperature values to be created for the user
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class Generator_Temperature extends StatisticsForDoubles{
 
 	private final int DAY_START = 0; // in hours
@@ -27,7 +30,10 @@ public class Generator_Temperature extends StatisticsForDoubles{
 	//User Variables
 	User user;
 	private static double currentTemperature;
-	
+	/**
+	 * 
+	 * @param usr specific user for the generator
+	 */
 	/* Constructor */
 	public Generator_Temperature(User usr) {
 		this.user = usr;
@@ -37,6 +43,11 @@ public class Generator_Temperature extends StatisticsForDoubles{
 	/* Returns the current temperature according to the time of the day 
 	 * This method is for a normal temperature, change to do more complex
 	 * stuff like, change according to the activity index*/
+	/**
+	 * 
+	 * @param currentTime Time of day
+	 * @return The current temperature 
+	 */
 	public double getCurrentTemperature(int currentTime){
 		//First get the variation according to time
 		double var = getVariation(currentTime);
@@ -46,6 +57,11 @@ public class Generator_Temperature extends StatisticsForDoubles{
 	
 	/* Returns the condition of the current temperature
 	 * @Param in celcius degrees */
+	/**
+	 * 
+	 * @param celcius The temperature in celcius
+	 * @return depending on range, will return a string describing temperature relating to body norms
+	 */
 	public String getTempStatus(double celcius){
 		if(celcius<= HYPOTHERMIA) 
 			return "Hypothermia"; //<35.0 °C
@@ -59,8 +75,11 @@ public class Generator_Temperature extends StatisticsForDoubles{
 			return "Hyperpyrexia"; // <38.3 °C
 	}
 	
-	/* Returns Day and Night temperature variations 
-	 * @Param time in military time*/
+	/**
+	 * 
+	 * @param time Military time
+	 * @return Day and Night temperature variations 
+	 */
 	private double getVariation(int time){
 		if(time>5 && time <23) //Day-Variation 0.5 °C
 			return ThreadLocalRandom.current().nextDouble(0, 0.5);
@@ -98,7 +117,9 @@ public class Generator_Temperature extends StatisticsForDoubles{
 		}
 		
 	}
-
+    /**
+     * @return Array of day statistics
+     */
 	protected double[] getDayStatistics() {
 		double [] dayArray = new double[24]; //24 hours
 		for (int i = 0; i < dayArray.length; i++)
@@ -106,7 +127,10 @@ public class Generator_Temperature extends StatisticsForDoubles{
 		return dayArray;
 	}
 	
-	/* Returns an array with a day's worth of information */
+	
+	/**
+	 * @return array with a day's worth of information 
+	 */
 	protected double[] getWeekStatistics(){
 		double [] a = new double[7]; //7 days
 		for (int i = 0; i < a.length; i++) 
@@ -114,7 +138,9 @@ public class Generator_Temperature extends StatisticsForDoubles{
 		return a;
 	}
 
-	/* Returns an array with a week's worth of information */
+	/**
+	 * @return array with a week's worth of information
+	 */
 	protected double[] getMonthlyStatistics() {
 		double [] a = new double[4]; //4 weeks
 		for (int i = 0; i < a.length; i++) 
@@ -123,7 +149,9 @@ public class Generator_Temperature extends StatisticsForDoubles{
 		
 	}
 
-	/* Returns an array with a months' worth of information */
+	/**
+	 * @return array with a months' worth of information
+	 */
 	protected double findAverage(double[] arr) {
 		double avg = 0;
 		for (int i = 0; i < arr.length; i++) {
@@ -132,7 +160,9 @@ public class Generator_Temperature extends StatisticsForDoubles{
 		return avg/arr.length; 
 	}
 
-	/* Returns the Random Data */
+	/**
+	 * @return the Random Data
+	 */
 	public double[][] getRandomData() {
 		double[][] data = new double[3][];
 		data[0] = new double[4]; //Monthly Data
@@ -155,8 +185,10 @@ public class Generator_Temperature extends StatisticsForDoubles{
 		return data;
 	}
 
-	
-	/* Print the 2dArray [Debugging]*/
+	/**
+	 * 
+	 * @param data Print the 2dArray [Debugging]
+	 */
 	public void print2d(int[][] data) {
 		//int[][] data = sendRandomData();
 		double[] month = getMonthlyStatistics();
