@@ -6,30 +6,43 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import gui_package.Screen;
-
-/* This class will be a more dynamic way to implement the actions for buttons
- * in the Home Screen, requiring a opt parameter 
- * This will remove the need for having multiple action listeners*/
+/** This class will be a more dynamic way to implement the actions for buttons
+ * in the Home Screen, requiring an opt parameter and will remove the need for having
+ * multiple action listeners.
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class HomeMenuActionListener implements ActionListener {
 
 	private final JFrame F;
-
-	// Opt in order 0: HEART 1: STEPS 2: TEMP 3: SLEEP 4: SHARE
+	/**
+	 * Opt in order 0: HEART 1: STEPS 2: TEMP 3: SLEEP 4: SHARE
+	 */
 	private int opt;
 
-	// Simple Constructor
+	/**
+	 * Constructor for HomeMenuActionListener without opt
+	 * @param F sets the final JFrame for the HomeMenuActionListener
+	 */
 	public HomeMenuActionListener(JFrame F) {
 		super();
 		this.F = F;
 	}
 	
-	// Constructor with opt
+	/**
+	 * Constructor for HomeMenuActionListener with opt
+	 * @param F sets the final JFrame for the HomeMenuActionListener
+	 * @param opt sets the number for the button that will be chosen
+	 */
 	public HomeMenuActionListener(JFrame F, int opt) {
 		super();
 		this.F = F;
 		this.opt = opt;
 	}
-
+	/**
+	 * Method checks what the opt number is and makes the actions
+	 * directed on the switch/cases.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		switch (opt) {

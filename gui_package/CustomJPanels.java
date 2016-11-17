@@ -15,9 +15,17 @@ import javax.swing.JPanel;
 import action_package.NavPanelBackActionListener;
 
 //Put here all the custom panels in the gui_package
+/**
+ * Here are all the custom panels in the gui_package
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class CustomJPanels {
 	
-	/** Banner Panel */
+	/**
+	 * This method is to create the bannel panel
+	 * @return JPanel the banner
+	 */
 	public static JPanel bannerPanel() {
 		/*
 		 * Add to the as-> Frame.add(bannerPanel(), BorderLayout.NORTH) Panel
@@ -34,7 +42,12 @@ public class CustomJPanels {
 		return panel;
 	}
 
-	/** Activity Banner Panel */
+	/**
+	 * It created the activity banner panel
+	 * @param activity takes in the activity, either heart, steps, sleep, or temperature
+	 * @param color takes in the color
+	 * @return JPanel
+	 */
 	public static JPanel activityBannerPanel(String activity, Color color) {
 		/* Panel containing a custom banner for an activity. */
 		JPanel panel = new JPanel();
@@ -51,7 +64,11 @@ public class CustomJPanels {
 		return panel;
 	}
 	
-	/** Banner navPanel */
+	/**
+	 * It created the banner navigation panel
+	 * @param F JFrame to create the panel
+	 * @return JPanel with the frame
+	 */
 	public static JPanel navPanel(JFrame F) {
 		/*
 		 * Add to the as-> Frame.add(navPanel(), BorderLayout.SOUTH) Panel
@@ -76,7 +93,12 @@ public class CustomJPanels {
 		return panel;
 	}// end navPanel
 	
-	/** Set Background Panel */
+	/**
+	 * Method sets the background panel
+	 * @param path String to read for panel
+	 * @param opt numbers 1-3 for either local path, web path, or web path with no scaling
+	 * @return JPanel
+	 */
 	public static JPanel backgroundPanel(String path, int opt) {
 		/*	OPT =>
 		 *  Use 1 for Local Path 

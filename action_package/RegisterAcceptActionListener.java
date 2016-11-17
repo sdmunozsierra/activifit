@@ -9,10 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import generator_package.DataGenerator;
 import generator_package.Generator;
 import gui_package.Screen;
 import user_package.*;
-
+/** Class that registers a new user.
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 
 public class RegisterAcceptActionListener implements ActionListener {
 	// Border
@@ -33,7 +37,11 @@ public class RegisterAcceptActionListener implements ActionListener {
 	private User newUser;
 	
 	
-	// Constructor
+	/** Constructor.
+	 *  Sets the size, a local text array, and frame.
+	 *  @param JTextField[]. An array of text fields (registration form).
+	 *  @param JFrame. 
+	 * */
 	public RegisterAcceptActionListener(final JTextField[] t_array, JFrame F) {
 		super();
 		this.size = t_array.length;
@@ -43,7 +51,13 @@ public class RegisterAcceptActionListener implements ActionListener {
 		}
 		this.F = F;
 	}
-	
+	/** Action Performed. Checks the user input, if errors occur, send errors
+	 *  to the user form. If no errors, register the user, and create a 
+	 *  global generator, to be used everywhere.
+	 *  Finally disposes the current Frame.
+	 *  @param e Accept Button clicked.
+	 *  @see Screen.Screen_register()
+	 * */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		boolean flagError = false;
@@ -67,34 +81,32 @@ public class RegisterAcceptActionListener implements ActionListener {
 			flagError = true;
 		} 
 		if (!flagError) { //VERY IMPORTANT
-			//After the registration has succeded, the user is going to be
-			//created in the database and the random data is going to be
-			//generated in order to be used EVERYWHERE else.
+			/* After the registration has succeded, the user is going to be
+			 * created in the database and the random data is going to be 
+			 * generated in order to be used EVERYWHERE else.*/
 			registerUser(); // Create a USER
 			createGlobalGen(); //Create generators
-			Screen.globalDatabase.printAllDetails(); //Debugging
-			Screen.globalGen.printAllDetails(); //Debugging
+			//Screen.globalDatabase.printAllDetails(); //Debugging
+			//Screen.globalGen.printAllDetails(); //Debugging
 			//testSleepGen(); //debugging
-			//F.dispose();
+			F.dispose();
 			Screen.screen_home();
 		}
 	}// end action performed
 	
-	//Register a user
+	/** Register a User in the global database. */
 	private void registerUser(){
 		this.newUser = new User(n, a, w, h, id, email);
 		Screen.globalDatabase.addUserToDatabase(newUser);
 		
 	}
-	
-	//Create Data Generator
+	/** Create a Global Data Generator. */
 	private void createGlobalGen(){
 		Generator newGen = new Generator(newUser);
 		Screen.globalGen = new DataGenerator(newGen);
 	}
-
-	
-	// Extracts the data from the JTextField
+	/** Extracts the data from the JTextField. 
+	 * @param JTextField[]. The form in a textField array type. */
 	private void extractData(JTextField[] data) {
 		/*
 		 * I don't know if there is a way to loop this instead of hard coding
@@ -107,8 +119,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 		this.id = tryParse(data[4].getText());
 		this.email = data[5].getText();
 	}
-
-	// Prints the data [debugging purposes]
+	/** Prints the data [debugging purposes] */
 	public void printData() {
 		int i = 0;
 		while (i < size) {
@@ -116,8 +127,8 @@ public class RegisterAcceptActionListener implements ActionListener {
 			i++;
 		}
 	}
-
-	//Method for checking if the parsed Int is really an Integer
+	/** Method for checking if the parsed Int is really an Integer 
+	 * @param String text. Converts the text into an integer.*/
 	private static Integer tryParse(String text) {
 		try {
 			return Integer.parseInt(text);
@@ -133,9 +144,5 @@ public class RegisterAcceptActionListener implements ActionListener {
 //		test.print2d(data);
 //	}
 
-	
-	/**
-	 * TODO: Create a method for checking the name for invalid chars
-	 * 
-	 * */
+	 // TODO: Create a method for checking the name for invalid chars
 }// end class

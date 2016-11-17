@@ -9,8 +9,15 @@ import javax.swing.JPanel;
 import chart_package.*;
 import generator_package.*;
 
+/**
+ * Test to run tests
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class runner {
-
+	/**
+	 * Main method where tests are ran.
+	 */
 	public static void main(String[] args) {
 
 		
