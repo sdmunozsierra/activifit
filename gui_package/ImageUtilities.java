@@ -19,15 +19,22 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-
+/**This is the image utilities to show images for the gui
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class ImageUtilities {
 	Image img;
-
+    
 	public ImageUtilities() {
 		this.img = null;
 	}
 
-	// Reads an image from the web
+
+	/**Reads an image from the web
+	 * 
+	 * @param url link for image
+	 */
 	public void readImgFromWeb(String url) {
 		try {
 			URL url_1 = new URL(url);
@@ -37,7 +44,11 @@ public class ImageUtilities {
 		}
 	}
 
-	// Reads an image from a local path C\Users\blah
+	
+	/**Reads an image from a local path C\Users\etc..
+	 * 
+	 * @param path local path to image
+	 */
 	public void readFromSource(String path) {
 		BufferedImage img = null;
 		try {
@@ -49,17 +60,31 @@ public class ImageUtilities {
 		this.img = img;
 	}
 
-	// Pulls the image once loaded from web
+	/**Pulls the image once loaded from web
+	 * 
+	 * @return images from web
+	 */
 	public Image getImage() {
 		return this.img;
 	}
 	
-	//Sets the image
+	
+	/**Sets the image
+	 * 
+	 * @param img new image 
+	 */
 	public void setImage(Image img){
 		this.img = img;
 	}
 
-	// Resizes any image
+	
+	/**Resizes any image
+	 * 
+	 * @param srcImg actual image
+	 * @param w x value
+	 * @param h y value
+	 * @return image scaled
+	 */
 	public Image getScaledImage(Image srcImg, int w, int h) {
 		/* Method from:
 		 * http://stackoverflow.com/questions/6714045/how-to-resize-jlabel-
@@ -75,7 +100,12 @@ public class ImageUtilities {
 		return resizedImg;
 	}// end getScaledImage
 
-	//Creates a backgroundPanel
+	
+	/**Creates a backgroundPanel
+	 * 
+	 * @param backgound_image
+	 * @return panel with image
+	 */
 	public JPanel setBackgroundPanelImage(Image backgound_image) {
 		this.img = backgound_image;
 		JPanel panel = new JPanel() {
