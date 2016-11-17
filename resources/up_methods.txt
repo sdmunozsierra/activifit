@@ -1,7 +1,0 @@
-* __user_package__ 
-
-* UserDatabase.java
-Methods: 6
-Constructor: 1
-Return Type User: 1
-Void: 4
