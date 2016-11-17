@@ -90,7 +90,7 @@ public class Generator_Heartbeat extends StatisticsForIntegers {
 		else if(bpm > REST_MAX && bpm < TACHYCARDIA)
 			return "ABOVE AVERAGE"; //91 to 99
 		else
-			return "TACHYCARDIA"; // <100
+			return "TACHYCARDIA"; // >100
 	}
 	
 	/**
