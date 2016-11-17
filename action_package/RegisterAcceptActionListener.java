@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import generator_package.DataGenerator;
 import generator_package.Generator;
 import gui_package.Screen;
 import user_package.*;

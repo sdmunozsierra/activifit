@@ -1,6 +1,5 @@
-package action_package;
+package generator_package;
 
-import generator_package.*;
 import user_package.User;
 /**
  * Class calls generators from {@link #generator.package} and creates the

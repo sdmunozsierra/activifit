@@ -8,6 +8,7 @@ import action_package.*;
 import chart_package.HeartChart;
 import chart_package.StepChart;
 import chart_package.tempChart;
+import generator_package.DataGenerator;
 import user_package.UserDatabase;
 
 import java.awt.BorderLayout;
