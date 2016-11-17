@@ -9,13 +9,14 @@ import user_package.User;
 public class Generator_HeartbeatTest {
 	final User usr = new User("Henry", 24, 70, 164, 5, "henry@hotmail.com");
 	final Generator_Heartbeat genH = new Generator_Heartbeat(usr);
-	final int[] array = new int[3];
+	final int[] array1 = new int[3];
 	
 	@Test
 	public void test() {
-		array[0] = 10;
-		array[1] = 10;
-		array[2] = 10;
+		array1[0] = 10;
+		array1[1] = 10;
+		array1[2] = 10;
+		
 		
 		//getRestHeartStatus
 		assertSame("BRADYCARDIA", genH.getRestHeartStatus(40));
@@ -24,7 +25,8 @@ public class Generator_HeartbeatTest {
 		assertNotSame("TACHYCARDIA", genH.getRestHeartStatus(70));
 		
 		//findAverage(int[] a)
-		assertEquals(10, genH.findAverage(array));
+		assertEquals(10, genH.findAverage(array1));
+		assertNotSame(8, genH.findAverage(array1));
 	}
 
 }
