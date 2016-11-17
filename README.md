@@ -43,7 +43,18 @@ _eGit:_ Is used to maintain compatibility with online repositories from Github, 
 
 _e(fx)clipse:_ Because some machines do not have compatibility with JavaFX (mainly used to create charts and scenes), e(fx)clipse is a great tool that works flawlessly.
  
- 
+###Extra Information
+__Current Number of Classes Per Package__
+
+_action_package_ __21__
+
+_chart_package_ __7__
+
+_generator_package_ __7__
+
+_gui_package_ __6__
+
+_user_package_ __3__
 
 Resources:
 https://www.materialui.co/

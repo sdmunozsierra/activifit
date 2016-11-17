@@ -25,6 +25,7 @@ public class NavPanelBackActionListener implements ActionListener {
 
 	/** Action Performed. Triggers the action go to screen home.
 	 *  Disposes the current frame.
+	 *  @param arg0 Button clicked.
 	 *  @see Screen.screen_home()
 	 * */
 	@Override

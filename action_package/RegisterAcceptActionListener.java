@@ -54,6 +54,8 @@ public class RegisterAcceptActionListener implements ActionListener {
 	 *  to the user form. If no errors, register the user, and create a 
 	 *  global generator, to be used everywhere.
 	 *  Finally disposes the current Frame.
+	 *  @param e Accept Button clicked.
+	 *  @see Screen.Screen_register()
 	 * */
 	@Override
 	public void actionPerformed(ActionEvent e) {

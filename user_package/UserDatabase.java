@@ -3,25 +3,28 @@ package user_package;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
+/** Class that handles a database for users.
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class UserDatabase {
 	
-	//Variables
+	//Database Variable
 	private Set<User> database;
-	
-	
-	//Empty User Database
+	/**Constructor.
+	 * Creates a HashSet of type User called database.
+	 * */
 	public UserDatabase(){
 		this.database = new HashSet<User>();
 	}
-	
-	//Add a user
+	/** Add a User to Database
+	 * @param newUser User to be added to the database.
+	 * */
 	public void addUserToDatabase(User newUser){
 			this.database.add(newUser);
 	}
-	
-	
-	//Print all users in database
+	/** Print a list will all the users in the database.
+	 *  */
 	public void printAll(){
 		System.out.println("Users in this database:" );
 		int i = 0;
@@ -30,8 +33,8 @@ public class UserDatabase {
 			i++;
 		}
 	}
-	
-	/* Print All with Details */
+	/** Print all the users in the database with details in a nice
+	 * format.*/
 	public void printAllDetails(){
 		//Prints the whole database with a nice format
 		System.out.println(""); //Force empty line
@@ -50,22 +53,23 @@ public class UserDatabase {
 		System.out.println("END DATABASE");
 		formatLine(25);
 	}//end method
-	
+	/** Get the current user by using an iterator.
+	 * @return Current User
+	 * */
 	public User getCurrentUser(){
 		//Missing check if database ! empty
 		Iterator<User> iter = database.iterator();
 		return iter.next();
 	}
-	
-	/* Format for a dashed line */
+	/** Format for a dashed line.
+	 * @param numberOfDashes Length of the dashed line.*/
 	public void formatLine(int numberOfDashes){
 		for (int i = 0; i < numberOfDashes ; i++) {
 			System.out.print("-");
 		}
 		System.out.print("\n");
 	}
-	
-	//TO-DO
+	//TODO
 		//Avoid duplicate users 
 	
 }//end class

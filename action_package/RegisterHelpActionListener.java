@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import gui_package.Screen;
-/** Class that registers a new user.
+/** Class that shows the Help Screen.
  * @author JSSP Engineers
  * @version 1.0
  */
@@ -24,6 +24,7 @@ public class RegisterHelpActionListener implements ActionListener {
 	}
 	/** Action Performed. Triggers the action go to screen help.
 	 *  Disposes the current frame.
+	 *  @param arg0 Button clicked.
 	 *  @see Screen.screen_help()
 	 * */
 	@Override
