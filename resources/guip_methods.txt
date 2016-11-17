@@ -1,6 +1,0 @@
-* __gui_package__ 
-
-* SpringUtilities.java
-Methods: 4
-Return Type SpringLayout: 1
-Void: 3
