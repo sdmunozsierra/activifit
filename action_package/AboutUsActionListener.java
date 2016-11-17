@@ -15,19 +15,20 @@ public class AboutUsActionListener implements ActionListener {
 	private final JFrame F;
 
 	/**
-	 * 
-	 * @param F 
+	 * Constructor
+	 * @param F sets the final JFrame for the AboutUsActionListener
 	 */
 	public AboutUsActionListener(JFrame F) {
 		super();
 		this.F = F;
-	}
+	}//end Constructor
+	
 	/**
-	 * 
+	 * Method overrides ActionListener to show pop-up screen
+	 * Displays the final F JFrame
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		//Show as a pop-up screen
 		F.dispose();
 	}// end action performed
 

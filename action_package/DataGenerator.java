@@ -2,7 +2,13 @@ package action_package;
 
 import generator_package.*;
 import user_package.User;
-
+/**
+ * Class calls generators from {@link #generator.package} and creates the
+ * data for the current user.
+ * @author JSSP Engineers
+ * @version 1.0
+ *
+ */
 public class DataGenerator {
 	// Private variables
 	private Generator gen; //Generator must kept as private for sensitive data
@@ -12,16 +18,22 @@ public class DataGenerator {
 	public Generator_Heartbeat heart;
 	public Generator_Sleep sleep;
 	
-	//Constructor 
+	/**
+	 * Constructor
+	 * @param g is passed through to set all the user information and then calls {@link #createData()}
+	 */
 	public DataGenerator(Generator g){
 		//Takes a generator as a parameter
 		this.gen = new Generator(new User(g.getUser().getName(),
 				g.getUser().getAge(),g.getUser().getWeight(),g.getUser().getHeight(),
 				g.getUser().getActId(), g.getUser().getEmail()));
-		createData(); //Generate Generators lolololo
+		createData(); //Generate Generators 
 	}
-	
-	/* Call each generator */
+
+	/**
+	 * Calls all the generators for steps, temperature, heart, and sleep 
+	 * to create the data for the current generator g.
+	 */
 	public void createData(){
 		//Create a Steps Generator
 		this.steps = new Generator_Steps(gen.getUser());
@@ -33,7 +45,9 @@ public class DataGenerator {
 		this.sleep = new Generator_Sleep(gen.getUser());
 	}
 
-	/* Prints ALL the details for the current user */
+	/**
+	 * Method prints all of the user's data on the console.
+	 */
 	public void printAllDetails(){
 		//Prints the whole generated data
 		String[] labels = {"HEARTBEAT GENERATOR","STEPS GENERATOR","TEMPERATURE GENERATOR","SLEEP GENERATOR"};
@@ -55,7 +69,11 @@ public class DataGenerator {
 		formatLine(30);
 	}
 	
-	/* Format for a dashed line */
+	/**
+	 * Method helps format the printing in {@link #printAllDetails()} 
+	 * for nicer view on console.
+	 * @param numberOfDashes passes the number of dashes that need to be printed on the console.
+	 */
 	public void formatLine(int numberOfDashes){
 		for (int i = 0; i < numberOfDashes ; i++) {
 			System.out.print("-");

@@ -4,9 +4,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import user_package.User;
 
-//Sleep will give random results that are not linked to any other generator.
-//For example steps and temperature will assume the user sleeps everyday
-//at a certain time for the same amount of time each day.
+/**
+ * Sleep will give random results that are not linked to any other generator
+ * For example steps and temperature will assume the user sleeps everyday at
+ * a certain time for the same amount of time each day
+ * @author JSSP Engineers
+ * @version 1.0
+ *
+ */
 public class Generator_Sleep extends StatisticsForIntegers{
 	/*
 	 * Sleep quality measurements are not standardized because there is not a
@@ -31,14 +36,20 @@ public class Generator_Sleep extends StatisticsForIntegers{
 	// Local variables
 	private static User user;
 	
-
+	/**
+	 * Constructor 
+	 * @param usr passes the user to set at the generator
+	 */
 	public Generator_Sleep(User usr) {
 		this.user = usr;
 		setSleepPercents();
 		setSleepTime();
 	}
 	
-	/** Get Random Total Sleep Time */
+	/**
+	 * Get random total sleep time
+	 * @return int number of total sleep time
+	 */
 	private int getSleepTime(){
 		//TODO use activity index as a variation
 		//American gets 6.8 Hours or 408 minutes||540 = 9 hours
@@ -46,7 +57,10 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		return this.totalSleep = variation;
 	}
 	
-	/** NREM Stage 1 - Light Sleep */
+	/**
+	 * NREM Stage 1 - Light sleep
+	 * @return int percent of light sleep (stage 1)
+	 */
 	private int getN1Percent(){
 		//From 5 to 10% of a night sleep
 		int variation = ThreadLocalRandom.current().nextInt(5, 11);
@@ -54,7 +68,10 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		return variation;
 	}
 
-	/** NREM Stage 2 - Normal Sleep */
+	/** 
+	 * NREM Stage 2 - Normal Sleep 
+	 * @return int percent of sleep for stage 2
+	 */
 	private int getN2Percent() {
 		// From 45 to 55% of a night sleep
 		int variation = ThreadLocalRandom.current().nextInt(45, 56);
@@ -62,7 +79,10 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		return variation;
 	}
 	
-	/** NREM Stage 3 - l Deep Sleep */
+	/** 
+	 * NREM Stage 3 - l Deep Sleep 
+	 * @return int percent of sleep of stage 3
+	 */
 	private int getN3Percent() {
 		// From 15 to 25% of a night sleep
 		int variation = ThreadLocalRandom.current().nextInt(15, 26);
@@ -70,7 +90,9 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		return variation;
 	}
 	
-	/** Sets how much time the user will spend on each phase */
+	/** 
+	 * Sets how much time the user will spend on each phase 
+	 */
 	private void setSleepPercents(){
 		getSleepTime(); //Set the value to total Sleep
 		this.lightSleep = getN1Percent();
@@ -86,7 +108,9 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		
 	}//end setSleepPercents
 	
-	/** Set Random Sleep Time to each phase in minutes */
+	/** 
+	 * Set Random Sleep Time to each phase in minutes
+	 */
 	private void setSleepTime(){
 		//Sets the time to each phase on minutes
 		this.lightSleep = (this.totalSleep*this.lightSleep)/100;
@@ -105,33 +129,61 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		
 	}
 	
+	/** Getters **/
 	
-	/** Getters */
+	 /**
+	 * Gets the total number of sleep
+	 * @return int number of hours 
+	 */
 	public int getTotalSleep() {
 		return totalSleep;
 	}
 
+	/**
+	 * Gets total number of hours in REM
+	 * @return int number of hours in REM
+	 */
 	public int getTotalREM() {
 		return totalREM;
 	}
 
+	/**
+	 * Gets total number of hours in light sleep
+	 * @return int number of hours in light sleep
+	 */
 	public int getLightSleep() {
 		return lightSleep;
 	}
 
+	/**
+	 * Gets total number of hours in normal sleep
+	 * @return int number of hours in normal sleep
+	 */
 	public int getNormalSleep() {
 		return normalSleep;
 	}
 
+	/**
+	 * Gets total number of hours in deep sleep
+	 * @return int number of hours in deep sleep
+	 */
 	public int getDeepSleep() {
 		return deepSleep;
 	}
 
+	/**
+	 * Gets total number of cycles
+	 * @return int total number of cycles
+	 */
 	public double getTotalCycles() {
 		return totalCycles;
 	}
 
-	/* TODO Get random sleep depending on the time */
+	/**
+	 * TODO Get random sleep depending on the time
+	 * @param time the time of the day
+	 * @return int random current sleeping
+	 */
 	private int getRandomCurrentSleep(int time) {
 		//@param time in military time
 		//NIGHT TIME: FROM 22PM TO END OF totalSleep
@@ -144,7 +196,11 @@ public class Generator_Sleep extends StatisticsForIntegers{
 	}
 	
 	/** <!-- Required for charts --> */
-	/* Returns an array with a day's worth of information */
+	
+	/**
+	 * Returns an array with a day's worth of information
+	 * @return int[] an array of day's worth information
+	 */
 	protected int[] getDayStatistics() {
 		int[] array = new int[24]; // 24 hours
 		for (int i = 0; i < array.length; i++) {
@@ -153,7 +209,11 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		return array;
 	}
 	
-
+	/**
+	 * Returns and array with a week's worth of information that
+	 * calls the day stats method
+	 * @return int[] an array with a week's worth of info
+	 */
 	@Override
 	protected int[] getWeekStatistics() {
 		int[] array = new int[7]; // 7 days (boooo scaryyyy)
@@ -163,6 +223,11 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		return array;
 	}
 
+	/**
+	 * Returns an array with a month's worth of information that calls 
+	 * the week method
+	 * @return int[] an array with a month's worth of information
+	 */
 	@Override
 	protected int[] getMonthlyStatistics() {
 		int[] array = new int[4]; // 4 weeks
@@ -172,29 +237,10 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		return array;
 	}
 
-//	@Override
-//	public int[][] getRandomData() {
-//		int[][] data = new int[3][];
-//		data[0] = new int[4]; // Monthly Data
-//		data[1] = new int[7]; // Weekly Data
-//		data[2] = new int[24]; // Daily Data
-//		int[] month = getMonthlyStatistics();
-//		int[] week = getWeekStatistics();
-//		int[] day = getDayStatistics();
-//
-//		for (int i = 0; i < data.length; i++) {
-//			for (int j = 0; j < data[i].length; j++) {
-//				if (i == 0) // Month data
-//					data[i][j] = month[j];
-//				if (i == 1) // Week data
-//					data[i][j] = week[j];
-//				else // day data
-//					data[i][j] = day[j];
-//			} // end for
-//		} // end for
-//		return data;
-//	}
-	
+	/**
+	 * Returns the random sleep times influenced by active ID
+	 * @return int[][] integer array with different heart beats at rest
+	 */
 	@Override
 	public int[][] getRandomData() {
 		int[][] data = new int[1][0];
@@ -209,6 +255,11 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		
 	}
 
+	/**
+	 * Returns the average of information
+	 * @param intArray passes array of integers with sleep times
+	 * @return int average of the integer array of sleep times
+	 */
 	@Override
 	protected int findAverage(int[] a) {
 		int avg = 0;
@@ -220,7 +271,12 @@ public class Generator_Sleep extends StatisticsForIntegers{
 
 	
 	/** <!-- Debugging Purposes --> */
-	/* Print the 2dArray [Debugging] */
+
+	/**
+	 * prints the 2D array 
+	 * (DEBBUGGING)
+	 * @param data passed heart rates to print
+	 */
 	public void print2d(int[][] data) {
 		//int[][] data = getRandomData();
 //		int[] month = getMonthlyStatistics();
@@ -246,7 +302,9 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		} // end for
 	}//end method
 
-	/* Print detail information about today's sleep */
+	/**
+	 * Print details information about today's sleep times
+	 */
 	public void printDetailSleep() {
 		System.out.println("Today's Detail Activity Log ");
 		System.out.println("Time|Sleep|Status");
@@ -256,7 +314,27 @@ public class Generator_Sleep extends StatisticsForIntegers{
 		System.out.println("End of Sleep report");
 	}
 
+//	@Override
+//	public int[][] getRandomData() {
+//		int[][] data = new int[3][];
+//		data[0] = new int[4]; // Monthly Data
+//		data[1] = new int[7]; // Weekly Data
+//		data[2] = new int[24]; // Daily Data
+//		int[] month = getMonthlyStatistics();
+//		int[] week = getWeekStatistics();
+//		int[] day = getDayStatistics();
+//
+//		for (int i = 0; i < data.length; i++) {
+//			for (int j = 0; j < data[i].length; j++) {
+//				if (i == 0) // Month data
+//					data[i][j] = month[j];
+//				if (i == 1) // Week data
+//					data[i][j] = week[j];
+//				else // day data
+//					data[i][j] = day[j];
+//			} // end for
+//		} // end for
+//		return data;
+//	}
 	
-	
-
 }// end class

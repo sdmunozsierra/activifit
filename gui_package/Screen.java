@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import action_package.*;
-import chart_package.Chart;
+//import chart_package.Charts;
 import chart_package.HeartChart;
 import chart_package.StepChart;
 import chart_package.tempChart;
@@ -20,6 +20,12 @@ import java.awt.Image;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
+/**
+ * The class that contains all the individual methods of 
+ * every screen.
+ * @author JSSP Engineers
+ * @version 1.0
+ */
 public class Screen {
 
 	/* Resources  */
@@ -47,7 +53,9 @@ public class Screen {
 	static int hour = rightNow.get(Calendar.HOUR_OF_DAY);
 	public static int CURRENT_TIME = hour;
 	
-	/** Main Method */
+	/**
+	 * Main method for screen
+	 */
 	public static void main(String args[]) {
 		// Test each screen individually
 			
@@ -67,12 +75,17 @@ public class Screen {
 
 	/** Methods */
 	/* --Screens-- */
-	// constructor
+	
+	/**
+	 * Constructor
+	 */
 	public Screen() {
 		screen_login();
 	}
 
-	/** Login Screen */
+	/**
+	 * Setting all the variables for the login screen
+	 */
 	public static void screen_login() {
 		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 		JFrame F = new JFrame("Log-In");
@@ -140,7 +153,9 @@ public class Screen {
 		viewFrame(F);
 	}// End sign-in screen
 
-	/** Screen Register */
+	/**
+	 * Setting all the variables for the register screen
+	 */
 	public static void screen_register() {
 		Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 		JFrame F = new JFrame("Register");
@@ -215,7 +230,9 @@ public class Screen {
 		viewFrame(F);
 	}// end screen_register
 
-	/** HomePage Screen */
+	/**
+	 * Setting all the variables for the home screen
+	 */
 	public static void screen_home() {
 		JFrame F = new JFrame("Homepage");
 		// Panel for information (BOX LAYOUT)
@@ -268,7 +285,9 @@ public class Screen {
 		viewFrame(F); // displays the frame
 	}// end Screen
 
-	/* Heart Rate Screen */
+	/**
+	 * Setting all the variables for the heart rate screen
+	 */
 	public static void screen_heart() {
 		JFrame F = new JFrame("Heartbeat");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
@@ -315,7 +334,9 @@ public class Screen {
 		viewFrame(F);
 	}
 
-	/** Temperature Screen */
+	/**
+	 * Setting all the variables for the temperature screen
+	 */
 	public static void screen_temperature() {
 		JFrame F = new JFrame("Temperature");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/vZ0rtrH.png", 3);
@@ -362,7 +383,9 @@ public class Screen {
 		viewFrame(F);
 	}
 
-	/* Steps Screen */
+	/**
+	 * Setting all the variables for the steps screen
+	 */
 	public static void screen_steps() {
 		JFrame F = new JFrame("Steps");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/rFeyEtS.png", 3);
@@ -409,7 +432,9 @@ public class Screen {
 		viewFrame(F);
 	}
 
-	/* Sleep Screen */
+	/**
+	 * Setting all the variables for the sleep screen
+	 */
 	public static void screen_sleep() {
 		JFrame F = new JFrame("Sleep");
 
@@ -461,7 +486,10 @@ public class Screen {
 		viewFrame(F);
 	}
 
-	/* Custom View Screen */
+	/**
+	 * Setting variables for the customView screen
+	 * @param opt integer that changes the chooses which graph is being shown
+	 */
 	public static void screen_customView(int opt){
 		JFrame F = new JFrame("Custom View");
 		
@@ -536,7 +564,9 @@ public class Screen {
 		viewFrame(F);
 	}
 	
-	/* Share Screen */
+	/**
+	 * Setting all the variables for the share screen
+	 */
 	public static void screen_share() {
 		// Icons URLs
 		String url_f = ("http://icons.iconarchive.com/icons/mysitemyway/blue-jeans-social-media/128/facebook-icon.png"); // Facebook
@@ -592,7 +622,9 @@ public class Screen {
 		viewFrame(F);
 	}// end screen_share
 
-	/* About US Screen */
+	/**
+	 * Setting all the variables for the about us screen
+	 */
 	public static void screen_about() {
 		JFrame F = new JFrame("About Us");
 
@@ -650,7 +682,9 @@ public class Screen {
 		viewFrame(F);
 	}
 
-	/* Help Screen */
+	/**
+	 * Setting all the variables for the help screen
+	 */
 	public static void screen_help() {
 		JFrame F = new JFrame("Help");
 
@@ -693,7 +727,9 @@ public class Screen {
 		viewFrame(F);
 	}
 
-	/* Logout Screen */
+	/**
+	 * Setting all the variables for the logout screen
+	 */
 	public static void screen_logout() {
 		JFrame F = new JFrame("Logout");
 
@@ -714,7 +750,11 @@ public class Screen {
 	}
 
 	/* --Frame Properties-- */
-	/* View Frame */
+	
+	/**
+	 * Method to show the frame on the display
+	 * @param F sets what frame will be shown
+	 */
 	public static void viewFrame(JFrame F) {
 		F.setSize(rx, ry);
 		F.setVisible(true);
@@ -725,7 +765,14 @@ public class Screen {
 	//Moved to class -> CustomJPanels
 
 	/* --Custom JLabels-- */
-	/* Icon from web w/custom size */
+	
+	/**
+	 * Setting all the variables for the icons in the panels
+	 * @param web_address link for the icon
+	 * @param width setting width
+	 * @param height setting height
+	 * @return JLabel icon
+	 */
 	public static JLabel getWebIconScaledLabel(String web_address, int width, int height) {
 		ImageUtilities buffer = new ImageUtilities(); // create instance
 		buffer.readImgFromWeb(web_address); // read from url
@@ -738,7 +785,13 @@ public class Screen {
 	}
 
 	/* --Image Related-- */
-	// Insert and scale image from local path
+	/**
+	 * Inserts and scales image from local path
+	 * @param path passes the local path
+	 * @param x sets width
+	 * @param y sets height
+	 * @return ImageIcon image of icon
+	 */
 	public static ImageIcon insertIconScaled(String path, int x, int y) {
 		ImageUtilities img = new ImageUtilities();
 		img.readFromSource(path);
@@ -747,8 +800,13 @@ public class Screen {
 		return icon;
 	}
 
-	// Insert and scale image from web (EITHER USE THIS OR
-	// getWebIconScaledLabel)
+	/**
+	 * Inserts and scales image from web
+	 * @param web_address path passes from web site link
+	 * @param x sets width
+	 * @param y sets height
+	 * @return ImageIcon image of icon
+	 */
 	public static ImageIcon insertWebIconScaled(String web_address, int x, int y) {
 		ImageUtilities img = new ImageUtilities(); // create instance
 		img.readImgFromWeb(web_address); // read from url
@@ -758,6 +816,11 @@ public class Screen {
 	}
 
 	/* --Extra Methods-- */
+	/**
+	 * Method checks that the email address has the right format as an email
+	 * @param email passes the email to be checked
+	 * @return boolean; true is email is valid, false is otherwise
+	 */
 	public static boolean isValidEmailAddress(String email) {
 		// From
 		// http://stackoverflow.com/questions/624581/what-is-the-best-java-email-address-validation-method
@@ -766,6 +829,5 @@ public class Screen {
 		java.util.regex.Matcher m = p.matcher(email);
 		return m.matches();
 	}
-	
 	
 }

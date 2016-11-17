@@ -14,8 +14,13 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-
 /** This is the schematic to use to create a chart with any information */
+/**
+ * This is the schematic to use to create a chart with any information
+ * @author JSSP Engineers
+ * @version 1.0
+ * 
+ */
 public abstract class Charts extends Application{
 	
 	// COLORS
@@ -27,9 +32,18 @@ public abstract class Charts extends Application{
 	public static String orange_carrot = "#e67e22";
 	public static String blue_peterriver = "#3498db";
 		
-	/** General Initialization, Scene, Chart and JPanel */
-	/** Create a General FX Panel */
-	/*** 2 ***/
+	/**
+	 * This is the general initialization, scene, chart, and JPanel.
+	 * It creates a General FX Panel
+	 * @param fxPanel the panel being initialized
+	 * @param opt the number that says if screen is for heart, steps, sleep, or temperature
+	 * @param intData integer values for data
+	 * @param doubleData double values for data
+	 * @param title title for screen
+	 * @param aTitle title for chart
+	 * @param intColor color for integer values
+	 * @param doubleColor color for double value
+	 */
 	private static void initFXPanel(JFXPanel fxPanel, int opt, int[][] intData, double[][] doubleData, String title, 
 			String aTitle, int[] intColor, double[] doubleColor) {
         // This method is invoked on the JavaFX thread
@@ -37,8 +51,17 @@ public abstract class Charts extends Application{
         fxPanel.setScene(scene);
     }
 	
-	/** Create a General Scene */
-	/*** 3 ***/
+	/**
+	 * Method creates a general scene.
+	 * @param opt the number that says if screen is for heart, steps, sleep, or temperature
+	 * @param i integer values for data
+	 * @param d double values for data
+	 * @param t title for screen
+	 * @param aT title for chart
+	 * @param ic color for integer values
+	 * @param dc color for double value
+	 * @return Scene with new chart with all the values 
+	 */
 	private static Scene initScene(int opt, int [][] i, double[][] d, String t, String aT, int[] ic, double[] dc){
 		BarChart chart = createChart(opt, i, d, t, aT, ic, dc);
 		Scene scene = new Scene(chart);
@@ -48,10 +71,17 @@ public abstract class Charts extends Application{
 		
 	}
 	
-	
-	/** Create a General Chart Chart */
-	/*** 4 ***/
-
+	/**
+	 * Creating a general chart
+	 * @param opt the number that says if screen is for month, week, day, or all charts
+	 * @param intData integer values for data
+	 * @param doubleData double values for data
+	 * @param title title for screen
+	 * @param yAxis 
+	 * @param intColor color for integer values
+	 * @param doubleColor color for double value
+	 * @return BarChart a chart either for the month, week, day, or all the charts
+	 */
 	public static BarChart createChart(int opt, int[][] intData, double[][] doubleData, String title, String yAxis,
 			int[] intColor, double[] doubleColor) {
 		/*
@@ -176,9 +206,17 @@ public abstract class Charts extends Application{
 		return bc;
 	}
 
-	/** Returns a JPanel to be used anywhere <3 
-	 *  This is like the main method .. .. .. .. */
-	/*** 1 ***/
+	/**
+	 * Returns a JPanel to be used anywhere resembling a main method
+	 * @param opt the number that says if screen is for month, week, day, or all charts
+	 * @param intData integer values for data
+	 * @param doubleData double values for data
+	 * @param title title for screen
+	 * @param yAxisTitle title for xAxis of chart
+	 * @param intColorParams integer parameters for graph
+	 * @param doubleColorParams double parameter for graph
+	 * @return JPanel panel with the graphs
+	 */
 	public static JPanel jPanelChart(int opt, int[][] intData, double[][] doubleData, String title, 
 			String yAxisTitle, int[] intColorParams, double[] doubleColorParams){
 		/*	OPT =>
