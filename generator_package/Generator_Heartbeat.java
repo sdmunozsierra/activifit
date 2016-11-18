@@ -40,7 +40,7 @@ public class Generator_Heartbeat extends StatisticsForIntegers {
 	 * @param age passes the age of the user
 	 * @return int, the max heart beat that the user can have based on their age
 	 */
-	private int getMaxHR(int age) {
+	public int getMaxHR(int age) {
 		// Right now it does not differentiate between male and female
 		// So it will grab the median. 226 woman 220 men.
 		return 223 - age;
@@ -51,7 +51,7 @@ public class Generator_Heartbeat extends StatisticsForIntegers {
 	 * @return int random number for a rest heart rate
 	 */
 	public int getRestHR(){
-		//This never returns an annormal state
+		//This never returns an abnormal state
 		return ThreadLocalRandom.current().nextInt(REST_MIN, REST_MAX);
 	}
 	

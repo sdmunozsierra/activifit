@@ -17,6 +17,12 @@ public class Generator_HeartbeatTest {
 		array1[1] = 10;
 		array1[2] = 10;
 		
+		//getMaxHR
+		assertSame(123, genH.getMaxHR(100));
+		assertNotSame(100, genH.getMaxHR(100));
+		assertSame(20, genH.getMaxHR(203));
+		assertNotSame(203, genH.getMaxHR(73));
+		
 		
 		//getRestHeartStatus
 		assertSame("BRADYCARDIA", genH.getRestHeartStatus(40));
