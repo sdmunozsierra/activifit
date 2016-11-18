@@ -15,21 +15,6 @@ public class Generator_TemperatureTest {
 	@Test
 	public void test() {
 		
-		/** Method getTempStatus(double celcius) */
-		/*	
-		 * 	Temperature States 
-		 *	HYPOTHERMIA <35.0 C
-		 *  NORMAL between 36.5 and 37.5 C
-		 *	FEVER = 37.5 between 37.5 C and 38.3 C
-		 *	HYPERPYREXIA >  38.3 C
-		 * 
-		 * */
-		assertSame("Hypothermia" , gen.getTempStatus(-1)) ; //Test negative
-		assertSame("Hypothermia" , gen.getTempStatus(0)) ; //Test zero
-		assertSame("Hypothermia" , gen.getTempStatus(1)) ; //Test positive
-//		assertNotSame("BRADYCARDIA", gen.getRestHeartStatus(70));
-//		assertSame("TACHYCARDIA", gen.getRestHeartStatus(120));
-//		assertNotSame("TACHYCARDIA", gen.getRestHeartStatus(70));
 	}
 	
 	/**
