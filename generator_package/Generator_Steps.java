@@ -58,7 +58,7 @@ public class Generator_Steps extends StatisticsForIntegers {
 	 * 
 	 * @return Stride Length using Height
 	 */
-	private int strideLength(){
+	int strideLength(){
 		/*
 		 * While this is not as accurate as some other methods, it can give you
 		 * a close estimate of your stride length. In centimeters.
@@ -100,7 +100,7 @@ public class Generator_Steps extends StatisticsForIntegers {
 	 * 
 	 * @return Max distance in km
 	 */
-	private int getMaxDistance(){
+	int getMaxDistance(){
 		switch (this.user.getActId()){
 		case 9:
 			return 42; 	//Marathon
@@ -129,7 +129,7 @@ public class Generator_Steps extends StatisticsForIntegers {
 	 * 
 	 * @return Minimum distance in km
 	 */
-	private int getMinDistance(){
+	int getMinDistance(){
 		switch (this.user.getActId()){
 		case 9:
 			return 20; 	//Marathon
