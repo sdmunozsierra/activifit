@@ -19,7 +19,7 @@ public class LoginActionListener implements ActionListener{
 	private static Border border_default = BorderFactory.createLineBorder(Color.BLACK);
 	private static Border border_error = BorderFactory.createLineBorder(Color.RED);
 	
-	private static JTextField t_login;
+	public static JTextField t_login;
 	private final JFrame F;
 
 	/**
@@ -39,7 +39,7 @@ public class LoginActionListener implements ActionListener{
      * and if not it sends to the register screen.
      */
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 			String input = t_login.getText();
 			if (input.equals("") || !isValidEmailAddress(input)) {
 				// JOptionPane.showMessageDialog(null, "Invalid

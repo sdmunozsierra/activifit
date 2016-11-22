@@ -66,8 +66,13 @@ public class HomeMenuActionListener implements ActionListener {
 			F.dispose(); // Kill window once launched the next one
 			break;
 
+//		case 4: //Deprecated
+//			Screen.screen_share(); // open login Screen
+//			F.dispose(); // Kill window once launched the next one
+//			break;
+		
 		case 4:
-			Screen.screen_share(); // open login Screen
+			Screen.screen_logout(); // open login Screen
 			F.dispose(); // Kill window once launched the next one
 			break;
 

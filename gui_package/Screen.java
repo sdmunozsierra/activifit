@@ -32,8 +32,8 @@ public class Screen {
 	/* Resources  */
 	/* Resolutions */
 	// Resolution taken from an iPhone5 320x568 pixels
-	public final static int rx = 320; // horizontal resolution
-	public final static int ry = 568; // vertical resolution
+	public final static int rx = 340; // horizontal resolution
+	public final static int ry = 600; // vertical resolution
 
 	/* Colors */
 	public static Color red_alizarin = new Color(231, 76, 60);
@@ -142,6 +142,7 @@ public class Screen {
 		// Actions
 		LoginActionListener action = new LoginActionListener(t_login, F);
 		button_accept.addActionListener(action);
+		//TODO Create an key listener for enter (Harder than it seems!)
 		button_about.addActionListener(new LoginAboutUsActionListener(F));
 		button_help.addActionListener(new LoginHelpActionListener(F));
 		// Change Color Action
@@ -186,6 +187,7 @@ public class Screen {
 				t_array[i].setText(LoginActionListener.returnValidEmail() );
 			}
 		}
+		
 		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
 		SpringUtilities.makeGrid(springP, numPairs, 2, 6, 6, 6, 20);
 
@@ -265,7 +267,7 @@ public class Screen {
 		HomeMenuActionListener action = new HomeMenuActionListener(F);
 		
 		// Buttons
-		String[] buttons = { "HEART", "STEPS", "TEMP", "SLEEP", "SHARE" };
+		String[] buttons = { "HEART", "STEPS", "TEMP", "SLEEP", "LOGOUT" };
 		for (int i = 0; i < buttons.length; i++) {
 			JButton b = new JButton(buttons[i]);
 			b.setMargin(new java.awt.Insets(1, 6, 1, 6)); // Format

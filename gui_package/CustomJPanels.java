@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import action_package.NavPanelBackActionListener;
+import action_package.NavPanelShareActionListener;
 
 //Put here all the custom panels in the gui_package
 /**
@@ -23,7 +24,7 @@ import action_package.NavPanelBackActionListener;
 public class CustomJPanels {
 	
 	/**
-	 * This method is to create the bannel panel
+	 * Creates the is to create the banner panel
 	 * @return JPanel the banner
 	 */
 	public static JPanel bannerPanel() {
@@ -43,7 +44,7 @@ public class CustomJPanels {
 	}
 
 	/**
-	 * It created the activity banner panel
+	 * Creates the the activity banner panel
 	 * @param activity takes in the activity, either heart, steps, sleep, or temperature
 	 * @param color takes in the color
 	 * @return JPanel
@@ -65,7 +66,7 @@ public class CustomJPanels {
 	}
 	
 	/**
-	 * It created the banner navigation panel
+	 * Creates the bottom navigation panel
 	 * @param F JFrame to create the panel
 	 * @return JPanel with the frame
 	 */
@@ -87,6 +88,8 @@ public class CustomJPanels {
 		//Action
 		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
 		button_back.addActionListener(action);
+		NavPanelShareActionListener action2 = new NavPanelShareActionListener(F);
+		button_share_this.addActionListener(action2);
 		
 		// Return panel
 		panel.setBackground(Color.WHITE); // Sets the 'glue' color
