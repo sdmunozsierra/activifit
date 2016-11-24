@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import gui_package.JComponentsStyle;
 import gui_package.Screen;
+import user_package.Database;
 /**The action listener for clicking the Login button
  * that directs the user to the Login screen.
  * @author JSSP Engineers
@@ -31,6 +33,7 @@ public class LoginActionListener implements ActionListener{
         super();
         LoginActionListener.t_login = textField;
         LoginActionListener.t_login.setBorder(border_default); // login text field
+        JComponentsStyle.setToolTipStyle1(); //Set the tool tip style
         this.F = F;
     }
     /**
@@ -40,21 +43,33 @@ public class LoginActionListener implements ActionListener{
      */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-			String input = t_login.getText();
-			if (input.equals("") || !isValidEmailAddress(input)) {
-				// JOptionPane.showMessageDialog(null, "Invalid
-				// characters\nUse letters only!");
+			String email = t_login.getText();
+			if (email.equals("") || !isValidEmailAddress(email)) {
+				//User input error
 				t_login.setBorder(border_error);
 				t_login.selectAll();
 				t_login.setSelectedTextColor(Color.RED);
-			} else {
-				// Here will check the User class for a valid email.
-				t_login.setEditable(false);
-				t_login.setBorder(border_default); // login text field
-
-				// If email was not found on Users class..
-				Screen.screen_register();
-				F.dispose(); //Kill window once launched the next one
+				String errMsg = "<html>Please input a <em>valid</em><br>email account</html>";
+				t_login.setToolTipText(errMsg);
+			} 
+			else {
+				//Fetch database
+				Database database = Database.getInstance();
+			
+				//Check if the user is already on the database
+				if (database.selectUserFromEmail(email)) {
+					//database.selectUserFromEmail(email);
+					Screen.screen_home();
+					F.dispose();
+					return;
+				}//end if
+				else {
+					//Email was not found on database
+					t_login.setEditable(false);
+					t_login.setBorder(border_default); // login text field
+					Screen.screen_register();
+					F.dispose(); // Kill window once launched the next one
+				}//end inner else
 			}//end else
 		}//end action performed
 		

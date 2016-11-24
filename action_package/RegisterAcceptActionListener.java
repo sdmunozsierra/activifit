@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -19,6 +20,8 @@ import user_package.*;
  */
 
 public class RegisterAcceptActionListener implements ActionListener {
+	// TODO: Create a method for checking the name for invalid chars
+	
 	// Border
 	private static Border border_error = BorderFactory.createLineBorder(Color.RED);
 	// Create Private Variables
@@ -62,43 +65,62 @@ public class RegisterAcceptActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		boolean flagError = false;
 		extractData(t_input_array);
-		//TO-DO change to a switch statement for a better design
-		//TO-DO make some pop ups showing what exactly the error is
-		if (this.a <0 || this.a > 120) {
+		//TODO change to a switch statement for a better design
+		if (this.a <0 || this.a > 100) {
+			String errMsg = "Between 0 and 100 years";
+			t_input_array[1].setToolTipText(errMsg);
 			t_input_array[1].setBorder(border_error);
 			flagError = true;
 		}
 		if (this.w < 0 || this.w > 300) {
+			String errMsg = "Between 0 and 300 lbs";
+			t_input_array[2].setToolTipText(errMsg);
 			t_input_array[2].setBorder(border_error);
 			flagError = true;
 		} 
-		if (this.h < 0 || this.h > 500) {
+		if (this.h < 0 || this.h > 300) {
+			String errMsg = "Between 0 and 300 cm";
+			t_input_array[3].setToolTipText(errMsg);
 			t_input_array[3].setBorder(border_error);
 			flagError = true;
 		} 
 		if (this.id < 0 || this.id> 9) {
+			String errMsg = "Between 1 and 9";
+			t_input_array[4].setToolTipText(errMsg);
 			t_input_array[4].setBorder(border_error);
 			flagError = true;
 		} 
-		if (!flagError) { //VERY IMPORTANT
-			/* After the registration has succeded, the user is going to be
-			 * created in the database and the random data is going to be 
-			 * generated in order to be used EVERYWHERE else.*/
-			registerUser(); // Create a USER
-			createGlobalGen(); //Create generators
-			//Screen.globalDatabase.printAllDetails(); //Debugging
-			//Screen.globalGen.printAllDetails(); //Debugging
-			//testSleepGen(); //debugging
-			F.dispose();
-			Screen.screen_home();
+		if (!flagError) { //Input sanitation
+			if (!registerUser()){
+				// Could not register the user.
+				//TODO fix message
+				JOptionPane err = new JOptionPane("User already registered\nPlease Log-In");
+				err.showMessageDialog(null, err);
+				F.dispose();
+				Screen.screen_login();
+			}
+			else{
+				createGlobalGen(); //Create generators
+				F.dispose();
+				Screen.screen_home();
+			}
+			
 		}
 	}// end action performed
 	
-	/** Register a User in the global database. */
-	private void registerUser(){
+	/** Register a User in the global database. 
+	 * @return True if the registration was successful*/
+	private boolean registerUser(){
 		this.newUser = new User(n, a, w, h, id, email);
-		Screen.globalDatabase.addUserToDatabase(newUser);
-		
+		Database database = Database.getInstance();
+		//Check if the User is already on the database (check #2)
+		if(database.verifyEmail(newUser)){
+			return false;
+		}
+		else{
+			database.addUserToDatabase(newUser);
+			return true;
+		}
 	}
 	/** Create a Global Data Generator. */
 	private void createGlobalGen(){
@@ -127,6 +149,7 @@ public class RegisterAcceptActionListener implements ActionListener {
 			i++;
 		}
 	}
+
 	/** Method for checking if the parsed Int is really an Integer 
 	 * @param String text. Converts the text into an integer.*/
 	private static Integer tryParse(String text) {
@@ -137,12 +160,4 @@ public class RegisterAcceptActionListener implements ActionListener {
 		}
 	}
 	
-//	/** Debugging purposes */
-//	private static void testSleepGen(){
-//		Generator_Sleep test = new Generator_Sleep(Screen.globalDatabase.getCurrentUser());
-//		int[][] data = test.getRandomData();
-//		test.print2d(data);
-//	}
-
-	 // TODO: Create a method for checking the name for invalid chars
 }// end class

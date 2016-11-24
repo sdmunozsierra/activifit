@@ -20,7 +20,7 @@ public class User {
 	 * @param a age
 	 * @param w weight
 	 * @param h height
-	 * @param id activation id
+	 * @param id active id
 	 * @param e email
 	 */
 	public User(String n, int a, int w, int h, int id, String e){

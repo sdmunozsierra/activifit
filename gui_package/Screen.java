@@ -9,6 +9,7 @@ import chart_package.HeartChart;
 import chart_package.StepChart;
 import chart_package.tempChart;
 import generator_package.DataGenerator;
+import user_package.Database;
 import user_package.UserDatabase;
 
 import java.awt.BorderLayout;
@@ -46,7 +47,10 @@ public class Screen {
 	public static Color white_clouds = new Color(236, 240, 241);
 	
 	/* Global Variables */
-	public final static UserDatabase globalDatabase = new UserDatabase();
+	//public final static UserDatabase globalDatabase = new UserDatabase();
+	
+	public static Database database = Database.getInstance(); //Import Singleton Database
+	
 	public static DataGenerator globalGen = null; //empty until called
 	
 	/* Time Variables */
@@ -247,7 +251,9 @@ public class Screen {
 		buttonP.setLayout(new FlowLayout());
 		
 		// Fetch from database
-		String currentUser = globalDatabase.getCurrentUser().getName();
+		//String currentUser = globalDatabase.getCurrentUser().getName();
+		Database database = Database.getInstance();
+		String currentUser = database.getCurrentUser().getName();
 		
 		//Labels
 		String[] labels = { "Hello "+currentUser, "Time: "+CURRENT_TIME+" Hours", "Today's Daily Feed"
@@ -745,6 +751,10 @@ public class Screen {
 		// area to last row
 
 		JButton button_ok = new JButton("OK");
+		
+		//Actions
+		LogoutAcceptActionListener action = new LogoutAcceptActionListener(F);
+		button_ok.addActionListener(action);
 
 		F.add(thank_youP, BorderLayout.NORTH);
 		F.add(CustomJPanels.bannerPanel(), BorderLayout.CENTER);

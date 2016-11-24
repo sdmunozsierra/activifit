@@ -3,14 +3,19 @@ package user_package;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-/** Class that handles a database for users.
+/* SOON TO BE DELETED !! ! ! !!
+
+/** Class that handles a database for users. This class follows the Singleton 
+ * design pattern.
  * @author JSSP Engineers
  * @version 1.0
  */
 public class UserDatabase {
 	
-	//Database Variable
-	private Set<User> database;
+	//Variables
+	private static Set<User> database; //Static Database
+	private User currUser;
+	
 	/**Constructor.
 	 * Creates a HashSet of type User called database.
 	 * */
