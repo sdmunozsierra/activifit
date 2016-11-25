@@ -4,13 +4,12 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import action_package.*;
-//import chart_package.Charts;
 import chart_package.HeartChart;
+import chart_package.HomeChart;
 import chart_package.StepChart;
-import chart_package.tempChart;
+import chart_package.TempChart;
 import generator_package.DataGenerator;
 import user_package.Database;
-import user_package.UserDatabase;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -47,8 +46,6 @@ public class Screen {
 	public static Color white_clouds = new Color(236, 240, 241);
 	
 	/* Global Variables */
-	//public final static UserDatabase globalDatabase = new UserDatabase();
-	
 	public static Database database = Database.getInstance(); //Import Singleton Database
 	
 	public static DataGenerator globalGen = null; //empty until called
@@ -56,7 +53,9 @@ public class Screen {
 	/* Time Variables */
 	static Calendar rightNow = Calendar.getInstance();
 	static int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+	static int minute = rightNow.get(Calendar.MINUTE);
 	public static int CURRENT_TIME = hour;
+	public static String STRING_TIME = hour+":"+minute;
 	
 	/**
 	 * Main method for screen
@@ -85,7 +84,10 @@ public class Screen {
 	 * Constructor
 	 */
 	public Screen() {
+		JComponentStyle.setCustomFonts(); // Load custom fonts
+		
 		screen_login();
+		
 	}
 
 	/**
@@ -119,9 +121,13 @@ public class Screen {
 
 		// Labels
 		JLabel l_sign = new JLabel("Sign In");
-		l_sign.setFont(new Font(null, Font.BOLD, 20));
+		//l_sign.setFont(new Font("Orkney Bold", Font.PLAIN, 20));
+		l_sign.setFont(new Font("Orkney-Regular", Font.PLAIN, 26));
+		//l_sign.setFont(JComponentStyle.oarkney_bold.deriveFont(26f));
+		System.out.println(l_sign.getFont());
 		l_sign.setForeground(black_midnight);
-		JLabel l_enter = new JLabel("(enter your email)");
+		JLabel l_enter = new JLabel("(Enter your e-mail)");
+		l_enter.setFont(JComponentStyle.oarkney_reg.deriveFont(14f));
 		l_enter.setForeground(gray_concrete);
 
 		// Buttons
@@ -245,30 +251,58 @@ public class Screen {
 		// Panel for information (BOX LAYOUT)
 		JPanel P = new JPanel();
 		P.setLayout(new BoxLayout(P, BoxLayout.PAGE_AXIS));
-		P.add(Box.createRigidArea(new Dimension(0, 50)));
+		P.add(Box.createRigidArea(JComponentStyle.dimension_margin_banner));
 		// Panel for Buttons (FLOW LAYOUT)
 		JPanel buttonP = new JPanel();
 		buttonP.setLayout(new FlowLayout());
 		
-		// Fetch from database
-		//String currentUser = globalDatabase.getCurrentUser().getName();
-		Database database = Database.getInstance();
-		String currentUser = database.getCurrentUser().getName();
+		// Personal Information (Fetch from database)
+		Database db = Database.getInstance();
+		String name = db.getCurrentUser().getName();
 		
-		//Labels
-		String[] labels = { "Hello "+currentUser, "Time: "+CURRENT_TIME+" Hours", "Today's Daily Feed"
-				, "THIS WILL BE A GRAPH(hopefully)", };
-		for (int i = 0; i < labels.length; i++) {
-			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-			P.add(l);
-			l.setAlignmentX(Component.CENTER_ALIGNMENT);
-			// if statement to span everything BUT last component
-			if (i < labels.length - 1) {
-				P.add(Box.createRigidArea(new Dimension(0, 33)));
-			} else {
-				P.add(Box.createRigidArea(new Dimension(0, 10)));
-			}
-		}
+		// Strings for Labels
+		String welcome = name+"'s Daily Feed";
+		String time = STRING_TIME;
+//		String[] labels = {""+name+"'s Daily Feed", "Welcome "+currentUser, "Time: "+CURRENT_TIME+" Hours", 
+//				 "THIS WILL BE A GRAPH(hopefully)", };
+//		for (int i = 0; i < labels.length; i++) {
+//			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+//			P.add(l);
+//			l.setAlignmentX(Component.CENTER_ALIGNMENT);
+//			// if statement to span everything BUT last component
+//			if (i < labels.length - 1) {
+//				P.add(Box.createRigidArea(new Dimension(0, 33)));
+//			} else {
+//				P.add(Box.createRigidArea(new Dimension(0, 10)));
+//			}
+//		}
+		
+		// Graph Image
+		//JLabel graph = new JLabel();
+		//graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
+		//graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//P.add(graph);
+		
+		// Labels
+		JLabel label_welcome = new JLabel(welcome);
+		label_welcome.setFont(new Font(null, 0, 18));
+		label_welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JLabel label_time = new JLabel(time);
+		label_time.setFont(new Font(null, 0, 16));
+		label_time.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		// Real Graph (Box Layout)
+		JPanel graph = new JPanel();
+		graph = HomeChart.drawChart();
+		
+		//Panel Inception
+		P.add(label_welcome);
+		P.add(Box.createRigidArea(JComponentStyle.dimension_component_small));
+		P.add(graph); //Add graph
+		P.add(Box.createRigidArea(JComponentStyle.dimension_lower_area));
+		P.add(label_time); //Time label at the bottom
+		//End panel inception
+		
 		// Actions
 		HomeMenuActionListener action = new HomeMenuActionListener(F);
 		
@@ -281,12 +315,7 @@ public class Screen {
 			b.addActionListener(action);
 			buttonP.add(b);
 		}
-		// Graph Image
-		JLabel graph = new JLabel();
-		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
-		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
-		P.add(graph);
-
+		
 		// add panels to frame
 		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		F.add(P, BorderLayout.CENTER);
@@ -537,10 +566,10 @@ public class Screen {
 			graph = StepChart.drawChart(4); //<- intentionally
 			break;
 		case 5: //Weekly Graph Temperature
-			graph = tempChart.drawChart(2);
+			graph = TempChart.drawChart(2);
 			break; //<-Never forger a break OK? THANKS
 		case 6: //Month
-			graph = tempChart.drawChart(1);
+			graph = TempChart.drawChart(1);
 			break;
 		case 7: //Week Sleep (2)
 			break;

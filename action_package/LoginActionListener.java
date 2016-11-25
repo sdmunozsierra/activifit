@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import gui_package.JComponentsStyle;
+import gui_package.JComponentStyle;
 import gui_package.Screen;
 import user_package.Database;
 /**The action listener for clicking the Login button
@@ -33,7 +33,8 @@ public class LoginActionListener implements ActionListener{
         super();
         LoginActionListener.t_login = textField;
         LoginActionListener.t_login.setBorder(border_default); // login text field
-        JComponentsStyle.setToolTipStyle1(); //Set the tool tip style
+        JComponentStyle.setToolTipStyle1(); //Set the tool tip style
+        //JComponentStyle.setCustomFonts();
         this.F = F;
     }
     /**
