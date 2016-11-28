@@ -9,9 +9,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import fonts.LoadCustomFonts;
 
@@ -54,10 +59,14 @@ public class JComponentStyle {
 	public static Color blue_yankeesblue = new Color(37,40,61); //Almost purple
 	public static Color black_eerie = new Color(22,25,37); 
 	public static Color gray_space = new Color(70,73,76);
+	
+	/**Constructor. Can be Deployed as a singleton if needed.
+	 * 
+	 * */
 	public JComponentStyle() {
 	}
 
-	/** Gray-Black Theme */
+	/** ToolTip Gray-Black Theme */
 	public static void setToolTipStyle1() {
 		UIManager.put("ToolTip.background", gray_space); 
 		Border border = BorderFactory.createLineBorder(black_eerie);
@@ -66,7 +75,9 @@ public class JComponentStyle {
 		ToolTipManager.sharedInstance().setDismissDelay(8000); // 8 second delay
 	}
 
-	/** Initialize Custom Fonts */
+	/** Initialize Custom Fonts. Fonts can be used anywhere once initialized. 
+	 * 
+	 * */
 	public static void setCustomFonts(){
 		//Qontra.otf
 		InputStream font_loc = LoadCustomFonts.class.getResourceAsStream("Qontra.otf");
@@ -108,5 +119,61 @@ public class JComponentStyle {
 		}
 
 	}
+	
+	
+	/** Creates a custom JButton to be used in the program.
+	 * @param Text Text to be included inside the button */
+	public static JButton JButtonFlat(String Text){
+		JButton button = new JButton(Text);
+		button.setForeground(Color.BLACK);
+		button.setBackground(Color.white);
+		//Border line = new LineBorder(black_midnight);
+		Border line = new LineBorder(Color.BLACK);
+		Border margin = new EmptyBorder(1,6,1,6);
+		Border compound = new CompoundBorder(line,margin);
+		button.setBorder(compound);
+		//button.setFocusPainted(true);
+		button.setFont(new Font("Oarkney-Regular", Font.BOLD, 14));
+		
+		return button;
+	}
+	
+	/** Creates a custom JButton to be used in the program.
+	 * @param Text Text to be included inside the button */
+	public static JButton JButtonHome(String Text){
+		JButton button = new JButton(Text);
+		button.setForeground(Color.BLACK);
+		button.setBackground(white_clouds);
+		//Border line = new LineBorder(black_midnight);
+		Border line = new LineBorder(black_eerie);
+		Border margin = new EmptyBorder(1,6,1,6);
+		Border compound = new CompoundBorder(line,margin);
+		button.setBorder(compound);
+		//button.setFocusPainted(true);
+		button.setFont(new Font("Oarkney-Regular", Font.PLAIN, 14));
+		
+		return button;
+	}
+	
+	public static JLabel JLabelStyle(String Text){
+		JLabel label = new JLabel(Text);
+		label.setFont(oarkney_reg.deriveFont(18f));
+		return label;
+	}
+		
+	/***
+	 * How to Write Different Style of Fonts: 
+	 * label.setFont(new Font("Orkney Bold", Font.PLAIN, 20));
+	 * label.setFont(new Font("Orkney-Regular", Font.PLAIN, 26));
+	 * label.setFont(JComponentStyle.oarkney_bold.deriveFont(26f));
+	 * 
+	 * Find out the type of font:
+	 * System.out.println(l_sign.getFont());
+	 * 
+	 */
+	
+	
+	
+	
 	
 }
