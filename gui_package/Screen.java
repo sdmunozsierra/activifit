@@ -7,7 +7,7 @@ import action_package.*;
 import chart_package.HeartChart;
 import chart_package.HomeChart;
 import chart_package.StepChart;
-import chart_package.tempChart;
+import chart_package.TempChart;
 import generator_package.DataGenerator;
 import user_package.Database;
 
@@ -17,6 +17,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -36,6 +38,7 @@ public class Screen {
 	public final static int ry = 600; // vertical resolution
 
 	/* Colors */
+	//TODO remove colors from here
 	public static Color red_alizarin = new Color(231, 76, 60);
 	public static Color green_emerald = new Color(46, 204, 113);
 	public static Color blue_peterriver = new Color(52, 152, 219);
@@ -86,7 +89,8 @@ public class Screen {
 	public Screen() {
 		JComponentStyle.setCustomFonts(); // Load custom fonts
 		
-		screen_login();
+		//screen_login();
+		screen_home2();
 		
 	}
 
@@ -102,16 +106,17 @@ public class Screen {
 		listP.setLayout(new BoxLayout(listP, BoxLayout.PAGE_AXIS));
 
 		// Panel bottom about us (BOX LAYOUT) ----Method?----
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		JPanel BottomP = new JPanel();
+		BottomP.setLayout(new BoxLayout(BottomP, BoxLayout.X_AXIS));
 		// Create Buttons
-		JButton button_about = new JButton("About Us");
-		JButton button_help = new JButton("Help");
+		JButton button_about = JComponentStyle.JButtonFlat("ABOUT US");
+		JButton button_help = JComponentStyle.JButtonFlat("HELP");
 		// Add to panel with glue between two buttons
-		panel.add(button_about);
-		panel.add(Box.createHorizontalGlue());
-		panel.add(button_help);
-		panel.setOpaque(false);
+		BottomP.add(Box.createRigidArea(new Dimension(0, 40)));
+		BottomP.add(button_about);
+		BottomP.add(Box.createHorizontalGlue());
+		BottomP.add(button_help);
+		BottomP.setOpaque(false);
 		// ----Method?---- Panel bottom about us (BOX LAYOUT)
 
 		// Login Text Field
@@ -121,17 +126,15 @@ public class Screen {
 
 		// Labels
 		JLabel l_sign = new JLabel("Sign In");
-		//l_sign.setFont(new Font("Orkney Bold", Font.PLAIN, 20));
 		l_sign.setFont(new Font("Orkney-Regular", Font.PLAIN, 26));
-		//l_sign.setFont(JComponentStyle.oarkney_bold.deriveFont(26f));
-		System.out.println(l_sign.getFont());
 		l_sign.setForeground(black_midnight);
+		
 		JLabel l_enter = new JLabel("(Enter your e-mail)");
 		l_enter.setFont(JComponentStyle.oarkney_reg.deriveFont(14f));
-		l_enter.setForeground(gray_concrete);
+		l_enter.setForeground(gray_concrete); 
 
 		// Buttons
-		JButton button_accept = new JButton("DONE");
+		JButton button_accept = JComponentStyle.JButtonFlat("DONE");
 
 		// Add components and span.
 		listP.add(Box.createRigidArea(new Dimension(0, ry / 4)));
@@ -140,7 +143,7 @@ public class Screen {
 		listP.add(t_login); // Text Field
 		listP.add(Box.createRigidArea(new Dimension(0, 6)));
 		listP.add(l_enter); // Enter your email
-		listP.add(Box.createRigidArea(new Dimension(0, 50)));
+		listP.add(Box.createRigidArea(new Dimension(0, 40)));
 		listP.add(button_accept);
 
 		// Align every component (-.-)
@@ -161,7 +164,7 @@ public class Screen {
 		// Frames
 		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		F.add(listP); // First row
-		F.add(panel, BorderLayout.SOUTH);
+		F.add(BottomP, BorderLayout.SOUTH);
 		viewFrame(F);
 	}// End sign-in screen
 
@@ -186,12 +189,15 @@ public class Screen {
 		JPanel springP = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
 			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+			//JLabel l = JComponentStyle.JLabelFormStyle(labels[i]);
+			
 			springP.add(l);
 			t_array[i] = new JTextField(20); //new field
 			l.setLabelFor(t_array[i]);
+			l.setFont(JComponentStyle.oarkney_reg.deriveFont(12f));
 			springP.add(t_array[i]);
 			t_array[i].setBorder(border_default); //Border color
- 			t_array[i].setMaximumSize(new Dimension(300, 6)); //Max border
+ 			t_array[i].setMaximumSize(new Dimension(280, 8)); //Max border
 			t_array[i].addMouseListener(new LoginMouseAdapter(t_array[i])); //Action
 			if(i == numPairs-1){ //Change email label
 				t_array[i].setText(LoginActionListener.returnValidEmail() );
@@ -199,16 +205,16 @@ public class Screen {
 		}
 		
 		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
-		SpringUtilities.makeGrid(springP, numPairs, 2, 6, 6, 6, 20);
+		SpringUtilities.makeGrid(springP, numPairs, 2, 6, 6, 6, 30);
 
 		// Bottom panels
 		JPanel bottomP = new JPanel(); // Will use 2 rows
 		bottomP.setLayout(new BoxLayout(bottomP, BoxLayout.Y_AXIS)); // Vertical
 		
 		// Create buttons
-		JButton button_accept = new JButton("Accept");
-		JButton button_back = new JButton("BACK");
-		JButton button_help = new JButton("HELP");
+		JButton button_accept = JComponentStyle.JButtonFlat("ACCEPT");
+		JButton button_back = JComponentStyle.JButtonFlat("BACK");
+		JButton button_help = JComponentStyle.JButtonFlat("HELP");
 
 		// Navigation panel for last row
 		JPanel navP = new JPanel(); // Will have back and help buttons
@@ -217,16 +223,16 @@ public class Screen {
 		// Add springP to ContainerP (for spacing options)
 		containerP.add(Box.createRigidArea(new Dimension(0, 35))); //Add space
 		containerP.add(springP); //Add form panel
-		containerP.add(Box.createRigidArea(new Dimension(0, 35)));
 		
 		// Add buttons, properties and spaces to Bottom panel
 		bottomP.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-		bottomP.add(Box.createRigidArea(new Dimension(0, 50))); // rigid area to
+		bottomP.add(Box.createRigidArea(new Dimension(0, 100))); // Raise Accept Button
 		// Add NavPanel 	
 		navP.add(button_back);
 		navP.add(Box.createHorizontalGlue());
 		navP.add(button_help);
+		navP.add(Box.createRigidArea(new Dimension(0, 40))); // rigid area to raise buttons
 		// Add last row panel to bottom panel
 		bottomP.add(navP); 
 		
@@ -263,54 +269,42 @@ public class Screen {
 		// Strings for Labels
 		String welcome = name+"'s Daily Feed";
 		String time = STRING_TIME;
-//		String[] labels = {""+name+"'s Daily Feed", "Welcome "+currentUser, "Time: "+CURRENT_TIME+" Hours", 
-//				 "THIS WILL BE A GRAPH(hopefully)", };
-//		for (int i = 0; i < labels.length; i++) {
-//			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-//			P.add(l);
-//			l.setAlignmentX(Component.CENTER_ALIGNMENT);
-//			// if statement to span everything BUT last component
-//			if (i < labels.length - 1) {
-//				P.add(Box.createRigidArea(new Dimension(0, 33)));
-//			} else {
-//				P.add(Box.createRigidArea(new Dimension(0, 10)));
-//			}
-//		}
 		
 		// Graph Image
-		//JLabel graph = new JLabel();
-		//graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
-		//graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		 JLabel graph = new JLabel();
+		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
+		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
 		//P.add(graph);
 		
 		// Labels
-		JLabel label_welcome = new JLabel(welcome);
-		label_welcome.setFont(new Font(null, 0, 18));
+		JLabel label_welcome = JComponentStyle.JLabelStyle(welcome);
+		//label_welcome.setFont(new Font(null, 0, 18));
 		label_welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JLabel label_time = new JLabel(time);
-		label_time.setFont(new Font(null, 0, 16));
+		JLabel label_time = JComponentStyle.JLabelStyle(time);
+		//label_time.setFont(new Font(null, 0, 16));
 		label_time.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		// Real Graph (Box Layout)
-		JPanel graph = new JPanel();
-		graph = HomeChart.drawChart();
+		// Real Graph (Box Layout) BUGS WHOLE APP
+		//JPanel graph = new JPanel();
+		//graph = HomeChart.drawChart();
 		
 		//Panel Inception
 		P.add(label_welcome);
-		P.add(Box.createRigidArea(JComponentStyle.dimension_component_small));
+		P.add(Box.createRigidArea(JComponentStyle.dimension_component_large));
 		P.add(graph); //Add graph
 		P.add(Box.createRigidArea(JComponentStyle.dimension_lower_area));
 		P.add(label_time); //Time label at the bottom
+		P.add(Box.createRigidArea(JComponentStyle.dimension_component_large));
 		//End panel inception
 		
 		// Actions
 		HomeMenuActionListener action = new HomeMenuActionListener(F);
 		
+		//TODO make only one button that pops menu screen
 		// Buttons
-		String[] buttons = { "HEART", "STEPS", "TEMP", "SLEEP", "LOGOUT" };
+		String[] buttons = { "Heart", "Steps", "Temp", "Sleep", "Logout" };
 		for (int i = 0; i < buttons.length; i++) {
 			JButton b = new JButton(buttons[i]);
-			b.setMargin(new java.awt.Insets(1, 6, 1, 6)); // Format
+			//b.setMargin(new java.awt.Insets(1, 6, 1, 6)); // Format
 			action = new HomeMenuActionListener(F, i);
 			b.addActionListener(action);
 			buttonP.add(b);
@@ -322,6 +316,65 @@ public class Screen {
 		F.add(buttonP, BorderLayout.SOUTH);
 		viewFrame(F); // displays the frame
 	}// end Screen
+	
+	/** Screen HOME2
+	 * 
+	 * */
+	public static void screen_home2(){
+		JFrame F = new JFrame("Homepage");
+		// Panel for information (BOX LAYOUT)
+		JPanel P_margin = new JPanel();
+		P_margin.setLayout(new BoxLayout(P_margin, BoxLayout.PAGE_AXIS));
+		//P.add(Box.createRigidArea(JComponentStyle.dimension_margin_banner));
+		
+		
+
+//		// FORTH PANEL
+//				JPanel P_butt4 = new JPanel();
+//				P_butt4.setLayout(new BoxLayout(P_butt4, BoxLayout.X_AXIS));
+//				// Up rigid area
+//				P_butt4.add(Box.createRigidArea(new Dimension(0, 10))); // up
+//				P_butt4.add(Box.createRigidArea(new Dimension(20, 0))); // left
+//				P_butt4.add(panel); // BIG BUTTON
+//				P_butt4.add(Box.createRigidArea(new Dimension(20, 0))); // right
+//				P_butt4.add(Box.createRigidArea(new Dimension(0,10))); //down
+//				
+//				// FIFTH PANEL
+//				JPanel P_butt5 = new JPanel();
+//				P_butt5.setLayout(new BoxLayout(P_butt5, BoxLayout.X_AXIS));
+//				// Up rigid area
+//				P_butt5.add(Box.createRigidArea(new Dimension(0, 10))); // up
+//				P_butt5.add(Box.createRigidArea(new Dimension(20, 0))); // left
+//				P_butt5.add(panel); // BIG BUTTON
+//				P_butt5.add(Box.createRigidArea(new Dimension(20, 0))); // right
+//				P_butt5.add(Box.createRigidArea(new Dimension(0,10))); //down
+		
+				
+		//Create JPanel that contains the menu button
+		JPanel heart = CustomJPanels.menuButtonPanel("Heart", new HomeMenuActionListener(F, 0), red_alizarin);
+		JPanel steps = CustomJPanels.menuButtonPanel("Steps", new HomeMenuActionListener(F, 1), green_emerald);
+		JPanel temp = CustomJPanels.menuButtonPanel("Temperature", new HomeMenuActionListener(F, 2), 
+				JComponentStyle.orange_carrot);
+		JPanel sleep = CustomJPanels.menuButtonPanel("Sleep", new HomeMenuActionListener(F, 3), purple_amethyst);
+		JPanel logout = CustomJPanels.menuButtonPanel("Log Out", new HomeMenuActionListener(F, 4), gray_concrete);
+		
+		//ADD BUTTONS
+		//P_margin.add(P_butt1);
+		P_margin.add(heart);
+		P_margin.add(steps);
+		P_margin.add(temp);
+		P_margin.add(sleep);
+		P_margin.add(logout);
+		P_margin.add(Box.createRigidArea(new Dimension(0,100))); //down
+		
+		
+		// add panels to frame
+		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
+		F.add(P_margin, BorderLayout.CENTER);
+		F.setSize(rx-(rx/5), ry);
+		F.setVisible(true);
+		//F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 
 	/**
 	 * Setting all the variables for the heart rate screen
@@ -566,10 +619,10 @@ public class Screen {
 			graph = StepChart.drawChart(4); //<- intentionally
 			break;
 		case 5: //Weekly Graph Temperature
-			graph = tempChart.drawChart(2);
+			graph = TempChart.drawChart(2);
 			break; //<-Never forger a break OK? THANKS
 		case 6: //Month
-			graph = tempChart.drawChart(1);
+			graph = TempChart.drawChart(1);
 			break;
 		case 7: //Week Sleep (2)
 			break;
@@ -673,8 +726,6 @@ public class Screen {
 		// Information Panel (BOX LAYOUT) //Can be changed to flow
 		JPanel infoP = new JPanel();
 		mainP.setLayout(new BoxLayout(mainP, BoxLayout.Y_AXIS));
-		
-
 		// Labels
 		JLabel l_about = new JLabel("About US");
 		l_about.setFont(new Font(null, Font.BOLD, 20));
@@ -684,8 +735,8 @@ public class Screen {
 		infoP.add(Box.createRigidArea(new Dimension(0, 50)));
 		infoP.add(l_info); // paragraph
 		l_about.setAlignmentX(Component.CENTER_ALIGNMENT);
-		l_info.setAlignmentX(Component.LEFT_ALIGNMENT);
-		infoP.setPreferredSize(new Dimension(rx, ry ));
+		l_info.setAlignmentX(Component.CENTER_ALIGNMENT);
+		infoP.setMaximumSize(new Dimension(rx, ry / 3));
 		infoP.setOpaque(false);
 
 		// Panel pictures (Box Layout) --Method?--

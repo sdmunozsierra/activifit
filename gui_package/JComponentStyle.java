@@ -42,11 +42,14 @@ public class JComponentStyle {
 	public static Font oarkney_reg = new Font("Serif",Font.PLAIN, 25); //Change with method
 	public static Font oarkney_bold = new Font("Serif",Font.PLAIN, 25); //Change with method
 	public static Font qontra_reg = new Font("Serif",Font.PLAIN, 16); //Change with method
+	public static Font heebo_med = new Font("Serif",Font.PLAIN, 16); //Change with method
 	
 	/** Colors */
 	/* Material UI */
 	public static Color red_alizarin = new Color(231, 76, 60);
+	public static Color orange_carrot =new Color(230,126,34);
 	public static Color green_emerald = new Color(46, 204, 113);
+	public static Color blue_button = new Color(235,242,250);
 	public static Color blue_peterriver = new Color(52, 152, 219); //vivid blue
 	public static Color blue_belizehole = new Color(41, 128, 185); //darker blue
 	public static Color purple_amethyst = new Color(155, 89, 182);
@@ -54,6 +57,7 @@ public class JComponentStyle {
 	public static Color black_midnight = new Color(44, 62, 80);
 	public static Color white_clouds = new Color(236, 240, 241); //Whitest
 	public static Color white_silver = new Color(189,195,199); //White almost gray
+	
 	
 	/* Pallete1 */
 	public static Color blue_yankeesblue = new Color(37,40,61); //Almost purple
@@ -117,6 +121,19 @@ public class JComponentStyle {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		// Heebo-Medium.ttf
+		InputStream font_loc4 = LoadCustomFonts.class.getResourceAsStream("Heebo-Medium.ttf");
+		try {
+			heebo_med = Font.createFont(Font.TRUETYPE_FONT, font_loc4);
+			heebo_med = heebo_med.deriveFont(Font.PLAIN, 20);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(heebo_med);
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 	
@@ -125,10 +142,10 @@ public class JComponentStyle {
 	 * @param Text Text to be included inside the button */
 	public static JButton JButtonFlat(String Text){
 		JButton button = new JButton(Text);
-		button.setForeground(Color.BLACK);
-		button.setBackground(Color.white);
+		button.setForeground(black_eerie);
+		button.setBackground(blue_button);
 		//Border line = new LineBorder(black_midnight);
-		Border line = new LineBorder(Color.BLACK);
+		Border line = new LineBorder(black_midnight);
 		Border margin = new EmptyBorder(1,6,1,6);
 		Border compound = new CompoundBorder(line,margin);
 		button.setBorder(compound);
@@ -140,17 +157,16 @@ public class JComponentStyle {
 	
 	/** Creates a custom JButton to be used in the program.
 	 * @param Text Text to be included inside the button */
-	public static JButton JButtonHome(String Text){
+	public static JButton JButtonHome(String Text, Color background){
 		JButton button = new JButton(Text);
-		button.setForeground(Color.BLACK);
-		button.setBackground(white_clouds);
-		//Border line = new LineBorder(black_midnight);
-		Border line = new LineBorder(black_eerie);
-		Border margin = new EmptyBorder(1,6,1,6);
+		button.setForeground(white_clouds);
+		button.setBackground(background);
+		Border line = new LineBorder(background);
+		Border margin = new EmptyBorder(1,4,1,4);
 		Border compound = new CompoundBorder(line,margin);
 		button.setBorder(compound);
 		//button.setFocusPainted(true);
-		button.setFont(new Font("Oarkney-Regular", Font.PLAIN, 14));
+		button.setFont(new Font("Heebo-Medium", Font.PLAIN, 22));
 		
 		return button;
 	}

@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -131,4 +134,28 @@ public class CustomJPanels {
 		return panel;
 	}
 	
+	/** Create a JPanel that contains a long button for the menu.
+	 * Flat Style Buttons.
+	 * @param text String to be placed inside the button 
+	 * @param a Action listener that contains the action for the button 
+	 * @param backgroundColor Choose the background color of the button 
+	 * @return Big menu button
+	 * */
+	public static JPanel menuButtonPanel(String text, ActionListener a, Color backgroundColor){
+		JPanel pane = new JPanel();
+		pane.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		JButton button = JComponentStyle.JButtonHome(text, backgroundColor);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 25;      //make this component tall
+		c.ipadx = JComponentStyle.rx/2;
+		c.weightx = 0.0;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 1;
+		button.addActionListener(a);
+		pane.add(button, c);
+		
+		return pane;
+	}
 }//end class
