@@ -270,11 +270,19 @@ public class Screen {
 		String welcome = name+"'s Daily Feed";
 		String time = STRING_TIME;
 		
+<<<<<<< HEAD
 		// Graph Image
 		 JLabel graph = new JLabel();
 		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
 		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
 		//P.add(graph);
+=======
+		 //Graph Image
+		JLabel graph = new JLabel();
+		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
+		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		P.add(graph);
+>>>>>>> branch 'master' of https://github.com/sdmunozsierra/activifit.git
 		
 		// Labels
 		JLabel label_welcome = JComponentStyle.JLabelStyle(welcome);
@@ -283,7 +291,12 @@ public class Screen {
 		JLabel label_time = JComponentStyle.JLabelStyle(time);
 		//label_time.setFont(new Font(null, 0, 16));
 		label_time.setAlignmentX(Component.CENTER_ALIGNMENT);
+<<<<<<< HEAD
 		// Real Graph (Box Layout) BUGS WHOLE APP
+=======
+		
+		// Real Graph (Box Layout)
+>>>>>>> branch 'master' of https://github.com/sdmunozsierra/activifit.git
 		//JPanel graph = new JPanel();
 		//graph = HomeChart.drawChart();
 		
@@ -655,6 +668,7 @@ public class Screen {
 		viewFrame(F);
 	}
 	
+	//SHARE SCREEN NEEDS HELP
 	/**
 	 * Setting all the variables for the share screen
 	 */
@@ -713,11 +727,16 @@ public class Screen {
 		viewFrame(F);
 	}// end screen_share
 
+	//ABOUT US TOO
 	/**
 	 * Setting all the variables for the about us screen
 	 */
 	public static void screen_about() {
 		JFrame F = new JFrame("About Us");
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
+		
+		//Activity Panel
+		JPanel banner = CustomJPanels.activityBannerPanel("About Us", purple_amethyst);
 
 		// Panel (BOX LAYOUT)
 		JPanel mainP = new JPanel();
@@ -727,16 +746,18 @@ public class Screen {
 		JPanel infoP = new JPanel();
 		mainP.setLayout(new BoxLayout(mainP, BoxLayout.Y_AXIS));
 		// Labels
-		JLabel l_about = new JLabel("About US");
-		l_about.setFont(new Font(null, Font.BOLD, 20));
-		l_about.setForeground(black_midnight);
-		JLabel l_info = new JLabel("Information about the company. We are cool guys. We like Pizza.");
-		infoP.add(l_about); // Header
+		JLabel l_info = new JLabel("<html><br>Information about the company. "
+				+ "<br>We are cool guys. <br>We like Pizza.</html>");
 		infoP.add(Box.createRigidArea(new Dimension(0, 50)));
 		infoP.add(l_info); // paragraph
+<<<<<<< HEAD
 		l_about.setAlignmentX(Component.CENTER_ALIGNMENT);
 		l_info.setAlignmentX(Component.CENTER_ALIGNMENT);
 		infoP.setMaximumSize(new Dimension(rx, ry / 3));
+=======
+		l_info.setAlignmentX(Component.CENTER_ALIGNMENT);
+		infoP.setPreferredSize(new Dimension(rx, ry ));
+>>>>>>> branch 'master' of https://github.com/sdmunozsierra/activifit.git
 		infoP.setOpaque(false);
 
 		// Panel pictures (Box Layout) --Method?--
@@ -758,10 +779,8 @@ public class Screen {
 		buttonP.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		mainP.add(infoP);
-		mainP.add(picturesP);
-		mainP.add(Box.createRigidArea(new Dimension(0, 250)));
-		mainP.add(buttonP);
+//		mainP.add(infoP);
+//		mainP.add(picturesP);
 		
 		// mainP.setBackground(gray_concrete);
 		
@@ -769,10 +788,17 @@ public class Screen {
 		AboutUsActionListener action = new AboutUsActionListener(F);
 		button_accept.addActionListener(action);
 
-		F.add(mainP);
+		background.add(l_info);
+		background.add(picturesP);
+		background.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0, 250)));
+		background.add(buttonP);
+		F.add(banner, BorderLayout.NORTH);
+		F.add(background, BorderLayout.CENTER);
 		viewFrame(F);
 	}
 
+	//HELP TOO
 	/**
 	 * Setting all the variables for the help screen
 	 */
