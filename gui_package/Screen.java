@@ -131,7 +131,7 @@ public class Screen {
 		l_enter.setForeground(gray_concrete);
 
 		// Buttons
-		JButton button_accept = new JButton("DONE");
+		JButton button_accept = JComponentStyle.JButtonFlat("DONE");
 
 		// Add components and span.
 		listP.add(Box.createRigidArea(new Dimension(0, ry / 4)));
@@ -277,11 +277,11 @@ public class Screen {
 //			}
 //		}
 		
-		// Graph Image
-		//JLabel graph = new JLabel();
-		//graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
-		//graph.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//P.add(graph);
+		 //Graph Image
+		JLabel graph = new JLabel();
+		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
+		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		P.add(graph);
 		
 		// Labels
 		JLabel label_welcome = new JLabel(welcome);
@@ -292,8 +292,8 @@ public class Screen {
 		label_time.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// Real Graph (Box Layout)
-		JPanel graph = new JPanel();
-		graph = HomeChart.drawChart();
+		//JPanel graph = new JPanel();
+		//graph = HomeChart.drawChart();
 		
 		//Panel Inception
 		P.add(label_welcome);
@@ -602,6 +602,7 @@ public class Screen {
 		viewFrame(F);
 	}
 	
+	//SHARE SCREEN NEEDS HELP
 	/**
 	 * Setting all the variables for the share screen
 	 */
@@ -660,11 +661,16 @@ public class Screen {
 		viewFrame(F);
 	}// end screen_share
 
+	//ABOUT US TOO
 	/**
 	 * Setting all the variables for the about us screen
 	 */
 	public static void screen_about() {
 		JFrame F = new JFrame("About Us");
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
+		
+		//Activity Panel
+		JPanel banner = CustomJPanels.activityBannerPanel("About Us", purple_amethyst);
 
 		// Panel (BOX LAYOUT)
 		JPanel mainP = new JPanel();
@@ -676,15 +682,11 @@ public class Screen {
 		
 
 		// Labels
-		JLabel l_about = new JLabel("About US");
-		l_about.setFont(new Font(null, Font.BOLD, 20));
-		l_about.setForeground(black_midnight);
-		JLabel l_info = new JLabel("Information about the company. We are cool guys. We like Pizza.");
-		infoP.add(l_about); // Header
+		JLabel l_info = new JLabel("<html><br>Information about the company. "
+				+ "<br>We are cool guys. <br>We like Pizza.</html>");
 		infoP.add(Box.createRigidArea(new Dimension(0, 50)));
 		infoP.add(l_info); // paragraph
-		l_about.setAlignmentX(Component.CENTER_ALIGNMENT);
-		l_info.setAlignmentX(Component.LEFT_ALIGNMENT);
+		l_info.setAlignmentX(Component.CENTER_ALIGNMENT);
 		infoP.setPreferredSize(new Dimension(rx, ry ));
 		infoP.setOpaque(false);
 
@@ -707,10 +709,8 @@ public class Screen {
 		buttonP.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		mainP.add(infoP);
-		mainP.add(picturesP);
-		mainP.add(Box.createRigidArea(new Dimension(0, 250)));
-		mainP.add(buttonP);
+//		mainP.add(infoP);
+//		mainP.add(picturesP);
 		
 		// mainP.setBackground(gray_concrete);
 		
@@ -718,10 +718,17 @@ public class Screen {
 		AboutUsActionListener action = new AboutUsActionListener(F);
 		button_accept.addActionListener(action);
 
-		F.add(mainP);
+		background.add(l_info);
+		background.add(picturesP);
+		background.setAlignmentX(Component.CENTER_ALIGNMENT);
+		background.add(Box.createRigidArea(new Dimension(0, 250)));
+		background.add(buttonP);
+		F.add(banner, BorderLayout.NORTH);
+		F.add(background, BorderLayout.CENTER);
 		viewFrame(F);
 	}
 
+	//HELP TOO
 	/**
 	 * Setting all the variables for the help screen
 	 */
