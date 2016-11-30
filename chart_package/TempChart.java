@@ -10,7 +10,7 @@ import javafx.stage.Stage;
  * @author JSSP Engineers
  * @version 1.0
  */
-public class tempChart extends Charts{
+public class TempChart extends Charts{
 
 	//Access the data of the current user via Generator
 	static DataGenerator localGen = Screen.globalGen;
