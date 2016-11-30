@@ -89,8 +89,8 @@ public class Screen {
 	public Screen() {
 		JComponentStyle.setCustomFonts(); // Load custom fonts
 		
-		//screen_login();
-		screen_home2();
+		screen_login();
+		//screen_menu();
 		
 	}
 
@@ -253,7 +253,7 @@ public class Screen {
 	 * Setting all the variables for the home screen
 	 */
 	public static void screen_home() {
-		JFrame F = new JFrame("Homepage");
+		JFrame FH = new JFrame("Homepage");
 		// Panel for information (BOX LAYOUT)
 		JPanel P = new JPanel();
 		P.setLayout(new BoxLayout(P, BoxLayout.PAGE_AXIS));
@@ -298,83 +298,75 @@ public class Screen {
 		//End panel inception
 		
 		// Actions
-		HomeMenuActionListener action = new HomeMenuActionListener(F);
+		ShowMenuActionListener action = new ShowMenuActionListener(FH);
 		
 		//TODO make only one button that pops menu screen
 		// Buttons
-		String[] buttons = { "Heart", "Steps", "Temp", "Sleep", "Logout" };
-		for (int i = 0; i < buttons.length; i++) {
-			JButton b = new JButton(buttons[i]);
-			//b.setMargin(new java.awt.Insets(1, 6, 1, 6)); // Format
-			action = new HomeMenuActionListener(F, i);
-			b.addActionListener(action);
-			buttonP.add(b);
-		}
+		JButton button_menu = new JButton("MENU");
+		button_menu.addActionListener(action);
+		buttonP.add(button_menu);
 		
 		// add panels to frame
-		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
-		F.add(P, BorderLayout.CENTER);
-		F.add(buttonP, BorderLayout.SOUTH);
-		viewFrame(F); // displays the frame
+		FH.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
+		FH.add(P, BorderLayout.CENTER);
+		FH.add(buttonP, BorderLayout.SOUTH);
+		viewFrame(FH); // displays the frame
 	}// end Screen
 	
 	/** Screen HOME2
 	 * 
 	 * */
-	public static void screen_home2(){
-		JFrame F = new JFrame("Homepage");
+	public static void screen_menu(){
+		// Personal Information (Fetch from database)
+		//Database db = Database.getInstance();
+		//String un = db.getCurrentUser().getName();
+		//String msg = (un+"'s Home");
+		String stemp = "Henry Danger";		
+		//TODO make frame transparent
+		JFrame F = new JFrame("Menu");
 		// Panel for information (BOX LAYOUT)
 		JPanel P_margin = new JPanel();
 		P_margin.setLayout(new BoxLayout(P_margin, BoxLayout.PAGE_AXIS));
-		//P.add(Box.createRigidArea(JComponentStyle.dimension_margin_banner));
 		
-		
-
-//		// FORTH PANEL
-//				JPanel P_butt4 = new JPanel();
-//				P_butt4.setLayout(new BoxLayout(P_butt4, BoxLayout.X_AXIS));
-//				// Up rigid area
-//				P_butt4.add(Box.createRigidArea(new Dimension(0, 10))); // up
-//				P_butt4.add(Box.createRigidArea(new Dimension(20, 0))); // left
-//				P_butt4.add(panel); // BIG BUTTON
-//				P_butt4.add(Box.createRigidArea(new Dimension(20, 0))); // right
-//				P_butt4.add(Box.createRigidArea(new Dimension(0,10))); //down
-//				
-//				// FIFTH PANEL
-//				JPanel P_butt5 = new JPanel();
-//				P_butt5.setLayout(new BoxLayout(P_butt5, BoxLayout.X_AXIS));
-//				// Up rigid area
-//				P_butt5.add(Box.createRigidArea(new Dimension(0, 10))); // up
-//				P_butt5.add(Box.createRigidArea(new Dimension(20, 0))); // left
-//				P_butt5.add(panel); // BIG BUTTON
-//				P_butt5.add(Box.createRigidArea(new Dimension(20, 0))); // right
-//				P_butt5.add(Box.createRigidArea(new Dimension(0,10))); //down
-		
-				
 		//Create JPanel that contains the menu button
-		JPanel heart = CustomJPanels.menuButtonPanel("Heart", new HomeMenuActionListener(F, 0), red_alizarin);
-		JPanel steps = CustomJPanels.menuButtonPanel("Steps", new HomeMenuActionListener(F, 1), green_emerald);
-		JPanel temp = CustomJPanels.menuButtonPanel("Temperature", new HomeMenuActionListener(F, 2), 
-				JComponentStyle.orange_carrot);
-		JPanel sleep = CustomJPanels.menuButtonPanel("Sleep", new HomeMenuActionListener(F, 3), purple_amethyst);
-		JPanel logout = CustomJPanels.menuButtonPanel("Log Out", new HomeMenuActionListener(F, 4), gray_concrete);
+		JPanel heart = CustomJPanels.menuButtonPanel("Heart", 
+				new HomeMenuActionListener(F, 0), red_alizarin);
+		JPanel steps = CustomJPanels.menuButtonPanel("Steps",
+				new HomeMenuActionListener(F, 1), green_emerald);
+		JPanel temp = CustomJPanels.menuButtonPanel("Temperature", 
+				new HomeMenuActionListener(F, 2), JComponentStyle.orange_carrot);
+		JPanel sleep = CustomJPanels.menuButtonPanel("Sleep", 
+				new HomeMenuActionListener(F, 3), purple_amethyst);
+		JPanel logout = CustomJPanels.menuButtonPanel("Log Out", 
+				new HomeMenuActionListener(F, 4), gray_concrete);
 		
 		//ADD BUTTONS
-		//P_margin.add(P_butt1);
+		P_margin.add(Box.createRigidArea(new Dimension(0,70))); //up
 		P_margin.add(heart);
+		P_margin.add(Box.createRigidArea(new Dimension(0,10)));
 		P_margin.add(steps);
+		P_margin.add(Box.createRigidArea(new Dimension(0,10)));
 		P_margin.add(temp);
+		P_margin.add(Box.createRigidArea(new Dimension(0,10)));
 		P_margin.add(sleep);
+		P_margin.add(Box.createRigidArea(new Dimension(0,140)));
 		P_margin.add(logout);
-		P_margin.add(Box.createRigidArea(new Dimension(0,100))); //down
+		//P_margin.add(Box.createRigidArea(new Dimension(0,200))); //down 150 ok
+		//P_margin.setOpaque(true);
+		//P_margin.setBackground(white_clouds);
+		P_margin.setOpaque(false);
 		
 		
 		// add panels to frame
-		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
+		//TODO change sofia to one from database
+		F.add(CustomJPanels.HomeMenuBannerPanel(stemp), BorderLayout.NORTH);
 		F.add(P_margin, BorderLayout.CENTER);
-		F.setSize(rx-(rx/5), ry);
+		F.setSize(rx-(rx/6), ry-20);  //Set the size as if it looks like a draw panel
+		F.setUndecorated(true);
+		F.setBackground(new Color(1.0f,1.0f,1.0f,0.9f));
 		F.setVisible(true);
-		//F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		F.setLocation(5, 30);  //This might be different for Macs :(
+		
 	}
 
 	/**
@@ -737,7 +729,6 @@ public class Screen {
 				+ "<br>We are cool guys. <br>We like Pizza.</html>");
 		infoP.add(Box.createRigidArea(new Dimension(0, 50)));
 		infoP.add(l_info); // paragraph
-		l_about.setAlignmentX(Component.CENTER_ALIGNMENT);
 		l_info.setAlignmentX(Component.CENTER_ALIGNMENT);
 		infoP.setPreferredSize(new Dimension(rx, ry ));
 		infoP.setOpaque(false);
@@ -864,6 +855,13 @@ public class Screen {
 		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/** Get Frame
+	 * @param F Frame to be passed
+	 * @returns Returns a frame */
+	private static JFrame getFrame(JFrame F){
+		return F;
+	}
+	
 	/* --Custom Panels-- */
 	//Moved to class -> CustomJPanels
 

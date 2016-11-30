@@ -47,7 +47,7 @@ public class CustomJPanels {
 	}
 
 	/**
-	 * Creates the the activity banner panel
+	 * Creates the activity banner panel
 	 * @param activity takes in the activity, either heart, steps, sleep, or temperature
 	 * @param color takes in the color
 	 * @return JPanel
@@ -61,6 +61,30 @@ public class CustomJPanels {
 		banner.setFont(new Font(null, 0, 25));
 		banner.setForeground(color);
 		panel.setOpaque(false);
+
+		// MIGHT NEED TO ADJUST BANNER MAX SIZE
+		panel.setMaximumSize(new Dimension(Screen.rx, 50));
+
+		return panel;
+	}
+	
+	/** Creates the Home Menu banner panel
+	 * @param activity takes in the activity, either heart, steps, sleep, or temperature
+	 * @param color takes in the color
+	 * @return JPanel
+	 */
+	public static JPanel HomeMenuBannerPanel(String username) {
+		/* Panel containing a custom banner for an activity. */
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		JLabel banner = new JLabel(username); // Banner
+		panel.add(banner);
+		banner.setFont(new Font(null, 0, 24));
+		//banner.setForeground(JComponentStyle.white_clouds);
+		banner.setForeground(Color.white);
+		//panel.setBackground(Color.BLACK);
+		panel.setBackground(JComponentStyle.gray_concrete);
+		//panel.setOpaque(true);
 
 		// MIGHT NEED TO ADJUST BANNER MAX SIZE
 		panel.setMaximumSize(new Dimension(Screen.rx, 50));
@@ -142,20 +166,24 @@ public class CustomJPanels {
 	 * @return Big menu button
 	 * */
 	public static JPanel menuButtonPanel(String text, ActionListener a, Color backgroundColor){
+		//Get resolutions
+		int rx = JComponentStyle.rx;
+		int ry = JComponentStyle.ry;
+		
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		JButton button = JComponentStyle.JButtonHome(text, backgroundColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 25;      //make this component tall
-		c.ipadx = JComponentStyle.rx/2;
-		c.weightx = 0.0;
-		c.gridwidth = 1;
-		c.gridx = 0;
-		c.gridy = 1;
+		c.ipady = 24;      //make this component tall 24 ok
+		c.ipadx = rx- (rx/(2)) +rx/8;
+		//c.weightx = 0.0;
+		//c.gridwidth = 100;
+		//c.gridx = 0;
+		//c.gridy = 1;
 		button.addActionListener(a);
-		pane.add(button, c);
-		
+		pane.add(button, c); //Add the button with the contraints
+		pane.setOpaque(false); //Transparent background
 		return pane;
 	}
 }//end class
