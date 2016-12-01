@@ -68,6 +68,30 @@ public class CustomJPanels {
 		return panel;
 	}
 	
+	/**
+	 * Creates the activity banner panel
+	 * @param activity takes in the activity, either heart, steps, sleep, temperature or share
+	 * @param bg Background color for the panel
+	 * @param fg Foreground color for the panel's letters
+	 */
+	public static JPanel activityBannerPanel2(String activity, Color bg, Color fg) {
+		/* Panel containing a custom banner for an activity. */
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+		JLabel label = new JLabel(activity); // Banner
+		panel.add(label);
+		//label.setFont(new Font(null, 0, 25));
+		label.setFont(JComponentStyle.heebo_med.deriveFont(25f));
+		label.setForeground(fg);
+		panel.setOpaque(true);
+		panel.setBackground(bg);
+		
+		// MIGHT NEED TO ADJUST BANNER MAX SIZE
+		panel.setMaximumSize(new Dimension(Screen.rx, 50));
+
+		return panel;
+	}
+	
 	/** Creates the Home Menu banner panel
 	 * @param activity takes in the activity, either heart, steps, sleep, or temperature
 	 * @param color takes in the color
@@ -176,7 +200,7 @@ public class CustomJPanels {
 		JButton button = JComponentStyle.JButtonHome(text, backgroundColor);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 24;      //make this component tall 24 ok
-		c.ipadx = rx- (rx/(2)) +rx/8;
+		c.ipadx = rx-(rx/4)+10;
 		//c.weightx = 0.0;
 		//c.gridwidth = 100;
 		//c.gridx = 0;

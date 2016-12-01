@@ -24,21 +24,21 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 
 /**
- * The class that contains all the individual methods of 
- * every screen.
+ * The class that contains all the individual methods of every screen.
+ * 
  * @author JSSP Engineers
  * @version 1.0
  */
 public class Screen {
 
-	/* Resources  */
+	/* Resources */
 	/* Resolutions */
 	// Resolution taken from an iPhone5 320x568 pixels
 	public final static int rx = 340; // horizontal resolution
 	public final static int ry = 600; // vertical resolution
 
 	/* Colors */
-	//TODO remove colors from here
+	// TODO remove colors from here
 	public static Color red_alizarin = new Color(231, 76, 60);
 	public static Color green_emerald = new Color(46, 204, 113);
 	public static Color blue_peterriver = new Color(52, 152, 219);
@@ -47,25 +47,27 @@ public class Screen {
 	public static Color gray_concrete = new Color(149, 165, 166);
 	public static Color black_midnight = new Color(44, 62, 80);
 	public static Color white_clouds = new Color(236, 240, 241);
-	
+
 	/* Global Variables */
-	public static Database database = Database.getInstance(); //Import Singleton Database
-	
-	public static DataGenerator globalGen = null; //empty until called
-	
+	public static Database database = Database.getInstance(); // Import
+																// Singleton
+																// Database
+
+	public static DataGenerator globalGen = null; // empty until called
+
 	/* Time Variables */
 	static Calendar rightNow = Calendar.getInstance();
 	static int hour = rightNow.get(Calendar.HOUR_OF_DAY);
 	static int minute = rightNow.get(Calendar.MINUTE);
 	public static int CURRENT_TIME = hour;
-	public static String STRING_TIME = hour+":"+minute;
-	
+	public static String STRING_TIME = hour + ":" + minute;
+
 	/**
 	 * Main method for screen
 	 */
 	public static void main(String args[]) {
 		// Test each screen individually
-			
+
 		// screen_login();
 		// screen_register();
 		// screen_home();
@@ -77,21 +79,20 @@ public class Screen {
 		// screen_logout();
 		// screen_about();
 		// screen_help();
-		
+
 	}// end main
 
 	/** Methods */
 	/* --Screens-- */
-	
+
 	/**
 	 * Constructor
 	 */
 	public Screen() {
 		JComponentStyle.setCustomFonts(); // Load custom fonts
-		
-		screen_login();
+
+		// screen_login();
 		//screen_menu();
-		
 	}
 
 	/**
@@ -128,10 +129,10 @@ public class Screen {
 		JLabel l_sign = new JLabel("Sign In");
 		l_sign.setFont(new Font("Orkney-Regular", Font.PLAIN, 26));
 		l_sign.setForeground(black_midnight);
-		
+
 		JLabel l_enter = new JLabel("(Enter your e-mail)");
 		l_enter.setFont(JComponentStyle.oarkney_reg.deriveFont(14f));
-		l_enter.setForeground(gray_concrete); 
+		l_enter.setForeground(gray_concrete);
 
 		// Buttons
 		JButton button_accept = JComponentStyle.JButtonFlat("DONE");
@@ -155,12 +156,12 @@ public class Screen {
 		// Actions
 		LoginActionListener action = new LoginActionListener(t_login, F);
 		button_accept.addActionListener(action);
-		//TODO Create an key listener for enter (Harder than it seems!)
+		// TODO Create an key listener for enter (Harder than it seems!)
 		button_about.addActionListener(new LoginAboutUsActionListener(F));
 		button_help.addActionListener(new LoginHelpActionListener(F));
 		// Change Color Action
 		t_login.addMouseListener(new LoginMouseAdapter(t_login));
-		
+
 		// Frames
 		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		F.add(listP); // First row
@@ -178,39 +179,39 @@ public class Screen {
 		String[] labels = { "Name: ", "Age: ", "Weight: ", "Height: ", "Active Id: ", "Email: " };
 		int numPairs = labels.length;
 
-		// Create an array of JTextFields 
+		// Create an array of JTextFields
 		JTextField[] t_array = new JTextField[numPairs];
-		
+
 		// Container Panel (Box Layout)
 		JPanel containerP = new JPanel();
 		containerP.setLayout(new BoxLayout(containerP, BoxLayout.PAGE_AXIS));
-				
+
 		// Create form panel (Spring Layout)
 		JPanel springP = new JPanel(new SpringLayout());
 		for (int i = 0; i < numPairs; i++) {
 			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
-			//JLabel l = JComponentStyle.JLabelFormStyle(labels[i]);
-			
+			// JLabel l = JComponentStyle.JLabelFormStyle(labels[i]);
+
 			springP.add(l);
-			t_array[i] = new JTextField(20); //new field
+			t_array[i] = new JTextField(20); // new field
 			l.setLabelFor(t_array[i]);
 			l.setFont(JComponentStyle.oarkney_reg.deriveFont(12f));
 			springP.add(t_array[i]);
-			t_array[i].setBorder(border_default); //Border color
- 			t_array[i].setMaximumSize(new Dimension(280, 8)); //Max border
-			t_array[i].addMouseListener(new LoginMouseAdapter(t_array[i])); //Action
-			if(i == numPairs-1){ //Change email label
-				t_array[i].setText(LoginActionListener.returnValidEmail() );
+			t_array[i].setBorder(border_default); // Border color
+			t_array[i].setMaximumSize(new Dimension(280, 8)); // Max border
+			t_array[i].addMouseListener(new LoginMouseAdapter(t_array[i])); // Action
+			if (i == numPairs - 1) { // Change email label
+				t_array[i].setText(LoginActionListener.returnValidEmail());
 			}
 		}
-		
+
 		// makeGrid(panel, nCols, nRows, init x, init y, xpad, ypad)
 		SpringUtilities.makeGrid(springP, numPairs, 2, 6, 6, 6, 30);
 
 		// Bottom panels
 		JPanel bottomP = new JPanel(); // Will use 2 rows
 		bottomP.setLayout(new BoxLayout(bottomP, BoxLayout.Y_AXIS)); // Vertical
-		
+
 		// Create buttons
 		JButton button_accept = JComponentStyle.JButtonFlat("ACCEPT");
 		JButton button_back = JComponentStyle.JButtonFlat("BACK");
@@ -221,27 +222,29 @@ public class Screen {
 		navP.setLayout(new BoxLayout(navP, BoxLayout.X_AXIS)); // Horizontal
 
 		// Add springP to ContainerP (for spacing options)
-		containerP.add(Box.createRigidArea(new Dimension(0, 35))); //Add space
-		containerP.add(springP); //Add form panel
-		
+		containerP.add(Box.createRigidArea(new Dimension(0, 35))); // Add space
+		containerP.add(springP); // Add form panel
+
 		// Add buttons, properties and spaces to Bottom panel
 		bottomP.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-		bottomP.add(Box.createRigidArea(new Dimension(0, 100))); // Raise Accept Button
-		// Add NavPanel 	
+		bottomP.add(Box.createRigidArea(new Dimension(0, 100))); // Raise Accept
+																	// Button
+		// Add NavPanel
 		navP.add(button_back);
 		navP.add(Box.createHorizontalGlue());
 		navP.add(button_help);
-		navP.add(Box.createRigidArea(new Dimension(0, 40))); // rigid area to raise buttons
+		navP.add(Box.createRigidArea(new Dimension(0, 40))); // rigid area to
+																// raise buttons
 		// Add last row panel to bottom panel
-		bottomP.add(navP); 
-		
+		bottomP.add(navP);
+
 		// Actions
 		RegisterAcceptActionListener action = new RegisterAcceptActionListener(t_array, F);
 		button_accept.addActionListener(action);
 		button_back.addActionListener(new RegisterBackActionListener(F));
 		button_help.addActionListener(new RegisterHelpActionListener(F));
-		
+
 		// Set panels to the Frame
 		F.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		F.add(containerP, BorderLayout.EAST);
@@ -261,112 +264,95 @@ public class Screen {
 		// Panel for Buttons (FLOW LAYOUT)
 		JPanel buttonP = new JPanel();
 		buttonP.setLayout(new FlowLayout());
-		
+
 		// Personal Information (Fetch from database)
 		Database db = Database.getInstance();
 		String name = db.getCurrentUser().getName();
-		
+
 		// Strings for Labels
-		String welcome = name+"'s Daily Feed";
+		String welcome = name + "'s Daily Feed";
 		String time = STRING_TIME;
-		
-		 //Graph Image
+
+		// Graph Image
 		JLabel graph = new JLabel();
-		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 200, 200));
+		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 230, 230));
 		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
 		P.add(graph);
-		
+
 		// Labels
 		JLabel label_welcome = JComponentStyle.JLabelStyle(welcome);
-		//label_welcome.setFont(new Font(null, 0, 18));
+		// label_welcome.setFont(new Font(null, 0, 18));
 		label_welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
 		JLabel label_time = JComponentStyle.JLabelStyle(time);
-		//label_time.setFont(new Font(null, 0, 16));
 		label_time.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
+
+		// Disabled because it bugs the whole APP
 		// Real Graph (Box Layout)
-		//JPanel graph = new JPanel();
-		//graph = HomeChart.drawChart();
-		
-		//Panel Inception
+		// JPanel graph = new JPanel();
+		// graph = HomeChart.drawChart();
+
+		// Add Components to Panel P
 		P.add(label_welcome);
 		P.add(Box.createRigidArea(JComponentStyle.dimension_component_large));
-		P.add(graph); //Add graph
-		P.add(Box.createRigidArea(JComponentStyle.dimension_lower_area));
-		P.add(label_time); //Time label at the bottom
-		P.add(Box.createRigidArea(JComponentStyle.dimension_component_large));
-		//End panel inception
-		
+		P.add(graph); // Add graph
+		P.add(Box.createRigidArea(JComponentStyle.dimension_component_huge));
+		P.add(label_time); // Time label at the bottom
+		// P.add(Box.createRigidArea(JComponentStyle.dimension_component_medium));
+
 		// Actions
 		ShowMenuActionListener action = new ShowMenuActionListener(FH);
-		
-		//TODO make only one button that pops menu screen
-		// Buttons
-		JButton button_menu = new JButton("MENU");
-		button_menu.addActionListener(action);
-		buttonP.add(button_menu);
-		
-		// add panels to frame
+
+		// Menu Panel (Contains Menu Button)
+		JPanel menuP = CustomJPanels.menuButtonPanel("Menu", action, gray_concrete);
+
+		// Add panels to frame
 		FH.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
 		FH.add(P, BorderLayout.CENTER);
-		FH.add(buttonP, BorderLayout.SOUTH);
-		viewFrame(FH); // displays the frame
-	}// end Screen
-	
-	/** Screen HOME2
-	 * 
-	 * */
-	public static void screen_menu(){
+		// Button panel
+		FH.add(menuP, BorderLayout.SOUTH);
+		viewFrame(FH);
+	}
+
+	/**
+	 * Setting all the variables for the menu screen
+	 */
+	public static void screen_menu() {
+		// TODO Delete personal info:
 		// Personal Information (Fetch from database)
-		//Database db = Database.getInstance();
-		//String un = db.getCurrentUser().getName();
-		//String msg = (un+"'s Home");
-		String stemp = "Henry Danger";		
-		//TODO make frame transparent
+		// Database db = Database.getInstance();
+		// String un = db.getCurrentUser().getName();
+		// String msg = (un+"'s Home");
+
 		JFrame F = new JFrame("Menu");
 		// Panel for information (BOX LAYOUT)
 		JPanel P_margin = new JPanel();
 		P_margin.setLayout(new BoxLayout(P_margin, BoxLayout.PAGE_AXIS));
-		
-		//Create JPanel that contains the menu button
-		JPanel heart = CustomJPanels.menuButtonPanel("Heart", 
-				new HomeMenuActionListener(F, 0), red_alizarin);
-		JPanel steps = CustomJPanels.menuButtonPanel("Steps",
-				new HomeMenuActionListener(F, 1), green_emerald);
-		JPanel temp = CustomJPanels.menuButtonPanel("Temperature", 
-				new HomeMenuActionListener(F, 2), JComponentStyle.orange_carrot);
-		JPanel sleep = CustomJPanels.menuButtonPanel("Sleep", 
-				new HomeMenuActionListener(F, 3), purple_amethyst);
-		JPanel logout = CustomJPanels.menuButtonPanel("Log Out", 
-				new HomeMenuActionListener(F, 4), gray_concrete);
-		
-		//ADD BUTTONS
-		P_margin.add(Box.createRigidArea(new Dimension(0,70))); //up
+
+		// Create JPanels that contains the menu buttons 1panel = 1button
+		JPanel heart = CustomJPanels.menuButtonPanel("Heart", new HomeMenuActionListener(F, 0), red_alizarin);
+		JPanel steps = CustomJPanels.menuButtonPanel("Steps", new HomeMenuActionListener(F, 1), green_emerald);
+		JPanel temp = CustomJPanels.menuButtonPanel("Temperature", new HomeMenuActionListener(F, 2),
+				JComponentStyle.orange_carrot);
+		JPanel sleep = CustomJPanels.menuButtonPanel("Sleep", new HomeMenuActionListener(F, 3), purple_amethyst);
+		JPanel logout = CustomJPanels.menuButtonPanel("Log Out", new HomeMenuActionListener(F, 4), gray_concrete);
+
+		// ADD BUTTONS
+		P_margin.add(Box.createRigidArea(new Dimension(0, 70))); // up
 		P_margin.add(heart);
-		P_margin.add(Box.createRigidArea(new Dimension(0,10)));
+		P_margin.add(Box.createRigidArea(new Dimension(0, 10)));
 		P_margin.add(steps);
-		P_margin.add(Box.createRigidArea(new Dimension(0,10)));
+		P_margin.add(Box.createRigidArea(new Dimension(0, 10)));
 		P_margin.add(temp);
-		P_margin.add(Box.createRigidArea(new Dimension(0,10)));
+		P_margin.add(Box.createRigidArea(new Dimension(0, 10)));
 		P_margin.add(sleep);
-		P_margin.add(Box.createRigidArea(new Dimension(0,140)));
+		P_margin.add(Box.createRigidArea(new Dimension(0, 100))); // bottom
 		P_margin.add(logout);
-		//P_margin.add(Box.createRigidArea(new Dimension(0,200))); //down 150 ok
-		//P_margin.setOpaque(true);
-		//P_margin.setBackground(white_clouds);
-		P_margin.setOpaque(false);
-		
-		
-		// add panels to frame
-		//TODO change sofia to one from database
-		F.add(CustomJPanels.HomeMenuBannerPanel(stemp), BorderLayout.NORTH);
+
+		// TODO change temp to one from database
+		F.add(CustomJPanels.HomeMenuBannerPanel("Main Menu"), BorderLayout.NORTH);
 		F.add(P_margin, BorderLayout.CENTER);
-		F.setSize(rx-(rx/6), ry-20);  //Set the size as if it looks like a draw panel
-		F.setUndecorated(true);
-		F.setBackground(new Color(1.0f,1.0f,1.0f,0.9f));
-		F.setVisible(true);
-		F.setLocation(5, 30);  //This might be different for Macs :(
-		
+		viewFrame(F);
+
 	}
 
 	/**
@@ -375,10 +361,10 @@ public class Screen {
 	public static void screen_heart() {
 		JFrame F = new JFrame("Heartbeat");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
-		
-		//Activity Panel
+
+		// Activity Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("Heart Rate", black_midnight);
-		//Display Panel
+		// Display Panel
 		JPanel displayP = new JPanel();
 		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
 		JButton button_week = new JButton("Change to Week");
@@ -391,11 +377,11 @@ public class Screen {
 		// Local Variables from global generator
 		int restHB = globalGen.heart.getRestHR();
 		String status = globalGen.heart.getRestHeartStatus(restHB);
-		
+
 		// Labels
-		JLabel c1 = new JLabel("Current Rate: "+restHB); 
-		JLabel c2 = new JLabel("Health State: "+status); 
-		
+		JLabel c1 = new JLabel("Current Rate: " + restHB);
+		JLabel c2 = new JLabel("Health State: " + status);
+
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, ry / 6)));
 		background.add(c1);
@@ -404,15 +390,15 @@ public class Screen {
 		c2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(c2);
 		background.add(Box.createRigidArea(new Dimension(0, 200)));
-		//Display Panel --Week/Month--
+		// Display Panel --Week/Month--
 		background.add(displayP);
-		
-		//Actions
+
+		// Actions
 		WeekHeartActionListener action = new WeekHeartActionListener(F);
 		button_week.addActionListener(action);
 		MonthHeartActionListener action2 = new MonthHeartActionListener(F);
 		button_month.addActionListener(action2);
-		
+
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
 		viewFrame(F);
@@ -440,16 +426,18 @@ public class Screen {
 		// Local Variables from global generator
 		double currentTemp = globalGen.temp.getCurrentTemperature(CURRENT_TIME);
 		String status = globalGen.temp.getTempStatus(currentTemp);
-		
+
 		// Labels
 		JLabel current_temp = new JLabel();
-		current_temp.setText(String.format("<html>Current Temperature:<br>%.1fC</html>", currentTemp, SwingConstants.CENTER));
-		JLabel current_temp_state = new JLabel("<html>Body Temperature State:<br>"+status+"</html>", SwingConstants.CENTER); 
+		current_temp.setText(
+				String.format("<html>Current Temperature:<br>%.1fC</html>", currentTemp, SwingConstants.CENTER));
+		JLabel current_temp_state = new JLabel("<html>Body Temperature State:<br>" + status + "</html>",
+				SwingConstants.CENTER);
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
 		background.add(current_temp);
-		//current_temp.setAlignmentX(Component.CENTER_ALIGNMENT);
+		// current_temp.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(Box.createRigidArea(new Dimension(0, 75)));
 		background.add(current_temp_state);
 		current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -473,7 +461,7 @@ public class Screen {
 	public static void screen_steps() {
 		JFrame F = new JFrame("Steps");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/rFeyEtS.png", 3);
-		
+
 		// Activity Banner Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("Steps", purple_amethyst);
 		// Display Panel
@@ -490,10 +478,11 @@ public class Screen {
 		DecimalFormat df = new DecimalFormat("#.##");
 		double currentDistance = globalGen.steps.getCurrentDistance(CURRENT_TIME);
 		int currentSteps = (int) globalGen.steps.getCurrentSteps(currentDistance);
-		
+
 		// Labels
-		JLabel current_steps = new JLabel("<html>Current Number of Steps: <br>"+currentSteps+"</html>"); 
-		JLabel current_steps_state = new JLabel("<html>Current Distance Traveled:<br>"+df.format(currentDistance)+"</html>"); 
+		JLabel current_steps = new JLabel("<html>Current Number of Steps: <br>" + currentSteps + "</html>");
+		JLabel current_steps_state = new JLabel(
+				"<html>Current Distance Traveled:<br>" + df.format(currentDistance) + "</html>");
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -525,45 +514,42 @@ public class Screen {
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/1BxhCZb.jpg", 2);
 
 		// Local Variables from global generator
-		int totalSleep= globalGen.sleep.getTotalSleep();
-		double cycles =  globalGen.sleep.getTotalCycles();
-		
-		
+		int totalSleep = globalGen.sleep.getTotalSleep();
+		double cycles = globalGen.sleep.getTotalCycles();
+
 		// Labels
-		JLabel label_totaltime = new JLabel("Total Time:   "+totalSleep);
-		JLabel label_cycles = new JLabel("Total Cycles: "+cycles);
-		
-		
+		JLabel label_totaltime = new JLabel("Total Time:   " + totalSleep);
+		JLabel label_cycles = new JLabel("Total Cycles: " + cycles);
 
 		// Activity Banner Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("Sleep", white_clouds);
 		// Display Panel
 		JPanel displayP = new JPanel();
-//		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
-//		JButton button_week = new JButton("Change to Week");
-//		JButton button_month = new JButton("Change to Month");
-//		displayP.add(button_week);
-//		displayP.add(Box.createHorizontalGlue());
-//		displayP.add(button_month);
-//		displayP.setOpaque(false);
+		// displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
+		// JButton button_week = new JButton("Change to Week");
+		// JButton button_month = new JButton("Change to Month");
+		// displayP.add(button_week);
+		// displayP.add(Box.createHorizontalGlue());
+		// displayP.add(button_month);
+		// displayP.setOpaque(false);
 
 		background.add(banner);
 		background.add(Box.createRigidArea(new Dimension(0, 50)));
-		
+
 		background.add(Box.createRigidArea(new Dimension(0, 75)));
 
-//		background.add(rem);
-//		background.add(light);
-//		background.add(deep);
+		// background.add(rem);
+		// background.add(light);
+		// background.add(deep);
 		// current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
 		background.add(Box.createRigidArea(new Dimension(0, 100)));
-//		background.add(displayP);
+		// background.add(displayP);
 
 		// Actions
-//		WeekSleepActionListener action = new WeekSleepActionListener(F);
-//		button_week.addActionListener(action);
-//		MonthSleepsActionListener action2 = new MonthSleepsActionListener(F);
-//		button_month.addActionListener(action2);
+		// WeekSleepActionListener action = new WeekSleepActionListener(F);
+		// button_week.addActionListener(action);
+		// MonthSleepsActionListener action2 = new MonthSleepsActionListener(F);
+		// button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
@@ -572,149 +558,153 @@ public class Screen {
 
 	/**
 	 * Setting variables for the customView screen
-	 * @param opt integer that changes the chooses which graph is being shown
+	 * 
+	 * @param opt
+	 *            integer that changes the chooses which graph is being shown
 	 */
-	public static void screen_customView(int opt){
+	public static void screen_customView(int opt) {
 		JFrame F = new JFrame("Custom View");
-		
+
 		JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-		
+
 		// Buttons
 		JButton button_back = new JButton("BACK");
-		
-		//Graph Panel
-		/** OPT =>  
-		 * Heart Day Week Month 0,1,2
-		 * Steps Week Month 3,4
-		 * Temp  Week Month 5,6
-		 * Sleep Week Month 7,8
-		 * Extras:
-		 * Heart All xx*/
-		
+
+		// Graph Panel
+		/**
+		 * OPT => Heart Day Week Month 0,1,2 Steps Week Month 3,4 Temp Week
+		 * Month 5,6 Sleep Week Month 7,8 Extras: Heart All xx
+		 */
+
 		JPanel graph = new JPanel();
-		
-		
-		switch (opt){
-		case 0: //Day Graph Heart
+
+		switch (opt) {
+		case 0: // Day Graph Heart
 			graph = HeartChart.drawChart(4);
 			break;
-		case 1: //Weekly Graph Heart
+		case 1: // Weekly Graph Heart
 			graph = HeartChart.drawChart(2);
 			break;
-		case 2: //Monthly Graph Heart
-			graph = HeartChart.drawChart(1); 
+		case 2: // Monthly Graph Heart
+			graph = HeartChart.drawChart(1);
 			break;
-		case 3: //Weekly Graph Steps
+		case 3: // Weekly Graph Steps
 			graph = StepChart.drawChart(2);
 			break;
-		case 4: //Monthly Graph Steps
-			graph = StepChart.drawChart(4); //<- intentionally
+		case 4: // Monthly Graph Steps
+			graph = StepChart.drawChart(4); // <- intentionally
 			break;
-		case 5: //Weekly Graph Temperature
+		case 5: // Weekly Graph Temperature
 			graph = TempChart.drawChart(2);
-			break; //<-Never forger a break OK? THANKS
-		case 6: //Month
+			break; // <-Never forger a break OK? THANKS
+		case 6: // Month
 			graph = TempChart.drawChart(1);
 			break;
-		case 7: //Week Sleep (2)
+		case 7: // Week Sleep (2)
 			break;
-		case 8: //Month Sleep (1)
-		}//end switch
-		
+		case 8: // Month Sleep (1)
+		}// end switch
+
 		SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-            //Chart.heartChart(4); //run something, ask the professor why
-            HeartChart.drawChart(4);
-            }
-        });
-		
-		//Add Components to container
+			@Override
+			public void run() {
+				// Chart.heartChart(4); //run something, ask the professor why
+				HeartChart.drawChart(4);
+			}
+		});
+
+		// Add Components to container
 		container.add(graph);
 		container.add(Box.createVerticalGlue()); // add glue
 		container.add(button_back);
 		button_back.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		//Actions
-		HomeMenuActionListener action = new HomeMenuActionListener(F, 0);;
-		if(opt <=2 ) action = new HomeMenuActionListener(F, 0); //hb
-		else if (opt == 3 || opt == 4) action = new HomeMenuActionListener(F, 1); 
-		else if (opt == 5 || opt == 6) action = new HomeMenuActionListener(F, 2);
-		else if (opt == 7 || opt == 8) action = new HomeMenuActionListener(F, 3);
+
+		// Actions
+		HomeMenuActionListener action = new HomeMenuActionListener(F, 0);
+		;
+		if (opt <= 2)
+			action = new HomeMenuActionListener(F, 0); // hb
+		else if (opt == 3 || opt == 4)
+			action = new HomeMenuActionListener(F, 1);
+		else if (opt == 5 || opt == 6)
+			action = new HomeMenuActionListener(F, 2);
+		else if (opt == 7 || opt == 8)
+			action = new HomeMenuActionListener(F, 3);
 		button_back.addActionListener(action);
-		
+
 		F.add(container, BorderLayout.CENTER);
 		viewFrame(F);
 	}
-	
+
 	/**
 	 * Setting all the variables for the share screen
 	 */
 	public static void screen_share() {
 		// Icons URLs
-		String url_f = ("http://icons.iconarchive.com/icons/mysitemyway/blue-jeans-social-media/128/facebook-icon.png"); // Facebook
+		String url_f = ("http://i.imgur.com/XwSlom6.png"); // Facebook
 		String url_s = ("http://imavex.vo.llnwd.net/o18/clients/imavex/images/Services-ClubWorksite/service-icon-share.png"); // share
+		String url_twitter = "http://i.imgur.com/Di4pUXg.png";
+		String url_blogger = ("http://i.imgur.com/a1YIx9G.png");
 
 		JFrame F = new JFrame("Share");
-		// Panels (I'm getting good at this)
-		JPanel container = new JPanel();
-		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS)); // Vertical
-																			// Container
-		JPanel postP = new JPanel();
-		postP.setLayout(new FlowLayout(FlowLayout.CENTER));
-		JPanel iconsP = new JPanel();
+		// Banner Panel
+		JPanel banner = CustomJPanels.activityBannerPanel2("Share", Color.BLACK, white_clouds);
+		// Panels (I'm getting good at this) r
+		JPanel container = new JPanel(); // Container
+		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+
+		JPanel iconsP = new JPanel(); // First row of icons
 		iconsP.setLayout(new BoxLayout(iconsP, BoxLayout.X_AXIS));
-		JPanel sharing_iconP = new JPanel();
+
+		JPanel sharing_iconP = new JPanel(); // Sharing row
 		sharing_iconP.setLayout(new FlowLayout(FlowLayout.CENTER));
-		JPanel backP = new JPanel();
-		backP.setLayout(new FlowLayout(FlowLayout.LEADING));
 
-		// Labels and icons
-		JLabel label1 = new JLabel("POST TO...");
-		postP.add(label1);
-
-		// Add icons to panel #FROM HERE
+		// Icons from web
 		JLabel icon_f = getWebIconScaledLabel(url_f, 50, 50);
-		JLabel icon_t = getWebIconScaledLabel(url_f, 50, 45);
-		JLabel icon_m = getWebIconScaledLabel(url_f, 50, 50);
+		JLabel icon_t = getWebIconScaledLabel(url_twitter, 50, 50);
+		JLabel icon_blog = getWebIconScaledLabel(url_blogger, 50, 50);
+		JLabel icon_share = getWebIconScaledLabel(url_s, 50, 50);
 
+		// Add icons to panel
 		iconsP.add(icon_f);
+		iconsP.add(Box.createRigidArea(new Dimension(40, 0)));
 		iconsP.add(icon_t);
-		iconsP.add(icon_m);
-		// #TO HERE. change to make a loop
-		JLabel icon_s = getWebIconScaledLabel(url_s, 50, 50);
-		JLabel sharing = new JLabel("Sharing...");
-		sharing_iconP.add(icon_s);
+		iconsP.add(Box.createRigidArea(new Dimension(40, 0)));
+		iconsP.add(icon_blog);
+
+		// Add sharing icons to icons panel
+		JLabel sharing = new JLabel("  Now Sharing...");
+		sharing.setFont(new Font("Heebo-Medium", Font.PLAIN, 16));
+		sharing_iconP.add(icon_share);
 		sharing_iconP.add(sharing);
 
-		JButton button_back = new JButton("BACK");
-		backP.add(button_back);
-
 		// Add Panels to container
-		container.add(postP); // add post panel
+		container.add(Box.createRigidArea(new Dimension(0, 100))); // Top
 		container.add(iconsP);// add icons panel
 		iconsP.add(Box.createVerticalGlue()); // add glue
 		container.add(sharing_iconP);// add sharing icon
-		
+
 		// Actions
 		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
-		button_back.addActionListener(action);
+		JPanel backP = CustomJPanels.menuButtonPanel("Home", action, Color.BLACK);
 
+		F.add(banner, BorderLayout.NORTH);
 		F.add(container, BorderLayout.CENTER);
 		F.add(backP, BorderLayout.SOUTH);
+
 		viewFrame(F);
 	}// end screen_share
 
-	//ABOUT US TOO
+	// ABOUT US TOO
 	/**
 	 * Setting all the variables for the about us screen
 	 */
 	public static void screen_about() {
 		JFrame F = new JFrame("About Us");
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
-		
-		//Activity Panel
+
+		// Activity Panel
 		JPanel banner = CustomJPanels.activityBannerPanel("About Us", purple_amethyst);
 
 		// Panel (BOX LAYOUT)
@@ -725,12 +715,12 @@ public class Screen {
 		JPanel infoP = new JPanel();
 		mainP.setLayout(new BoxLayout(mainP, BoxLayout.Y_AXIS));
 		// Labels
-		JLabel l_info = new JLabel("<html><br>Information about the company. "
-				+ "<br>We are cool guys. <br>We like Pizza.</html>");
+		JLabel l_info = new JLabel(
+				"<html><br>Information about the company. " + "<br>We are cool guys. <br>We like Pizza.</html>");
 		infoP.add(Box.createRigidArea(new Dimension(0, 50)));
 		infoP.add(l_info); // paragraph
 		l_info.setAlignmentX(Component.CENTER_ALIGNMENT);
-		infoP.setPreferredSize(new Dimension(rx, ry ));
+		infoP.setPreferredSize(new Dimension(rx, ry));
 		infoP.setOpaque(false);
 
 		// Panel pictures (Box Layout) --Method?--
@@ -752,12 +742,12 @@ public class Screen {
 		buttonP.add(button_accept);
 		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-//		mainP.add(infoP);
-//		mainP.add(picturesP);
-		
+		// mainP.add(infoP);
+		// mainP.add(picturesP);
+
 		// mainP.setBackground(gray_concrete);
-		
-		//Actions
+
+		// Actions
 		AboutUsActionListener action = new AboutUsActionListener(F);
 		button_accept.addActionListener(action);
 
@@ -771,7 +761,7 @@ public class Screen {
 		viewFrame(F);
 	}
 
-	//HELP TOO
+	// HELP TOO
 	/**
 	 * Setting all the variables for the help screen
 	 */
@@ -809,10 +799,10 @@ public class Screen {
 		mainP.add(buttonP);
 
 		// mainP.setBackground(gray_concrete);
-		//Actions
+		// Actions
 		HelpActionListener action = new HelpActionListener(F);
 		button_accept.addActionListener(action);
-		
+
 		F.add(mainP);
 		viewFrame(F);
 	}
@@ -823,31 +813,48 @@ public class Screen {
 	public static void screen_logout() {
 		JFrame F = new JFrame("Logout");
 
-		JPanel thank_youP = new JPanel();
-		thank_youP.setLayout(new FlowLayout(FlowLayout.CENTER));
+		// Banner Panel
+		JPanel banner = CustomJPanels.activityBannerPanel2("Sign out", JComponentStyle.gray_space, white_clouds);
 
-		JLabel dialog = new JLabel("THANK YOU FOR \nUSING");
-		thank_youP.add(dialog);
-		// thank_youP.add(Box.createRigidArea(new Dimension(0, 200))); // rigid
-		// area to last row
+		// Cuttest Dog
+		String cuteDogUrl = "http://i.imgur.com/jqUFXld.png";
 
-		JButton button_ok = new JButton("OK");
+		JPanel container = new JPanel(); // Container
+		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+
+		JLabel dialog = new JLabel("Thank You!");
+		dialog.setFont(new Font("Orkney-Regular", Font.PLAIN, 26));
+		JLabel dialog2 = new JLabel("See you soon!");
+		dialog2.setFont(new Font("Orkney-Regular", Font.PLAIN, 26));
+		JLabel cuteDog = getWebIconScaledLabel(cuteDogUrl, 262, 135);
 		
-		//Actions
-		LogoutAcceptActionListener action = new LogoutAcceptActionListener(F);
-		button_ok.addActionListener(action);
+		container.add(Box.createRigidArea(new Dimension(0, 50))); // Top
+		container.add(dialog);
+		dialog.setAlignmentX(Component.CENTER_ALIGNMENT);
+		container.add(Box.createRigidArea(new Dimension(0, 50))); 
+		dialog2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		container.add(dialog2);
+		container.add(Box.createVerticalGlue());
+		container.add(cuteDog);
+		cuteDog.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		F.add(thank_youP, BorderLayout.NORTH);
-		F.add(CustomJPanels.bannerPanel(), BorderLayout.CENTER);
+		// Actions
+		LogoutAcceptActionListener action = new LogoutAcceptActionListener(F);
+		JPanel button_ok = CustomJPanels.menuButtonPanel("Accept", action, JComponentStyle.gray_space);
+
+		F.add(banner, BorderLayout.NORTH);
+		F.add(container, BorderLayout.CENTER);
 		F.add(button_ok, BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
 	/* --Frame Properties-- */
-	
+
 	/**
 	 * Method to show the frame on the display
-	 * @param F sets what frame will be shown
+	 * 
+	 * @param F
+	 *            sets what frame will be shown
 	 */
 	public static void viewFrame(JFrame F) {
 		F.setSize(rx, ry);
@@ -855,23 +862,31 @@ public class Screen {
 		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	/** Get Frame
-	 * @param F Frame to be passed
-	 * @returns Returns a frame */
-	private static JFrame getFrame(JFrame F){
+	/**
+	 * Get Frame
+	 * 
+	 * @param F
+	 *            Frame to be passed
+	 * @returns Returns a frame
+	 */
+	private static JFrame getFrame(JFrame F) {
 		return F;
 	}
-	
+
 	/* --Custom Panels-- */
-	//Moved to class -> CustomJPanels
+	// Moved to class -> CustomJPanels
 
 	/* --Custom JLabels-- */
-	
+
 	/**
 	 * Setting all the variables for the icons in the panels
-	 * @param web_address link for the icon
-	 * @param width setting width
-	 * @param height setting height
+	 * 
+	 * @param web_address
+	 *            link for the icon
+	 * @param width
+	 *            setting width
+	 * @param height
+	 *            setting height
 	 * @return JLabel icon
 	 */
 	public static JLabel getWebIconScaledLabel(String web_address, int width, int height) {
@@ -888,9 +903,13 @@ public class Screen {
 	/* --Image Related-- */
 	/**
 	 * Inserts and scales image from local path
-	 * @param path passes the local path
-	 * @param x sets width
-	 * @param y sets height
+	 * 
+	 * @param path
+	 *            passes the local path
+	 * @param x
+	 *            sets width
+	 * @param y
+	 *            sets height
 	 * @return ImageIcon image of icon
 	 */
 	public static ImageIcon insertIconScaled(String path, int x, int y) {
@@ -903,9 +922,13 @@ public class Screen {
 
 	/**
 	 * Inserts and scales image from web
-	 * @param web_address path passes from web site link
-	 * @param x sets width
-	 * @param y sets height
+	 * 
+	 * @param web_address
+	 *            path passes from web site link
+	 * @param x
+	 *            sets width
+	 * @param y
+	 *            sets height
 	 * @return ImageIcon image of icon
 	 */
 	public static ImageIcon insertWebIconScaled(String web_address, int x, int y) {
@@ -919,7 +942,9 @@ public class Screen {
 	/* --Extra Methods-- */
 	/**
 	 * Method checks that the email address has the right format as an email
-	 * @param email passes the email to be checked
+	 * 
+	 * @param email
+	 *            passes the email to be checked
 	 * @return boolean; true is email is valid, false is otherwise
 	 */
 	public static boolean isValidEmailAddress(String email) {
@@ -930,5 +955,5 @@ public class Screen {
 		java.util.regex.Matcher m = p.matcher(email);
 		return m.matches();
 	}
-	
+
 }

@@ -182,6 +182,7 @@ public class JComponentStyle {
 	 * label.setFont(new Font("Orkney Bold", Font.PLAIN, 20));
 	 * label.setFont(new Font("Orkney-Regular", Font.PLAIN, 26));
 	 * label.setFont(JComponentStyle.oarkney_bold.deriveFont(26f));
+	 * label.setFont(new Font("Heebo-Medium", Font.PLAIN,16));
 	 * 
 	 * Find out the type of font:
 	 * System.out.println(l_sign.getFont());

@@ -28,7 +28,7 @@ public class ShowMenuActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Screen.screen_menu();
-		//F.dispose(); //Show as popup
+		F.dispose();  //To show as Pop-Up comment this
 	}// end action performed
 
 }// end class
