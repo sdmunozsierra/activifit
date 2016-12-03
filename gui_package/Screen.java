@@ -5,7 +5,6 @@ import javax.swing.border.Border;
 
 import action_package.*;
 import chart_package.HeartChart;
-import chart_package.HomeChart;
 import chart_package.StepChart;
 import chart_package.TempChart;
 import generator_package.DataGenerator;
@@ -18,8 +17,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -53,17 +50,13 @@ public class Screen {
 	public static Database database = Database.getInstance(); // Import
 																// Singleton
 																// Database
-	
-	public static JPanel weather = WeatherGenerator.generateWeather();
 	public static DataGenerator globalGen = null; // empty until called
 	
 	
 	/* Time Variables */
 	static Calendar rightNow = Calendar.getInstance();
 	static int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-	static int minute = rightNow.get(Calendar.MINUTE);
 	public static int CURRENT_TIME = hour;
-	public static String STRING_TIME = hour + ":" + minute;
 
 	/**
 	 * Main method for screen
@@ -260,12 +253,12 @@ public class Screen {
 	 */
 	public static void screen_home() {
 		JFrame FH = new JFrame("Homepage");
-		JPanel background = weather;
+//		JPanel background = weather;
 		// Panel for information (BOX LAYOUT)
-//		JPanel P = new JPanel();
-//		P.setLayout(new BoxLayout(P, BoxLayout.PAGE_AXIS));
-//		P.add(Box.createRigidArea(JComponentStyle.dimension_margin_banner));
-//		// Panel for Buttons (FLOW LAYOUT)
+		JPanel P = new JPanel();
+		P.setLayout(new BoxLayout(P, BoxLayout.PAGE_AXIS));
+		P.add(Box.createRigidArea(JComponentStyle.dimension_margin_banner));
+		// Panel for Buttons (FLOW LAYOUT)
 		JPanel buttonP = new JPanel();
 		buttonP.setLayout(new FlowLayout());
 
@@ -275,17 +268,24 @@ public class Screen {
 
 		// Strings for Labels
 		String welcome = name + "'s Daily Feed";
-		String time = STRING_TIME;
+		String time = fixedTime();
 
+		// Weather Label
+		WeatherGenerator weather = new WeatherGenerator();
+		JLabel weatherIcon = weather.generateWeather();
+		JLabel label_weather = JComponentStyle.JLabelStyle(weather.getStatus());
+		weatherIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+		label_weather.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
 		// Graph Image
-//		JLabel graph = new JLabel();
-//		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 230, 230));
-//		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		P.add(graph);
+		JLabel graph = new JLabel();
+		graph.setIcon(insertWebIconScaled("http://i.imgur.com/i6svYaH.png", 230, 230));
+		graph.setAlignmentX(Component.CENTER_ALIGNMENT);
+		P.add(graph);
 
 		// Labels
 		JLabel label_welcome = JComponentStyle.JLabelStyle(welcome);
-		// label_welcome.setFont(new Font(null, 0, 18));
+		label_welcome.setFont(new Font(null, 0, 18));
 		label_welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
 		JLabel label_time = JComponentStyle.JLabelStyle(time);
 		label_time.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -296,12 +296,14 @@ public class Screen {
 		// graph = HomeChart.drawChart();
 
 		// Add Components 
-		background.add(label_welcome);
-		background.add(Box.createRigidArea(JComponentStyle.dimension_component_large));
-		//P.add(graph); // Add graph
-		background.add(Box.createRigidArea(JComponentStyle.dimension_component_huge));
-		background.add(label_time); // Time label at the bottom
-		// P.add(Box.createRigidArea(JComponentStyle.dimension_component_medium));
+		P.add(label_welcome);
+		P.add(Box.createRigidArea(JComponentStyle.dimension_component_small));
+		P.add(weatherIcon);
+		P.add(label_weather);
+		P.add(Box.createRigidArea(JComponentStyle.dimension_component_medium));
+		P.add(graph); // Add graph
+		P.add(Box.createRigidArea(JComponentStyle.dimension_component_huge));
+		P.add(label_time); // Time label at the bottom
 
 		// Actions
 		ShowMenuActionListener action = new ShowMenuActionListener(FH);
@@ -310,9 +312,8 @@ public class Screen {
 		JPanel menuP = CustomJPanels.menuButtonPanel("Menu", action, gray_concrete);
 
 		// Add panels to frame
-		FH.add(background, BorderLayout.CENTER);
+		FH.add(P, BorderLayout.CENTER);
 		FH.add(CustomJPanels.bannerPanel(), BorderLayout.NORTH);
-		//FH.add(background, BorderLayout.CENTER);
 		// Button panel
 		FH.add(menuP, BorderLayout.SOUTH);
 		viewFrame(FH);
@@ -867,17 +868,6 @@ public class Screen {
 		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	/**
-	 * Get Frame
-	 * 
-	 * @param F
-	 *            Frame to be passed
-	 * @returns Returns a frame
-	 */
-	private static JFrame getFrame(JFrame F) {
-		return F;
-	}
-
 	/* --Custom Panels-- */
 	// Moved to class -> CustomJPanels
 
@@ -961,4 +951,16 @@ public class Screen {
 		return m.matches();
 	}
 
+	/** Fix Time
+	 * @return Time in a String format */
+	public static String fixedTime(){
+		Calendar cal = Calendar.getInstance();
+		int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+		int minute = cal.get(Calendar.MINUTE);
+		if(minute<10){
+			String fixed = hour +":0"+minute;
+			return fixed;
+		}
+		return hour +":"+minute;
+	}
 }

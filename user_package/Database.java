@@ -23,6 +23,8 @@ public class Database {
 		//Database.database = new ArrayList<User>();
 	}
 	
+	/** Get the unique instance of a Database.
+	 * @return singleton database */
 	public static Database getInstance(){
 		return singleton;
 	}
