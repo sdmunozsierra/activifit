@@ -91,7 +91,7 @@ public class Screen {
 	public Screen() {
 		JComponentStyle.setCustomFonts(); // Load custom fonts
 
-		// screen_login();
+		screen_login();
 		//screen_menu();
 	}
 
