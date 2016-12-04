@@ -11,8 +11,8 @@ import gui_package.Screen;
 public class WeatherGenerator {
 	//TODO JavaDocs
 	// Height and Width of the icons
-	private static int height = 50;
-	private static int width = 50; 
+	private static int height = 40;
+	private static int width = 40; 
 	private static String status = "";
 
 	public WeatherGenerator(){
@@ -33,6 +33,7 @@ public class WeatherGenerator {
 		switch (generator){
 //		case 1:
 //			return 1;
+		//TODO Add day and night
 		case 2:
 			status = "Cloudy";
 			return cloudy();

@@ -366,10 +366,10 @@ public class Screen {
 	 */
 	public static void screen_heart() {
 		JFrame F = new JFrame("Heartbeat");
-		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/lfO5NWd.jpg", 3);
 
 		// Activity Panel
-		JPanel banner = CustomJPanels.activityBannerPanel("Heart Rate", black_midnight);
+		JPanel banner = CustomJPanels.activityBannerPanel2("Heart Rate", red_alizarin, white_clouds);
 		// Display Panel
 		JPanel displayP = new JPanel();
 		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
@@ -378,7 +378,7 @@ public class Screen {
 		displayP.add(button_week);
 		displayP.add(Box.createHorizontalGlue());
 		displayP.add(button_month);
-		displayP.setOpaque(true);
+		displayP.setOpaque(false);
 
 		// Local Variables from global generator
 		int restHB = globalGen.heart.getRestHR();
@@ -406,7 +406,7 @@ public class Screen {
 		button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F, red_alizarin), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -415,10 +415,11 @@ public class Screen {
 	 */
 	public static void screen_temperature() {
 		JFrame F = new JFrame("Temperature");
-		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/vZ0rtrH.png", 3);
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/NsNNMH9.jpg", 3);
 
 		// Activity Banner
-		JPanel banner = CustomJPanels.activityBannerPanel("Body Temperature", red_alizarin);
+		JPanel banner = CustomJPanels.activityBannerPanel2("Body Temperature", JComponentStyle.orange_carrot,
+				Color.WHITE);
 		// Display Panel
 		JPanel displayP = new JPanel();
 		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
@@ -427,7 +428,7 @@ public class Screen {
 		displayP.add(button_week);
 		displayP.add(Box.createHorizontalGlue());
 		displayP.add(button_month);
-		displayP.setOpaque(true);
+		displayP.setOpaque(false);
 
 		// Local Variables from global generator
 		double currentTemp = globalGen.temp.getCurrentTemperature(CURRENT_TIME);
@@ -457,7 +458,7 @@ public class Screen {
 		button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F, JComponentStyle.orange_carrot), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -466,10 +467,10 @@ public class Screen {
 	 */
 	public static void screen_steps() {
 		JFrame F = new JFrame("Steps");
-		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/rFeyEtS.png", 3);
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/WE42U3p.jpg", 3);
 
 		// Activity Banner Panel
-		JPanel banner = CustomJPanels.activityBannerPanel("Steps", purple_amethyst);
+		JPanel banner = CustomJPanels.activityBannerPanel2("Steps", green_emerald, white_clouds);
 		// Display Panel
 		JPanel displayP = new JPanel();
 		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
@@ -478,7 +479,7 @@ public class Screen {
 		displayP.add(button_week);
 		displayP.add(Box.createHorizontalGlue());
 		displayP.add(button_month);
-		displayP.setOpaque(true);
+		displayP.setOpaque(false);
 
 		// Local Variables from global generator
 		DecimalFormat df = new DecimalFormat("#.##");
@@ -507,7 +508,7 @@ public class Screen {
 		button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F,green_emerald), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -517,7 +518,7 @@ public class Screen {
 	public static void screen_sleep() {
 		JFrame F = new JFrame("Sleep");
 
-		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/1BxhCZb.jpg", 2);
+		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/mX0ybeL.jpg", 3);
 
 		// Local Variables from global generator
 		int totalSleep = globalGen.sleep.getTotalSleep();
@@ -528,7 +529,7 @@ public class Screen {
 		JLabel label_cycles = new JLabel("Total Cycles: " + cycles);
 
 		// Activity Banner Panel
-		JPanel banner = CustomJPanels.activityBannerPanel("Sleep", white_clouds);
+		JPanel banner = CustomJPanels.activityBannerPanel2("Sleep", purple_amethyst, white_clouds);
 		// Display Panel
 		JPanel displayP = new JPanel();
 		// displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
@@ -551,14 +552,14 @@ public class Screen {
 		background.add(Box.createRigidArea(new Dimension(0, 100)));
 		// background.add(displayP);
 
-		// Actions
+		// Action
 		// WeekSleepActionListener action = new WeekSleepActionListener(F);
 		// button_week.addActionListener(action);
 		// MonthSleepsActionListener action2 = new MonthSleepsActionListener(F);
 		// button_month.addActionListener(action2);
 
 		F.add(background, BorderLayout.CENTER);
-		F.add(CustomJPanels.navPanel(F), BorderLayout.SOUTH);
+		F.add(CustomJPanels.navPanel(F, purple_amethyst), BorderLayout.SOUTH);
 		viewFrame(F);
 	}
 
@@ -711,7 +712,7 @@ public class Screen {
 		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
 
 		// Activity Panel
-		JPanel banner = CustomJPanels.activityBannerPanel("About Us", purple_amethyst);
+		JPanel banner = CustomJPanels.activityBannerPanel2("About Us", Color.BLACK ,white_clouds);
 
 		// Panel (BOX LAYOUT)
 		JPanel mainP = new JPanel();
@@ -868,9 +869,7 @@ public class Screen {
 		F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	/* --Custom Panels-- */
-	// Moved to class -> CustomJPanels
-
+	
 	/* --Custom JLabels-- */
 
 	/**

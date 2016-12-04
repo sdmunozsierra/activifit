@@ -46,27 +46,7 @@ public class CustomJPanels {
 		return panel;
 	}
 
-	/**
-	 * Creates the activity banner panel
-	 * @param activity takes in the activity, either heart, steps, sleep, or temperature
-	 * @param color takes in the color
-	 * @return JPanel
-	 */
-	public static JPanel activityBannerPanel(String activity, Color color) {
-		/* Panel containing a custom banner for an activity. */
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
-		JLabel banner = new JLabel(activity); // Banner
-		panel.add(banner);
-		banner.setFont(new Font(null, 0, 25));
-		banner.setForeground(color);
-		panel.setOpaque(false);
-
-		// MIGHT NEED TO ADJUST BANNER MAX SIZE
-		panel.setMaximumSize(new Dimension(Screen.rx, 50));
-
-		return panel;
-	}
+	
 	
 	/**
 	 * Creates the activity banner panel
@@ -81,7 +61,8 @@ public class CustomJPanels {
 		JLabel label = new JLabel(activity); // Banner
 		panel.add(label);
 		//label.setFont(new Font(null, 0, 25));
-		label.setFont(JComponentStyle.heebo_med.deriveFont(25f));
+		//label.setFont(JComponentStyle.heebo_med.deriveFont(25f));
+		label.setFont(new Font(null, Font.PLAIN, 25));
 		label.setForeground(fg);
 		panel.setOpaque(true);
 		panel.setBackground(bg);
@@ -119,31 +100,44 @@ public class CustomJPanels {
 	/**
 	 * Creates the bottom navigation panel
 	 * @param F JFrame to create the panel
+	 * @param bColor Changes the color of the back button
 	 * @return JPanel with the frame
 	 */
-	public static JPanel navPanel(JFrame F) {
+	public static JPanel navPanel(JFrame F, Color bColor) {
 		/*
 		 * Add to the as-> Frame.add(navPanel(), BorderLayout.SOUTH) Panel
 		 * containing back and share.
 		 */
-		JPanel panel = new JPanel();
+		
+		JPanel panel = new JPanel(); 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		// Create Buttons
-		JButton button_back = new JButton("BACK");
-		JButton button_share_this = new JButton("[SHARE_T]");
+		
+		JButton b_back = JComponentStyle.JButtonHome("Back", bColor);
+		JButton b_share =  JComponentStyle.JButtonHome("Share", Color.BLACK);
 		// Add to panel with glue between two buttons
-		panel.add(button_back);
+		panel.add(b_back);
+		b_back.setPreferredSize(new Dimension(Screen.rx , 30));
+		b_back.setFont(new Font("Heebo-Medium", Font.PLAIN, 18));
 		panel.add(Box.createHorizontalGlue());
-		panel.add(button_share_this);
+		panel.add(b_share);
+		b_share.setPreferredSize(new Dimension(Screen.rx-1 , 30));
+		b_share.setFont(new Font("Heebo-Medium", Font.PLAIN, 18));
+		panel.setOpaque(false);
 		
 		//Action
 		NavPanelBackActionListener action = new NavPanelBackActionListener(F);
-		button_back.addActionListener(action);
+		b_back.addActionListener(action);
+		
 		NavPanelShareActionListener action2 = new NavPanelShareActionListener(F);
-		button_share_this.addActionListener(action2);
+		b_share.addActionListener(action2);
 		
 		// Return panel
-		panel.setBackground(Color.WHITE); // Sets the 'glue' color
+		//panel.setBackground(Color.WHITE); // Sets the 'glue' color
+		
+		
+		// MIGHT NEED TO ADJUST BANNER MAX SIZE
+		panel.setMaximumSize(new Dimension(Screen.rx, 30)); //
+		
 		return panel;
 	}// end navPanel
 	
@@ -201,10 +195,7 @@ public class CustomJPanels {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 24;      //make this component tall 24 ok
 		c.ipadx = rx-(rx/4)+10;
-		//c.weightx = 0.0;
-		//c.gridwidth = 100;
-		//c.gridx = 0;
-		//c.gridy = 1;
+	
 		button.addActionListener(a);
 		pane.add(button, c); //Add the button with the contraints
 		pane.setOpaque(false); //Transparent background
