@@ -709,31 +709,56 @@ public class Screen {
 	 */
 	public static void screen_about() {
 		JFrame F = new JFrame("About Us");
-		JPanel background = CustomJPanels.backgroundPanel("http://i.imgur.com/fMzXlWC.png", 3);
-
-		// Activity Panel
-		JPanel banner = CustomJPanels.activityBannerPanel2("About Us", Color.BLACK ,white_clouds);
-
-		// Panel (BOX LAYOUT)
-		JPanel mainP = new JPanel();
-		mainP.setLayout(new BoxLayout(mainP, BoxLayout.PAGE_AXIS));
-
-		// Information Panel (BOX LAYOUT) //Can be changed to flow
-		JPanel infoP = new JPanel();
-		mainP.setLayout(new BoxLayout(mainP, BoxLayout.Y_AXIS));
-		// Labels
-		JLabel l_info = new JLabel(
-				"<html><br>Information about the company. " + "<br>We are cool guys. <br>We like Pizza.</html>");
-		infoP.add(Box.createRigidArea(new Dimension(0, 50)));
-		infoP.add(l_info); // paragraph
-		l_info.setAlignmentX(Component.CENTER_ALIGNMENT);
-		infoP.setPreferredSize(new Dimension(rx, ry));
-		infoP.setOpaque(false);
+		// Banner Panel
+		JPanel banner = CustomJPanels.activityBannerPanel2("About Us", Color.BLACK, white_clouds);
+		// Panels 
+		JPanel container = new JPanel(); // Container
+		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+		
+		//Labels general
+		String s_intro = "<html>This program was developed by three future software engineers:</html>";
+		String s_general = ("<html>And together we are:<br> JSSP Engeineers!<br><br>"
+				+ "You might be wondering why is there a 'P' at the end, and that stands up for PIZZA, "
+				+ "which is the most magical element that you can add to any team to make it fabulous!<br></html>");
+		JLabel intro = JComponentStyle.JLabelStyle("<html><div style='text-align: center;'>" + s_intro + "</div></html>");
+		JLabel general = JComponentStyle.JLabelStyle("<html><div style='text-align: center;'>" + s_general + "</div></html>");
+		
+		JLabel general2 = JComponentStyle.JLabelStyle("<html>After finishing this project made on Java, we plan on porting"
+				+ "It to Android, so we can start getting involved in Mobile Apps<br><br>"
+				+ "Here are some random facts about us:</html>");
+		//Labels for names
+		JLabel javi = JComponentStyle.JLabelStyle("Javier: ");
+		JLabel javi2 = JComponentStyle.JLabelStyle("<html>I build<br>cars!</html>");
+		JLabel stef = JComponentStyle.JLabelStyle("Stefany: ");
+		JLabel stef2 = JComponentStyle.JLabelStyle("<html>I sing at <br>coffe<br>shops!");
+		JLabel serg = JComponentStyle.JLabelStyle("Sergio: ");
+		JLabel serg2 = JComponentStyle.JLabelStyle("<html>I am a<br>Pokemon<br> master!");
+		
+		//JPanel for names
+		JPanel namesP = new JPanel(); // First row of icons
+		namesP.setLayout(new BoxLayout(namesP, BoxLayout.X_AXIS));
+		//Add names to panel
+		namesP.add(javi);
+		namesP.add(Box.createHorizontalGlue());
+		namesP.add(stef);
+		namesP.add(Box.createHorizontalGlue());
+		namesP.add(serg);
+		
+		//JPanel for photos
+		JPanel factsP = new JPanel(); // First row of icons
+		factsP.setLayout(new BoxLayout(factsP, BoxLayout.X_AXIS));
+		factsP.add(javi2);
+		factsP.add(Box.createRigidArea(new Dimension(20, 0)));
+		factsP.add(Box.createHorizontalGlue());
+		factsP.add(stef2);
+		factsP.add(Box.createHorizontalGlue());
+		factsP.add(Box.createRigidArea(new Dimension(20, 0)));
+		factsP.add(serg2);
 
 		// Panel pictures (Box Layout) --Method?--
 		JPanel picturesP = new JPanel();
 		picturesP.setLayout(new BoxLayout(picturesP, BoxLayout.X_AXIS)); // Horizontal
-		String[] pics = { "Sergio", "Stef", "Javi" };
+		String[] pics = { "PICTURE1", "PICTURE1", "PICTURE1" };
 		for (int i = 0; i < pics.length; i++) {
 			JLabel l = new JLabel(pics[i]);
 			picturesP.add(l);
@@ -741,30 +766,34 @@ public class Screen {
 			l.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
 		picturesP.setOpaque(false);
-
-		JPanel buttonP = new JPanel();
-		buttonP.setLayout(new BoxLayout(buttonP, BoxLayout.X_AXIS));
-		// Create Buttons
-		JButton button_accept = new JButton("OK");
-		buttonP.add(button_accept);
-		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		// mainP.add(infoP);
-		// mainP.add(picturesP);
-
-		// mainP.setBackground(gray_concrete);
+		
+		//Add components to container
+		container.add(Box.createRigidArea(new Dimension(0, 20))); //Top
+		container.add(intro);
+		intro.setAlignmentX(Component.CENTER_ALIGNMENT);
+		container.add(Box.createRigidArea(new Dimension(0, 15))); //Before Photos
+		container.add(namesP);	//Names Panel
+		container.add(picturesP); //Pictures Panel
+		container.add(factsP);	//Random Facts Panel
+		//container.add(general2);
+		container.add(Box.createRigidArea(new Dimension(0, 20))); //Between
+		container.add(general);
+		
+		
+		//Center everything..
+		general.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		//general2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
 
 		// Actions
 		AboutUsActionListener action = new AboutUsActionListener(F);
-		button_accept.addActionListener(action);
-
-		background.add(l_info);
-		background.add(picturesP);
-		background.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(Box.createRigidArea(new Dimension(0, 250)));
-		background.add(buttonP);
+		JPanel backP = CustomJPanels.menuButtonPanel("Okay", action, Color.BLACK);
+		
 		F.add(banner, BorderLayout.NORTH);
-		F.add(background, BorderLayout.CENTER);
+		F.add(container, BorderLayout.CENTER);
+		F.add(backP, BorderLayout.SOUTH);
+		
 		viewFrame(F);
 	}
 
