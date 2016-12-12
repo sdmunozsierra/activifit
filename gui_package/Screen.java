@@ -370,6 +370,7 @@ public class Screen {
 
 		// Activity Panel
 		JPanel banner = CustomJPanels.activityBannerPanel2("Heart Rate", red_alizarin, white_clouds);
+		
 		// Display Panel
 		JPanel displayP = new JPanel();
 		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
@@ -384,20 +385,22 @@ public class Screen {
 		int restHB = globalGen.heart.getRestHR();
 		String status = globalGen.heart.getRestHeartStatus(restHB);
 
-		// Labels
-		JLabel c1 = new JLabel("Current Rate: " + restHB);
-		JLabel c2 = new JLabel("Health State: " + status);
+		// Strings and Labels
+		String s1 = ("<html>Current Rate:<br>" + restHB+" BPM");
+		String s2 = ("<html>Health State:<br>" + status);
+		
+		//Create Centered Text Panels
+		JPanel c1 = CustomJPanels.centeredTextPanel(s1, 110, white_clouds);
+		JPanel c2 = CustomJPanels.centeredTextPanel(s2, 110, white_clouds);
 
+		//Add components to background
 		background.add(banner);
-		background.add(Box.createRigidArea(new Dimension(0, ry / 6)));
-		background.add(c1);
-		c1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(Box.createRigidArea(new Dimension(0, 20)));
-		c2.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(c2);
-		background.add(Box.createRigidArea(new Dimension(0, 200)));
-		// Display Panel --Week/Month--
-		background.add(displayP);
+		background.add(Box.createRigidArea(new Dimension(0, 50))); //After banner
+		background.add(c1);		//Text Panel
+		background.add(Box.createRigidArea(new Dimension(0, 30)));  //Set 30 between Components
+		background.add(c2);		//Text2 Panel
+		background.add(Box.createRigidArea(new Dimension(0, 250)));
+		background.add(displayP);	//Display Panel
 
 		// Actions
 		WeekHeartActionListener action = new WeekHeartActionListener(F);
@@ -434,22 +437,22 @@ public class Screen {
 		double currentTemp = globalGen.temp.getCurrentTemperature(CURRENT_TIME);
 		String status = globalGen.temp.getTempStatus(currentTemp);
 
-		// Labels
-		JLabel current_temp = new JLabel();
-		current_temp.setText(
-				String.format("<html>Current Temperature:<br>%.1fC</html>", currentTemp, SwingConstants.CENTER));
-		JLabel current_temp_state = new JLabel("<html>Body Temperature State:<br>" + status + "</html>",
-				SwingConstants.CENTER);
-
+		// Strings
+		String s1 = String.format("<html>Current Temperature:<br>%.1fC</html>", currentTemp);
+		String s2 = String.format("<html>Body Temperature State:<br>" + status + "</html>");
+		
+		//Create Centered Text Panels
+		JPanel c1 = CustomJPanels.centeredTextPanel(s1, 80 , Color.BLACK);
+		JPanel c2 = CustomJPanels.centeredTextPanel(s2, 75, Color.BLACK);
+		
+		//Add components to background
 		background.add(banner);
-		background.add(Box.createRigidArea(new Dimension(0, 50)));
-		background.add(current_temp);
-		// current_temp.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(Box.createRigidArea(new Dimension(0, 75)));
-		background.add(current_temp_state);
-		current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(Box.createRigidArea(new Dimension(0, 100)));
-		background.add(displayP);
+		background.add(Box.createRigidArea(new Dimension(0, 50))); //After banner
+		background.add(c1);		//Text Panel
+		background.add(Box.createRigidArea(new Dimension(0, 30)));  //Set 30 between Components
+		background.add(c2);		//Text2 Panel
+		background.add(Box.createRigidArea(new Dimension(0, 250)));
+		background.add(displayP);	//Display Panel
 
 		// Actions
 		WeekTempActionListener action = new WeekTempActionListener(F);
@@ -471,7 +474,8 @@ public class Screen {
 
 		// Activity Banner Panel
 		JPanel banner = CustomJPanels.activityBannerPanel2("Steps", green_emerald, white_clouds);
-		// Display Panel
+		
+		// Change Display Panel
 		JPanel displayP = new JPanel();
 		displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
 		JButton button_week = new JButton("Change to Week");
@@ -486,20 +490,22 @@ public class Screen {
 		double currentDistance = globalGen.steps.getCurrentDistance(CURRENT_TIME);
 		int currentSteps = (int) globalGen.steps.getCurrentSteps(currentDistance);
 
-		// Labels
-		JLabel current_steps = new JLabel("<html>Current Number of Steps: <br>" + currentSteps + "</html>");
-		JLabel current_steps_state = new JLabel(
-				"<html>Current Distance Traveled:<br>" + df.format(currentDistance) + "</html>");
+		// Strings
+		String s1 = ("<html>Current Number of Steps: <br>" + currentSteps + "</html>");
+		String s2 = ("<html>Current Distance Traveled:<br>" + df.format(currentDistance) + " Km</html>");
 
+		//Create Centered Text Panels
+		JPanel c1 = CustomJPanels.centeredTextPanel(s1, 60, Color.BLACK);
+		JPanel c2 = CustomJPanels.centeredTextPanel(s2, 60, Color.BLACK);
+				
+		//Add components to background
 		background.add(banner);
-		background.add(Box.createRigidArea(new Dimension(0, 50)));
-		background.add(current_steps);
-		current_steps.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(Box.createRigidArea(new Dimension(0, 75)));
-		background.add(current_steps_state);
-		current_steps_state.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(Box.createRigidArea(new Dimension(0, 100)));
-		background.add(displayP);
+		background.add(Box.createRigidArea(new Dimension(0, 30))); //After banner
+		background.add(c1);		//Text Panel
+		background.add(Box.createRigidArea(new Dimension(0, 10)));  //Set 30 between Components
+		background.add(c2);		//Text2 Panel
+		background.add(Box.createRigidArea(new Dimension(0, 290)));
+		background.add(displayP);	//Display Panel
 
 		// Actions
 		WeekStepsActionListener action = new WeekStepsActionListener(F);
@@ -523,40 +529,44 @@ public class Screen {
 		// Local Variables from global generator
 		int totalSleep = globalGen.sleep.getTotalSleep();
 		double cycles = globalGen.sleep.getTotalCycles();
+		int light = globalGen.sleep.getLightSleep();
+		int normal = globalGen.sleep.getNormalSleep();
+		int deep = globalGen.sleep.getDeepSleep();
 
-		// Labels
-		JLabel label_totaltime = new JLabel("Total Time:   " + totalSleep);
-		JLabel label_cycles = new JLabel("Total Cycles: " + cycles);
+		// Strings
+		String s1 = ("<html>Total Time:<br>" + totalSleep+" Min");
+		String s2 = ("<html>Total Cycles:<br>" + cycles+" Blocks");
+		String s3 = ("<html>Total Light Sleep:<br>" + light+" Min");
+		String s4 = ("<html>Total Normal Sleep:<br>" + normal+" Min");
+		String s5 = ("<html>Total Deep Sleep:<br>" + deep+" Min");
+		
 
+		//Create Centered Text Panels
+		JPanel c1 = CustomJPanels.centeredTextPanel(s1, 120, white_clouds);
+		JPanel c2 = CustomJPanels.centeredTextPanel(s2, 120, white_clouds);
+		JPanel c3 = CustomJPanels.centeredTextPanel(s3, 80, white_clouds);
+		JPanel c4 = CustomJPanels.centeredTextPanel(s4, 75, white_clouds);
+		JPanel c5 = CustomJPanels.centeredTextPanel(s5, 80, white_clouds);
+		
 		// Activity Banner Panel
 		JPanel banner = CustomJPanels.activityBannerPanel2("Sleep", purple_amethyst, white_clouds);
-		// Display Panel
-		JPanel displayP = new JPanel();
-		// displayP.setLayout(new BoxLayout(displayP, BoxLayout.X_AXIS));
-		// JButton button_week = new JButton("Change to Week");
-		// JButton button_month = new JButton("Change to Month");
-		// displayP.add(button_week);
-		// displayP.add(Box.createHorizontalGlue());
-		// displayP.add(button_month);
-		// displayP.setOpaque(false);
+		
+		// Display Panel NO CHARTS FOR SLEEP QUALITY 
 
+		//Add components to background
 		background.add(banner);
-		background.add(Box.createRigidArea(new Dimension(0, 50)));
-
-		background.add(Box.createRigidArea(new Dimension(0, 75)));
-
-		// background.add(rem);
-		// background.add(light);
-		// background.add(deep);
-		// current_temp_state.setAlignmentX(Component.CENTER_ALIGNMENT);
-		background.add(Box.createRigidArea(new Dimension(0, 100)));
-		// background.add(displayP);
-
-		// Action
-		// WeekSleepActionListener action = new WeekSleepActionListener(F);
-		// button_week.addActionListener(action);
-		// MonthSleepsActionListener action2 = new MonthSleepsActionListener(F);
-		// button_month.addActionListener(action2);
+		background.add(Box.createRigidArea(new Dimension(0, 40))); //After banner
+		background.add(c1);		//Text Panel
+		background.add(Box.createRigidArea(new Dimension(0, 30)));  //Set 30 between Components
+		background.add(c2);		//Text2 Panel
+		background.add(Box.createRigidArea(new Dimension(0, 90)));
+		background.add(c3);		//Light
+		background.add(Box.createRigidArea(new Dimension(0, 10)));
+		background.add(c4);		//Normal
+		background.add(Box.createRigidArea(new Dimension(0, 10)));
+		background.add(c5);		//Deep
+		
+		// Action NO ACTIONS FOR SLEEP QUALITY 
 
 		F.add(background, BorderLayout.CENTER);
 		F.add(CustomJPanels.navPanel(F, purple_amethyst), BorderLayout.SOUTH);
@@ -703,7 +713,6 @@ public class Screen {
 		viewFrame(F);
 	}// end screen_share
 
-	// ABOUT US TOO
 	/**
 	 * Setting all the variables for the about us screen
 	 */
@@ -788,7 +797,7 @@ public class Screen {
 
 		// Actions
 		AboutUsActionListener action = new AboutUsActionListener(F);
-		JPanel backP = CustomJPanels.menuButtonPanel("Okay", action, Color.BLACK);
+		JPanel backP = CustomJPanels.menuButtonPanel("Okay", action, JComponentStyle.gray_space);
 		
 		F.add(banner, BorderLayout.NORTH);
 		F.add(container, BorderLayout.CENTER);
@@ -803,10 +812,12 @@ public class Screen {
 	 */
 	public static void screen_help() {
 		JFrame F = new JFrame("Help");
-
-		// Panel (BOX LAYOUT)
-		JPanel mainP = new JPanel();
-		mainP.setLayout(new BoxLayout(mainP, BoxLayout.PAGE_AXIS));
+		//Banner
+		JPanel banner = CustomJPanels.activityBannerPanel2("HELP", Color.BLACK, white_clouds);
+		// Panels 
+		JPanel container = new JPanel(); // Container
+		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+		
 
 		// Information Panel (BOX LAYOUT) //Can be changed to flow
 		JPanel infoP = new JPanel();
@@ -824,22 +835,16 @@ public class Screen {
 		l_about.setAlignmentX(Component.CENTER_ALIGNMENT);
 		l_help.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		JPanel buttonP = new JPanel();
-		buttonP.setLayout(new BoxLayout(buttonP, BoxLayout.X_AXIS));
-		// Create Buttons
-		JButton button_accept = new JButton("Thank You");
-		buttonP.add(button_accept);
-		button_accept.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-		mainP.add(infoP);
-		mainP.add(buttonP);
-
-		// mainP.setBackground(gray_concrete);
+		
 		// Actions
 		HelpActionListener action = new HelpActionListener(F);
-		button_accept.addActionListener(action);
-
-		F.add(mainP);
+		JPanel backP = CustomJPanels.menuButtonPanel("Thanks", action, JComponentStyle.gray_space);
+		
+		// Add to frame
+		F.add(banner, BorderLayout.NORTH);
+		F.add(container, BorderLayout.CENTER);
+		F.add(backP, BorderLayout.SOUTH);
+		
 		viewFrame(F);
 	}
 

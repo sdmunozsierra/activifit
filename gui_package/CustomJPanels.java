@@ -201,4 +201,33 @@ public class CustomJPanels {
 		pane.setOpaque(false); //Transparent background
 		return pane;
 	}
+	
+	/** Create a JPanel that contains a centered text.
+	 * Font and size is already modified. Transparent by default.
+	 * need to override this method.
+	 * @param text String to pass to the Panel. Preferably with HTML tags.
+	 * @param xPos horizontal deviation.
+	 * @param color Select the text Color.
+	 * @return JPanel with centered text. 
+	 * */
+	public static JPanel centeredTextPanel(String text, int xPos, Color color){
+		// Strings and Labels
+		JLabel label = JComponentStyle.JLabelStyle("<html><div style='text-align: center;'>" + text + "</div></html>"); 
+		label.setForeground(color);
+		
+		// Text Panel
+		JPanel panel = new JPanel(); // Container
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setOpaque(false);
+		panel.add(Box.createRigidArea(new Dimension(xPos, 0)));  //Set 30 between Components
+		panel.add(label);
+		
+		return panel;
+	}
+	
+	
+	
+	
+	
+	
 }//end class
