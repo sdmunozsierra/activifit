@@ -821,7 +821,7 @@ public class Screen {
 
 		// Information Panel (BOX LAYOUT) //Can be changed to flow
 		JPanel infoP = new JPanel();
-		mainP.setLayout(new BoxLayout(mainP, BoxLayout.Y_AXIS));
+		infoP.setLayout(new BoxLayout(mainP, BoxLayout.Y_AXIS));
 		// Labels
 		JLabel l_about = new JLabel("Help");
 		l_about.setFont(new Font(null, Font.BOLD, 20));
